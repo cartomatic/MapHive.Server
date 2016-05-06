@@ -45,5 +45,10 @@ namespace MapHive.Server.Core
         /// Hash property value delimiter
         /// </summary>
         public string HashPropertyValueDelimiter { get; set; } = ":";
+
+        /// <summary>
+        /// An override to the default api map
+        /// </summary>
+        public Dictionary<string, string> MhApiMap { get; set; } 
     }
 }

@@ -30,6 +30,18 @@ namespace MapHive.Server.Core
 
             cfg.AllowedXWindowMsgBusOrigins = ConfigurationManager.AppSettings["AllowedXWindowMsgBusOrigins"].Split(',');
 
+
+            try
+            {
+                cfg.MhApiMap =
+                    JsonConvert.DeserializeObject<Dictionary<string, string>>(
+                        ConfigurationManager.AppSettings["MhApiMap"]);
+            }
+            catch
+            {
+                //ignore
+            }
+
             return cfg;
         }
 
