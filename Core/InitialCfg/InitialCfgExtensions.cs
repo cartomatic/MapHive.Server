@@ -14,7 +14,7 @@ namespace MapHive.Server.Core
         /// </summary>
         /// <param name="p"></param>
         /// <param name="appUrl"></param>
-        public static void InjectMhCfg(this System.Web.UI.Page p, string appUrl)
+        public static void InjectMhCfg(this System.Web.UI.Page p)
         {
             //search for title index, so can inject the script just after that
             //assuming that all the meta stuff goes before the title though...
@@ -34,7 +34,7 @@ namespace MapHive.Server.Core
             System.Web.UI.HtmlControls.HtmlGenericControl mhCfgScript =
             new System.Web.UI.HtmlControls.HtmlGenericControl("script");
             mhCfgScript.Attributes["type"] = "text/javascript";
-            mhCfgScript.InnerHtml = MapHive.Server.Core.InitialCfg.GetScriptContent(appUrl);
+            mhCfgScript.InnerHtml = MapHive.Server.Core.InitialCfg.GetScriptContent();
             p.Header.Controls.AddAt(++idx, mhCfgScript);
         }
     }

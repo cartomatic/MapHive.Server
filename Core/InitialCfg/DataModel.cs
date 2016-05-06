@@ -19,9 +19,9 @@ namespace MapHive.Server.Core
         public IEnumerable<string> AllowedXWindowMsgBusOrigins { get; set; }
 
         /// <summary>
-        /// Whether or not the application should prompt a user with auth UI straight away
+        /// A collection of ap ids, shortnames and urls of the apps that are flagged as requiring auth
         /// </summary>
-        public bool RequiresAuth { get; set; }
+        public IEnumerable<string> AuthRequiredAppIdentifiers { get; set; }
 
         /// <summary>
         /// UrlPart / hash property names; used to pass some data between the apps

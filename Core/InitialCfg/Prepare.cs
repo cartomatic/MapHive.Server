@@ -17,12 +17,12 @@ namespace MapHive.Server.Core
         /// </summary>
         /// <param name="appUrl"></param>
         /// <returns></returns>
-        public static InitialCfg Prepare(string appUrl)
+        public static InitialCfg Prepare()
         {
             var cfg = new InitialCfg();
 
             //do an auth preflight, so user gets better experience - app will prompt for authentication straight away.
-            cfg.RequiresAuth = Application.RequiresAuth(appUrl);
+            cfg.AuthRequiredAppIdentifiers = Application.GetIdentifiersForAppsRequiringAuth();
 
             //Note: make AppHashProperties, HashPropertyDelimiter, HashPropertyValueDelimiter web.config based at some point. Or better - overridable!
 
@@ -48,11 +48,10 @@ namespace MapHive.Server.Core
         /// <summary>
         /// Returns a cfg in a form of an injectable script content
         /// </summary>
-        /// <param name="appUrl"></param>
         /// <returns></returns>
-        public static string GetScriptContent(string appUrl)
+        public static string GetScriptContent()
         {
-            return $"var __mhcfg__ = {JsonConvert.SerializeObject(Prepare(appUrl), Formatting.None, new JsonSerializerSettings() {ContractResolver = new CamelCasePropertyNamesContractResolver() })};";
+            return $"var __mhcfg__ = {JsonConvert.SerializeObject(Prepare(), Formatting.None, new JsonSerializerSettings() {ContractResolver = new CamelCasePropertyNamesContractResolver() })};";
         }
     }
 }
