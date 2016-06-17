@@ -145,10 +145,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ApplicationsController.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -156,10 +153,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{1c72b362-267b-4527-9012-7a7431fbba3b}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{ff6ae7e0-34f7-432f-8254-01840d9adfef}</Project>
-      <Name>DataModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
