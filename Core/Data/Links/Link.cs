@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.Interfaces;
+using Newtonsoft.Json;
 
 namespace MapHive.Server.Core.Data
 {
@@ -38,13 +39,13 @@ namespace MapHive.Server.Core.Data
         public Guid ChildTypeUuid { get; set; }
 
         /// <summary>
-        /// Extra JSON serialised data
-        /// </summary>
-        public string Data { get; set; }
-
-        /// <summary>
         /// Sort order if any
         /// </summary>
         public int? SortOrder { get; set; }
+
+        /// <summary>
+        /// Extra data to be saved with the link; can store data for different applications within the same link
+        /// </summary>
+        public Dictionary<string, Dictionary<string, object>> LinkData { get; set; } = new LinkData();
     }
 }

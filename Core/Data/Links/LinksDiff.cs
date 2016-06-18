@@ -15,11 +15,11 @@ namespace MapHive.Server.Core.Data
         /// <summary>
         /// Link objects to be either inserted or updated
         /// </summary>
-        public IEnumerable<ILink> Upsert { get; set; } = new List<Link>(); 
+        public IList<ILink> Upsert { get; set; } = new List<ILink>(); 
 
         /// <summary>
         /// Link objects to be destroyed
         /// </summary>
-        public IEnumerable<Guid> Destroy { get; set; } = new List<Guid>();
+        public IList<Guid> Destroy { get; set; } = new List<Guid>();
     }
 }

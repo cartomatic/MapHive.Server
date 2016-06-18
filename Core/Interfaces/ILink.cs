@@ -37,13 +37,13 @@ namespace MapHive.Server.Core.Interfaces
         Guid ChildTypeUuid { get; set; }
 
         /// <summary>
-        /// Extra JSON serialised data
-        /// </summary>
-        string Data { get; set; } 
-
-        /// <summary>
         /// Sort order if any
         /// </summary>
         int? SortOrder { get; set; }
+
+        /// <summary>
+        /// Extra data to be saved with the link; can store data for different applications within the same link
+        /// </summary>
+        Dictionary<string, Dictionary<string, object>> LinkData { get; set; }
     }
 }

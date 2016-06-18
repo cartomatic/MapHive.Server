@@ -11,11 +11,11 @@ namespace MapHive.Server.Core.Interfaces
         /// <summary>
         /// Link objects to be either inserted or updated
         /// </summary>
-        IEnumerable<ILink> Upsert { get; set; }
+        IList<ILink> Upsert { get; set; }
 
         /// <summary>
         /// Link objects to be destroyed
         /// </summary>
-        IEnumerable<Guid> Destroy { get; set; } 
+        IList<Guid> Destroy { get; set; } 
     }
 }
