@@ -22,7 +22,7 @@ namespace MapHive.Server.Core.Validation
         public static IValidationError InvalidLength { get; } = new ValidationError()
         {
             Code = "invalid_length",
-            Message = "Invalid field length. Min lenght is: {MinLength}, max length is: {MaxLength}, supplied length was {TotalLength}"
+            Message = "Invalid field length."
         };
 
         public static IValidationError InvalidEmail { get; } = new ValidationError()
