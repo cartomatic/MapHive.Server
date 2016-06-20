@@ -8,6 +8,9 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DAL.Interface
 {
+    /// <summary>
+    /// Db context that can save object links
+    /// </summary>
     public interface ILinksDbContext
     {
         DbSet<ILink> Links { get; }

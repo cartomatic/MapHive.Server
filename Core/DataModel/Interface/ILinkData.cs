@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace MapHive.Server.Core.DataModel.Interface
 {
-    interface ILinkData
+    public interface ILinkData
     {
         string Serialised { get; set; }
     }

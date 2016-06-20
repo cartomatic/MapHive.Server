@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapHive.Server.Core.DataModel.Interface
 {
-    interface ILinksDiff
+    public interface ILinksDiff
     {
         /// <summary>
         /// Link objects to be either inserted or updated

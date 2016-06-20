@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
@@ -14,7 +15,7 @@ namespace MapHive.Server.Core.DataModel
         public Guid Uuid { get; set; }
 
 
-        //Note: automated data updates relating to IBase: hooked into OnSaving and modify what's needed! See DAL MapHiveDatabaseContextBase for more details
+        //Note: automated data updates relating to IBase: hooked into OnSaving. See DAL BaseDbContext for more details
         
         /// <summary>
         /// Object creator - updated automatically
@@ -45,6 +46,6 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Object relations defined as set of links; this object is ignored when object is saved and is used only to provide a DIFF of links that should be applied to the db representation
         /// </summary>
-        public LinksDiff Links { get; set; } = new LinksDiff();
+        public ILinksDiff Links { get; set; } = new LinksDiff();
     }
 }

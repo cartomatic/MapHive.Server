@@ -23,6 +23,5 @@ namespace MapHive.Server.Core.DataModel
 
             TypeUuid = typeGuid;
         }
-
     }
 }
