@@ -64,43 +64,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Base\Create.cs" />
-    <Compile Include="Data\Base\Ctor.cs" />
-    <Compile Include="Data\Base\DataModel.cs" />
-    <Compile Include="Data\Base\BaseCrudExtensions_Links.cs" />
-    <Compile Include="Data\Base\Destroy.cs" />
-    <Compile Include="Data\Base\Read.cs" />
-    <Compile Include="Data\Base\Update.cs" />
-    <Compile Include="Data\Base\Utils.cs" />
-    <Compile Include="Data\Base\Validation.cs" />
-    <Compile Include="Data\Base\BaseCrudExtensions_Read.cs" />
-    <Compile Include="Data\Base\BaseCrudExtensions_Create.cs" />
-    <Compile Include="Data\Base\BaseCrudExtensions_Update.cs" />
-    <Compile Include="Data\Base\BaseCrudExtensions_Destroy.cs" />
-    <Compile Include="Data\Base\_Blank.cs" />
-    <Compile Include="Data\Links\Link.cs" />
-    <Compile Include="Data\Links\LinksDiff.cs" />
-    <Compile Include="Data\Links\LinkData.cs" />
-    <Compile Include="Data\ReadFilter\FromJson.cs" />
-    <Compile Include="Data\ReadFilter\ReadFilterIQueryableExtensions.cs" />
-    <Compile Include="Data\ReadFilter\_Blank.cs" />
-    <Compile Include="Data\ReadFilter\ReadFilter.cs" />
-    <Compile Include="Data\ReadSorter\FromJson.cs" />
-    <Compile Include="Data\ReadSorter\ReadSorterIQueryableExtensions.cs" />
-    <Compile Include="Data\ReadSorter\_Blank.cs" />
-    <Compile Include="Data\ReadSorter\ReadSorter.cs" />
-    <Compile Include="Data\Validation\Utils.cs" />
-    <Compile Include="Data\Validation\ValidationError.cs" />
-    <Compile Include="Data\Validation\ValidationErrors.cs" />
-    <Compile Include="Data\Validation\ValidationFailedException.cs" />
-    <Compile Include="Data\Validation\ValidationRules.cs" />
-    <Compile Include="Interfaces\IBase.cs" />
-    <Compile Include="Interfaces\ILink.cs" />
-    <Compile Include="Interfaces\ILinkData.cs" />
-    <Compile Include="Interfaces\ILinksDbContext.cs" />
-    <Compile Include="Interfaces\ILinksDiff.cs" />
-    <Compile Include="Interfaces\IValidate.cs" />
-    <Compile Include="Interfaces\IValidationError.cs" />
+    <Compile Include="DataModel\Base\Create.cs" />
+    <Compile Include="DataModel\Base\Ctor.cs" />
+    <Compile Include="DataModel\Base\DataModel.cs" />
+    <Compile Include="DataModel\Base\BaseCrudExtensions_Links.cs" />
+    <Compile Include="DataModel\Base\Destroy.cs" />
+    <Compile Include="DataModel\Base\Read.cs" />
+    <Compile Include="DataModel\Base\Update.cs" />
+    <Compile Include="DataModel\Base\Utils.cs" />
+    <Compile Include="DataModel\Base\Validation.cs" />
+    <Compile Include="DataModel\Base\BaseCrudExtensions_Read.cs" />
+    <Compile Include="DataModel\Base\BaseCrudExtensions_Create.cs" />
+    <Compile Include="DataModel\Base\BaseCrudExtensions_Update.cs" />
+    <Compile Include="DataModel\Base\BaseCrudExtensions_Destroy.cs" />
+    <Compile Include="DataModel\Base\_Blank.cs" />
+    <Compile Include="DataModel\Links\Link.cs" />
+    <Compile Include="DataModel\Links\LinksDiff.cs" />
+    <Compile Include="DataModel\Links\LinkData.cs" />
+    <Compile Include="DataModel\ReadFilter\FromJson.cs" />
+    <Compile Include="DataModel\ReadFilter\ReadFilterIQueryableExtensions.cs" />
+    <Compile Include="DataModel\ReadFilter\_Blank.cs" />
+    <Compile Include="DataModel\ReadFilter\ReadFilter.cs" />
+    <Compile Include="DataModel\ReadSorter\FromJson.cs" />
+    <Compile Include="DataModel\ReadSorter\ReadSorterIQueryableExtensions.cs" />
+    <Compile Include="DataModel\ReadSorter\_Blank.cs" />
+    <Compile Include="DataModel\ReadSorter\ReadSorter.cs" />
+    <Compile Include="DataModel\Validation\Utils.cs" />
+    <Compile Include="DataModel\Validation\ValidationError.cs" />
+    <Compile Include="DataModel\Validation\ValidationErrors.cs" />
+    <Compile Include="DataModel\Validation\ValidationFailedException.cs" />
+    <Compile Include="DataModel\Validation\ValidationRules.cs" />
+    <Compile Include="DataModel\Interface\IBase.cs" />
+    <Compile Include="DataModel\Interface\ILink.cs" />
+    <Compile Include="DataModel\Interface\ILinkData.cs" />
+    <Compile Include="DAL\Interface\ILinksDbContext.cs" />
+    <Compile Include="DataModel\Interface\ILinksDiff.cs" />
+    <Compile Include="DataModel\Interface\IValidate.cs" />
+    <Compile Include="DataModel\Interface\IValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Reflection.cs" />
   </ItemGroup>
@@ -114,6 +114,7 @@
       <Name>Number</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
