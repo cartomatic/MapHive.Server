@@ -30,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework6.Npgsql.3.1.0\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
@@ -39,8 +51,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,10 +66,22 @@
   <ItemGroup>
     <Compile Include="Data\Base\Ctor.cs" />
     <Compile Include="Data\Base\DataModel.cs" />
+    <Compile Include="Data\Base\BaseCrudExtensions_Links.cs" />
+    <Compile Include="Data\Base\Read.cs" />
     <Compile Include="Data\Base\Validation.cs" />
+    <Compile Include="Data\Base\BaseCrudExtensions_Read.cs" />
     <Compile Include="Data\Base\_Blank.cs" />
-    <Compile Include="Data\Link\Link.cs" />
-    <Compile Include="Data\LinksDiff\LinksDiff.cs" />
+    <Compile Include="Data\Links\Link.cs" />
+    <Compile Include="Data\Links\LinksDiff.cs" />
+    <Compile Include="Data\Links\LinkData.cs" />
+    <Compile Include="Data\ReadFilter\FromJson.cs" />
+    <Compile Include="Data\ReadFilter\ReadFilterQueryableExtensions.cs" />
+    <Compile Include="Data\ReadFilter\_Blank.cs" />
+    <Compile Include="Data\ReadFilter\ReadFilter.cs" />
+    <Compile Include="Data\ReadSorter\FromJson.cs" />
+    <Compile Include="Data\ReadSorter\_Blank - Copy.cs" />
+    <Compile Include="Data\ReadSorter\_Blank.cs" />
+    <Compile Include="Data\ReadSorter\ReadSorter.cs" />
     <Compile Include="Data\Validation\Utils.cs" />
     <Compile Include="Data\Validation\ValidationError.cs" />
     <Compile Include="Data\Validation\ValidationErrors.cs" />
@@ -63,17 +89,23 @@
     <Compile Include="Data\Validation\ValidationRules.cs" />
     <Compile Include="Interfaces\IBase.cs" />
     <Compile Include="Interfaces\ILink.cs" />
+    <Compile Include="Interfaces\ILinkData.cs" />
+    <Compile Include="Interfaces\ILinksDbContext.cs" />
     <Compile Include="Interfaces\ILinksDiff.cs" />
     <Compile Include="Interfaces\IValidate.cs" />
     <Compile Include="Interfaces\IValidationError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Reflection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utils\" />
+    <ProjectReference Include="..\..\Utils\Number\Number.csproj">
+      <Project>{398545d8-33cc-4b60-a7b5-91c77ead25b1}</Project>
+      <Name>Number</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
