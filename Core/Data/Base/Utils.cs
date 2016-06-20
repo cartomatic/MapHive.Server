@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using MapHive.Server.Core.Interfaces;
 
 namespace MapHive.Server.Core.Data
 {
@@ -15,9 +16,24 @@ namespace MapHive.Server.Core.Data
         /// <param name="dbSet"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected static async Task<bool> ObjectExists<T>(DbSet<T> dbSet, Guid? uuid) where T : Base
+        private static async Task<bool> ObjectExists<T>(DbSet<T> dbSet, Guid? uuid) where T : Base
         {
             return await dbSet.Where(e => e.Uuid == uuid).CountAsync() > 0;
+        }
+
+        /// <summary>
+        /// Gets a ILinksDbContext; Throws if the db context is not ILinksDbContext
+        /// </summary>
+        /// <param name="db"></param>
+        /// <returns></returns>
+        public static ILinksDbContext GetLinksDbContext(DbContext db)
+        {
+            var iLinksDb = db as ILinksDbContext;
+            if (iLinksDb == null)
+                throw new ArgumentException(
+                    $"In order to materialise links DbContext must implement {nameof(ILinksDbContext)}");
+
+            return iLinksDb;
         }
     }
 }

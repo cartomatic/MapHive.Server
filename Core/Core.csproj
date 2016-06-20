@@ -64,22 +64,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Base\Create.cs" />
     <Compile Include="Data\Base\Ctor.cs" />
     <Compile Include="Data\Base\DataModel.cs" />
     <Compile Include="Data\Base\BaseCrudExtensions_Links.cs" />
+    <Compile Include="Data\Base\Destroy.cs" />
     <Compile Include="Data\Base\Read.cs" />
+    <Compile Include="Data\Base\Update.cs" />
+    <Compile Include="Data\Base\Utils.cs" />
     <Compile Include="Data\Base\Validation.cs" />
     <Compile Include="Data\Base\BaseCrudExtensions_Read.cs" />
+    <Compile Include="Data\Base\BaseCrudExtensions_Create.cs" />
+    <Compile Include="Data\Base\BaseCrudExtensions_Update.cs" />
+    <Compile Include="Data\Base\BaseCrudExtensions_Destroy.cs" />
     <Compile Include="Data\Base\_Blank.cs" />
     <Compile Include="Data\Links\Link.cs" />
     <Compile Include="Data\Links\LinksDiff.cs" />
     <Compile Include="Data\Links\LinkData.cs" />
     <Compile Include="Data\ReadFilter\FromJson.cs" />
-    <Compile Include="Data\ReadFilter\ReadFilterQueryableExtensions.cs" />
+    <Compile Include="Data\ReadFilter\ReadFilterIQueryableExtensions.cs" />
     <Compile Include="Data\ReadFilter\_Blank.cs" />
     <Compile Include="Data\ReadFilter\ReadFilter.cs" />
     <Compile Include="Data\ReadSorter\FromJson.cs" />
-    <Compile Include="Data\ReadSorter\_Blank - Copy.cs" />
+    <Compile Include="Data\ReadSorter\ReadSorterIQueryableExtensions.cs" />
     <Compile Include="Data\ReadSorter\_Blank.cs" />
     <Compile Include="Data\ReadSorter\ReadSorter.cs" />
     <Compile Include="Data\Validation\Utils.cs" />

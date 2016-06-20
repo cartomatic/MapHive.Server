@@ -152,7 +152,7 @@ namespace MapHive.Server.Core.Data
             bool detached = true)
             where T : Base
         {
-            var iLinksDb = GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
 
 
             //First get all the links for the object in question
@@ -206,21 +206,6 @@ namespace MapHive.Server.Core.Data
             }
 
             return obj;
-        }
-
-        /// <summary>
-        /// Gets a ILinksDbContext; Throws if the db context is not ILinksDbContext
-        /// </summary>
-        /// <param name="db"></param>
-        /// <returns></returns>
-        private static ILinksDbContext GetLinksDbContext(DbContext db)
-        {
-            var iLinksDb = db as ILinksDbContext;
-            if (iLinksDb == null)
-                throw new ArgumentException(
-                    $"In order to materialise links DbContext must implement {nameof(ILinksDbContext)}");
-
-            return iLinksDb;
         }
 
 
@@ -285,7 +270,7 @@ namespace MapHive.Server.Core.Data
         private static async Task<T> UpsertLinks<T>(this T obj, DbContext db)
             where T : Base
         {
-            var iLinksDb = GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
 
             var upsert = obj.Links.Upsert;
 
@@ -352,7 +337,7 @@ namespace MapHive.Server.Core.Data
         private static async Task<T> DestroyLinks<T>(this T obj, DbContext db)
             where T : Base
         {
-            var iLinksDb = GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
 
             var destory = obj.Links.Destroy;
 
@@ -383,7 +368,7 @@ namespace MapHive.Server.Core.Data
             where T : Base
             where TParent : Base
         {
-            var iLinksDb = GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
 
 
             //init the parent object as need to get the type uuid off it
