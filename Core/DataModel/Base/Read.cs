@@ -6,6 +6,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MapHive.Server.Core.DataModel.Interface;
 using Newtonsoft.Json;
 
 namespace MapHive.Server.Core.DataModel
@@ -28,16 +29,7 @@ namespace MapHive.Server.Core.DataModel
         {
             var dbSet = dbCtx.Set<T>();
 
-            IQueryable<T> query;
-
-            if (detached)
-            {
-                query = dbSet.AsNoTracking();
-            }
-            else
-            {
-                query = dbSet;
-            }
+            IQueryable<T> query = detached ? dbSet.AsNoTracking() : dbSet;
 
             return await query.ApplyReadFilters(filters).ApplyReadSorters(sorters).Skip(start).Take(limit).ToListAsync();
         }
