@@ -97,6 +97,8 @@
     <Compile Include="DataModel\Base\BaseCrudExtensions_Update.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Destroy.cs" />
     <Compile Include="DataModel\Base\_Blank.cs" />
+    <Compile Include="DataModel\Dto\Dto.cs" />
+    <Compile Include="DataModel\Dto\DtoObjectExtensions.cs" />
     <Compile Include="DataModel\Interface\IDto.cs" />
     <Compile Include="DataModel\Links\Link.cs" />
     <Compile Include="DataModel\Links\LinksDiff.cs" />
