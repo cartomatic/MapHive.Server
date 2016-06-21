@@ -23,8 +23,8 @@ namespace MapHive.Server.Core.DataModel
             this.Validate();
 
 
-            //new object so do generate uuid but only if different than default. otherwise guid has been set by other party
-            if (Uuid != default(Guid))
+            //new object so do generate uuid but only if default. otherwise guid has been set by other party
+            if (Uuid == default(Guid))
                 Uuid = Guid.NewGuid();
 
             //test if an object exists; needed in a case the uuid has already been reserved for the collection
