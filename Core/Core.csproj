@@ -123,6 +123,9 @@
     <Compile Include="DataModel\Interface\ILinksDiff.cs" />
     <Compile Include="DataModel\Interface\IValidate.cs" />
     <Compile Include="DataModel\Interface\IValidationError.cs" />
+    <Compile Include="Email\EmailAccount.cs" />
+    <Compile Include="Email\EmailSender.cs" />
+    <Compile Include="Email\EmailTemplate.cs" />
     <Compile Include="EventArgs\Interface\IOpFeedbackEventArgs.cs" />
     <Compile Include="EventArgs\OpFeedbackEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
