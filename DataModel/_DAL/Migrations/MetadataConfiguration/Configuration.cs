@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Utils;
 
 namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
@@ -20,12 +22,27 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         {
             Identity.ImpersonateGhostUser();
 
-            //SeedWhatever(context);
+            TestLinkSeed(context);
         }
 
-        //private void SeedWhatever(MapHiveDbContext context)
-        //{
-        //    context.SomeType.AddOrUpdate(obj);
-        //}
+        private void TestLinkSeed(MapHiveDbContext context)
+        {
+            var l = new Link
+            {
+                ParentTypeUuid = default(Guid),
+                ChildTypeUuid = default(Guid),
+                ParentUuid = default(Guid),
+                ChildUuid = default(Guid)
+            };
+
+            l.LinkData.Add("some_link_data_consumer", new Dictionary<string, object>
+            {
+                { "prop1", "Some textual property" },
+                { "prop2", 123 },
+                { "prop3", DateTime.Now }
+            });
+
+            context.Links.AddOrUpdate(l);
+        }
     }
 }

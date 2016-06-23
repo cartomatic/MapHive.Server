@@ -25,6 +25,9 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.ChildTypeUuid).HasColumnName("child_type_uuid");
             Property(en => en.SortOrder).HasColumnName("sort_order");
 
+            //will this nicely save only one property???? dunno
+            Property(p => p.LinkData.Serialised).HasColumnName("link_json_data");
+
             Property(t => t.ParentUuid)
                 .HasColumnAnnotation(
                     "idx",
@@ -44,6 +47,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
                 .HasColumnAnnotation(
                     "idx",
                     new IndexAnnotation(new IndexAttribute("child_type_uuid") { IsUnique = true }));
+
         }
     }
 }

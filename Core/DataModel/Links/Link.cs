@@ -46,6 +46,15 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Extra data to be saved with the link; can store data for different applications within the same link
         /// </summary>
-        public ILinkData LinkData { get; set; } = new LinkData();
+        public LinkData LinkData { get; set; } = new LinkData();
+
+        /// <summary>
+        /// explicit interface implementation - lets the Base keep the ILinkData interface while it implements a concrete ILinkData type, so EF can handle the data mapping
+        /// </summary>
+        ILinkData ILink.LinkData
+        {
+            get { return LinkData; }
+            set { LinkData = (LinkData) value; }
+        }
     }
 }
