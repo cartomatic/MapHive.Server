@@ -44,6 +44,6 @@ namespace MapHive.Server.Core.DataModel.Interface
         /// <summary>
         /// Extra data to be saved with the link; can store data for different applications within the same link
         /// </summary>
-        Dictionary<string, Dictionary<string, object>> LinkData { get; set; }
+        ILinkData LinkData { get; set; }
     }
 }

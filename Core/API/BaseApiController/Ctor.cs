@@ -19,7 +19,7 @@ namespace MapHive.Server.Core.API
     /// <typeparam name="TDbCtx">Context to be used for the basic CRUD ops; can always be substituted for particular method calls, as they usually have overloads that take in dbctx</typeparam>
     public abstract partial class BaseApiController<T, TDbCtx> : ApiController
         where T : Base
-        where TDbCtx : DbContext
+        where TDbCtx : DbContext, new()
     {
         /// <summary>
         /// Database context to be used
@@ -28,7 +28,7 @@ namespace MapHive.Server.Core.API
 
         public BaseApiController()
         {
-            _dbCtx = (TDbCtx)Activator.CreateInstance(typeof(TDbCtx));
+            _dbCtx = new TDbCtx();
         }
 
         protected override void Dispose(bool disposing)
