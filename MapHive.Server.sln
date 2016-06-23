@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B244574F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto", "..\Utils\Crypto\Crypto.csproj", "{57EC8856-7620-461A-863B-4EB3E478E295}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModel", "DataModel\DataModel.csproj", "{6467C396-FB96-42EB-B2E0-C7659FEF5AF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{57EC8856-7620-461A-863B-4EB3E478E295}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EC8856-7620-461A-863B-4EB3E478E295}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EC8856-7620-461A-863B-4EB3E478E295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6467C396-FB96-42EB-B2E0-C7659FEF5AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6467C396-FB96-42EB-B2E0-C7659FEF5AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6467C396-FB96-42EB-B2E0-C7659FEF5AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6467C396-FB96-42EB-B2E0-C7659FEF5AF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
