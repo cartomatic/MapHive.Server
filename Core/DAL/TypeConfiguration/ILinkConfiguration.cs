@@ -13,9 +13,9 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
     public class ILinkConfiguration : EntityTypeConfiguration<ILink>
     {
-        public ILinkConfiguration()
+        public ILinkConfiguration(string table = "links")
         {
-            ToTable("links");
+            ToTable(table);
 
             HasKey(p => p.Id);
 
