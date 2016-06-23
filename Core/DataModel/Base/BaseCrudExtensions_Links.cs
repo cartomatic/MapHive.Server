@@ -79,8 +79,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="sortOrder"></param>
         /// <param name="linkData"></param>
         /// <returns></returns>
-        public static TEntity AddLink<TEntity, T>(this TEntity parent, T child, int sortOrder = 0,
-            Dictionary<string, Dictionary<string, object>> linkData = null)
+        public static TEntity AddLink<TEntity, T>(this TEntity parent, T child, int sortOrder = 0, ILinkData linkData = null)
             where TEntity : Base
             where T : Base
         {
@@ -252,13 +251,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        public static async Task<T> SaveLinks<T>(this T obj, DbContext db)
+        public static async Task SaveLinks<T>(this T obj, DbContext db)
             where T : Base
         {
             await obj.UpsertLinks(db);
             await obj.DestroyLinks(db);
-
-            return obj;
         }
 
         /// <summary>
@@ -267,17 +264,18 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        private static async Task<T> UpsertLinks<T>(this T obj, DbContext db)
+        private static async Task UpsertLinks<T>(this T obj, DbContext db)
             where T : Base
         {
-            var iLinksDb = Base.GetLinksDbContext(db);
 
             var upsert = obj.Links.Upsert;
 
             // If no links then ignore the op
             if (upsert == null || !upsert.Any())
-                return obj;
+                return;
 
+
+            var iLinksDb = Base.GetLinksDbContext(db);
 
             // Get all relationships/links for object
             var links = await iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid).ToListAsync();
@@ -323,8 +321,6 @@ namespace MapHive.Server.Core.DataModel
             }
 
             await db.SaveChangesAsync();
-
-            return obj;
         }
 
 
@@ -334,23 +330,22 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        private static async Task<T> DestroyLinks<T>(this T obj, DbContext db)
+        private static async Task DestroyLinks<T>(this T obj, DbContext db)
             where T : Base
         {
-            var iLinksDb = Base.GetLinksDbContext(db);
-
             var destory = obj.Links.Destroy;
 
             //if there is nothing to destroy, just ignore the op
             if (destory == null || !destory.Any())
-                return obj;
+                return;
+
+
+            var iLinksDb = Base.GetLinksDbContext(db);
 
             iLinksDb.Links.RemoveRange(
                 iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid && destory.Contains(x.ChildUuid)));
 
             await db.SaveChangesAsync();
-
-            return obj;
         }
 
 

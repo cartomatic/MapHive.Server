@@ -88,6 +88,8 @@
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
     <Compile Include="DAL\Interface\ILinksDbContext.cs" />
+    <Compile Include="DAL\TypeConfiguration\ILinkDataConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\ILinkConfiguration.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Create.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Destroy.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Links.cs" />
