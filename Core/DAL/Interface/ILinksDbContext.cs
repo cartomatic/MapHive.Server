@@ -11,8 +11,8 @@ namespace MapHive.Server.Core.DAL.Interface
     /// <summary>
     /// Db context that can save object links
     /// </summary>
-    public interface ILinksDbContext
+    public interface ILinksDbContext<T> where T : class, ILink
     {
-        DbSet<ILink> Links { get; }
+        DbSet<T> Links { get; }
     }
 }

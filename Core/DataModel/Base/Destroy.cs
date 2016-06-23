@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
@@ -19,7 +20,7 @@ namespace MapHive.Server.Core.DataModel
         protected internal virtual async Task<T> Destroy<T>(DbContext dbCtx, Guid uuid) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
-            var links = GetLinksDbContext(dbCtx).Links;
+            var links = GetLinksDbContext<ILink>(dbCtx).Links;
 
             //find the object
             var obj = await dbSet.FindAsync(uuid);

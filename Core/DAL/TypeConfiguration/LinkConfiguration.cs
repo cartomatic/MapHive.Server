@@ -11,9 +11,9 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
-    public class ILinkConfiguration : EntityTypeConfiguration<ILink>
+    public class LinkConfiguration : EntityTypeConfiguration<Link>
     {
-        public ILinkConfiguration(string table = "links")
+        public LinkConfiguration(string table = "links")
         {
             ToTable(table);
 

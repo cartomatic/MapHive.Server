@@ -4,13 +4,14 @@ using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
-    public class ILinkDataConfiguration : ComplexTypeConfiguration<ILinkData>
+    public class LinkDataConfiguration : ComplexTypeConfiguration<LinkData>
     {
-        public ILinkDataConfiguration()
+        public LinkDataConfiguration()
         {
             Property(p => p.Serialised).HasColumnName("link_json_data");
 

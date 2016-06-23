@@ -76,7 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\BaseApiController\Ctor.cs" />
+    <Compile Include="API\BaseApiController\_Ctor.cs" />
     <Compile Include="API\BaseApiController\ExceptionHandler.cs" />
     <Compile Include="API\BaseApiController\CustomResponseHeaders.cs" />
     <Compile Include="API\BaseApiController\HttpGet.cs" />
@@ -88,16 +88,16 @@
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
     <Compile Include="DAL\Interface\ILinksDbContext.cs" />
-    <Compile Include="DAL\TypeConfiguration\ILinkDataConfiguration.cs" />
-    <Compile Include="DAL\TypeConfiguration\ILinkConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\LinkDataConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\LinkConfiguration.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Create.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Destroy.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Links.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Read.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Update.cs" />
     <Compile Include="DataModel\Base\Create.cs" />
-    <Compile Include="DataModel\Base\Ctor.cs" />
-    <Compile Include="DataModel\Base\DataModel.cs" />
+    <Compile Include="DataModel\Base\_Ctor.cs" />
+    <Compile Include="DataModel\Base\_DataModel.cs" />
     <Compile Include="DataModel\Base\Destroy.cs" />
     <Compile Include="DataModel\Base\Read.cs" />
     <Compile Include="DataModel\Base\Update.cs" />
@@ -122,9 +122,9 @@
     <Compile Include="DataModel\MapHiveUser\Update.cs" />
     <Compile Include="DataModel\MapHiveUser\Destroy.cs" />
     <Compile Include="DataModel\MapHiveUser\MembershipRebootDbCtxUtils.cs" />
-    <Compile Include="DataModel\MapHiveUser\DataModel.cs" />
+    <Compile Include="DataModel\MapHiveUser\_DataModel.cs" />
     <Compile Include="DataModel\MapHiveUser\_Blank.cs" />
-    <Compile Include="DataModel\MapHiveUser\Ctor.cs" />
+    <Compile Include="DataModel\MapHiveUser\_Ctor.cs" />
     <Compile Include="DataModel\ReadFilter\FromJson.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilter.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilterIQueryableExtensions.cs" />

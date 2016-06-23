@@ -151,7 +151,7 @@ namespace MapHive.Server.Core.DataModel
             bool detached = true)
             where T : Base
         {
-            var iLinksDb = Base.GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
 
 
             //First get all the links for the object in question
@@ -275,7 +275,7 @@ namespace MapHive.Server.Core.DataModel
                 return;
 
 
-            var iLinksDb = Base.GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
 
             // Get all relationships/links for object
             var links = await iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid).ToListAsync();
@@ -340,7 +340,7 @@ namespace MapHive.Server.Core.DataModel
                 return;
 
 
-            var iLinksDb = Base.GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
 
             iLinksDb.Links.RemoveRange(
                 iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid && destory.Contains(x.ChildUuid)));
@@ -363,7 +363,7 @@ namespace MapHive.Server.Core.DataModel
             where T : Base
             where TParent : Base
         {
-            var iLinksDb = Base.GetLinksDbContext(db);
+            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
 
 
             //init the parent object as need to get the type uuid off it

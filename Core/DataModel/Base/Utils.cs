@@ -27,12 +27,13 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="db"></param>
         /// <returns></returns>
-        public static ILinksDbContext GetLinksDbContext(DbContext db)
+        public static ILinksDbContext<T> GetLinksDbContext<T>(DbContext db)
+            where T: class, ILink
         {
-            var iLinksDb = db as ILinksDbContext;
+            var iLinksDb = db as ILinksDbContext<T>;
             if (iLinksDb == null)
                 throw new ArgumentException(
-                    $"In order to materialise links DbContext must implement {nameof(ILinksDbContext)}");
+                    $"In order to materialise links DbContext must implement {nameof(ILinksDbContext<T>)}");
 
             return iLinksDb;
         }
