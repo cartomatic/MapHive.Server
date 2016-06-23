@@ -20,8 +20,7 @@ namespace MapHive.Server.Core.DataModel
         protected internal virtual async Task<T> Destroy<T>(DbContext dbCtx, Guid uuid) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
-            var links = GetLinksDbContext<ILink>(dbCtx).Links;
-
+            
             //find the object
             var obj = await dbSet.FindAsync(uuid);
 
@@ -30,6 +29,11 @@ namespace MapHive.Server.Core.DataModel
 
             dbSet.Remove(obj);
 
+            var iLinksDbCtx = GetLinksDbContext(dbCtx);
+            if (iLinksDbCtx == null) return obj;
+
+
+            var links = iLinksDbCtx.Links;
             links.RemoveRange(links.Where(x => x.ParentUuid == obj.Uuid || x.ChildUuid == obj.Uuid));
 
             await dbCtx.SaveChangesAsync();

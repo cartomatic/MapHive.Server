@@ -151,12 +151,14 @@ namespace MapHive.Server.Core.DataModel
             bool detached = true)
             where T : Base
         {
-            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null)
+                return obj;
 
 
             //First get all the links for the object in question
             //since links are not going to be modified can load them detached!
-            var relationships = iLinksDb.Links.AsNoTracking().Where(x => x.ParentUuid == obj.Uuid)
+            var links = iLinksDb.Links.AsNoTracking().Where(x => x.ParentUuid == obj.Uuid)
                 .OrderBy(x => x.SortOrder)
                 .ToList();
 
@@ -194,7 +196,7 @@ namespace MapHive.Server.Core.DataModel
                     new object[] //with the appropriate params
                     {
                         db, //db context
-                        relationships.Where(x => x.ChildTypeUuid == (Guid) typeUuid).Select(x => x.ChildUuid).ToList(),
+                        links.Where(x => x.ChildTypeUuid == (Guid) typeUuid).Select(x => x.ChildUuid).ToList(),
                         //list of uuids to filter the dataset
                         detached //whether or not returned objects should be detached from db context
                     }
@@ -275,7 +277,9 @@ namespace MapHive.Server.Core.DataModel
                 return;
 
 
-            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null)
+                return;
 
             // Get all relationships/links for object
             var links = await iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid).ToListAsync();
@@ -340,14 +344,15 @@ namespace MapHive.Server.Core.DataModel
                 return;
 
 
-            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null)
+                return;
 
             iLinksDb.Links.RemoveRange(
-                iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid && destory.Contains(x.ChildUuid)));
+            iLinksDb.Links.Where(x => x.ParentUuid == obj.Uuid && destory.Contains(x.ChildUuid)));
 
             await db.SaveChangesAsync();
         }
-
 
         /// <summary>
         /// Gets parents of specified type for the object in question
@@ -363,11 +368,11 @@ namespace MapHive.Server.Core.DataModel
             where T : Base
             where TParent : Base
         {
-            var iLinksDb = Base.GetLinksDbContext<ILink>(db);
-
-
             //init the parent object as need to get the type uuid off it
             var parent = (TParent) Activator.CreateInstance(typeof (TParent));
+
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return null;
 
 
             //Get relationship links from database for this object; make sure to obey the detached param

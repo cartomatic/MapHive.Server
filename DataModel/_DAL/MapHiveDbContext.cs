@@ -14,7 +14,7 @@ using MapHive.Server.DataModel.DAL.TypeConfiguration;
 
 namespace MapHive.Server.DataModel.DAL
 {
-    public class MapHiveDbContext : BaseDbContext, ILinksDbContext<Link>
+    public class MapHiveDbContext : BaseDbContext, ILinksDbContext
     {
         public MapHiveDbContext()
             : base() 
@@ -29,7 +29,6 @@ namespace MapHive.Server.DataModel.DAL
         public DbSet<Application> Applications { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Link> Links { get; set; }
-
         
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
