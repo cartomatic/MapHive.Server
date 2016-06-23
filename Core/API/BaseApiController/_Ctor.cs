@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -27,8 +28,31 @@ namespace MapHive.Server.Core.API
         protected DbContext _dbCtx { get; private set; }
 
         public BaseApiController()
+            : this("MapHiveMeta")
         {
-            _dbCtx = new TDbCtx();
+        }
+
+        public BaseApiController(string connectionStringName)
+        {
+            //pass the conn string to the constructor.
+            _dbCtx = default(TDbCtx);
+            if (!string.IsNullOrEmpty(connectionStringName))
+            {
+                try
+                {
+                    //FIXME - this requires dbctx to have a ctor with a string param... so this will fail if ctx is declared with a hardcoded string
+                    _dbCtx = (TDbCtx)Activator.CreateInstance(typeof(TDbCtx), connectionStringName);
+                }
+                catch
+                {
+                    //ignore
+                }
+            }
+
+            if (_dbCtx == null)
+            {
+                _dbCtx = new TDbCtx();
+            }
         }
 
         protected override void Dispose(bool disposing)

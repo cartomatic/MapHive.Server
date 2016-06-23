@@ -5,17 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel.Interface;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MapHive.Server.Core.DataModel
 {
     public class LinkData : Dictionary<string, Dictionary<string,object>>, ILinkData
     {
+        private static JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver()};
+
         [JsonIgnore]
         public string Serialised
         {
             get
             {
-                return JsonConvert.SerializeObject(this);
+                return JsonConvert.SerializeObject(this, Formatting.None, JsonSerializerSettings);
             }
 
             set
@@ -24,7 +27,7 @@ namespace MapHive.Server.Core.DataModel
                 Dictionary<string, Dictionary<string, object>> incomingStringData = null;
                 try
                 {
-                    incomingStringData = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(value);
+                    incomingStringData = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(value, JsonSerializerSettings);
                 }
                 catch
                 {
