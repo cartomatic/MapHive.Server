@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MapHive.Server.Core.EventArgs.Interface;
 
-namespace MapHive.Server.Core.EventArgs
+namespace MapHive.Server.Core.Events
 {
     /// <summary>
     /// Operation feedbac event arguments

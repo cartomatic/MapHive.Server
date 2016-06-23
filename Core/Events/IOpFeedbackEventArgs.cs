@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapHive.Server.Core.EventArgs.Interface
+namespace MapHive.Server.Core.Events
 {
     public interface IOpFeedbackEventArgs
     {
