@@ -32,7 +32,7 @@ namespace MapHive.Server.Core.Email
         /// </summary>
         /// <param name="tokens">disctionary keys should be tokens, but without the curly braces. If the token is "{some_token}", the dictionary key is "some_token"</param>
         /// <returns></returns>
-        public EmailTemplate Prepare(IDictionary<string, object> tokens)
+        public IEmailTemplate Prepare(IDictionary<string, object> tokens)
         {
             foreach (var token in tokens.Keys)
             {

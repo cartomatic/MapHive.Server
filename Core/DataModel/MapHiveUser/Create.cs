@@ -9,6 +9,7 @@ using BrockAllen.MembershipReboot.Relational;
 using Cartomatic.Utils.Data;
 using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DataModel.Validation;
+using MapHive.Server.Core.Email;
 using MapHive.Server.Core.Events;
 
 namespace MapHive.Server.Core.DataModel
@@ -56,14 +57,17 @@ namespace MapHive.Server.Core.DataModel
         }
 
         /// <summary>
-        /// Creates a new user account in both MembershipReboot database and in the MapHive meta database
+        /// Creates a new user account in both MembershipReboot database and in the MapHive meta database;
+        /// sends out a confirmation email if email account and template are provided
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TAccount"></typeparam>
         /// <param name="userAccountService"></param>
         /// <param name="dbCtx"></param>
+        /// <param name="emailAccount"></param>
+        /// <param name="emailTemplate"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Create<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService)
+        protected internal virtual async Task<T> Create<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, EmailAccount emailAccount = null, IEmailTemplate emailTemplate = null)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
@@ -126,16 +130,26 @@ namespace MapHive.Server.Core.DataModel
                 mhTrans.Commit();
 
 
+                var opFeedback = new Dictionary<string, object>
+                {
+                    {nameof(e.InitialPassword), e.InitialPassword},
+                    {nameof(e.VerificationKey), e.VerificationKey}
+                };
+
+                //if email related objects have been provided, send the account created email
+                if (emailAccount != null && emailTemplate != null)
+                {
+                    EmailSender.Send(
+                        emailAccount, emailTemplate.Prepare(opFeedback), Email
+                    );
+                }
+
                 //finally the user created event
                 UserCreated?.Invoke(
                     this,
                     new Events.OpFeedbackEventArgs
                     {
-                        OperationFeedback = new Dictionary<string, object>
-                        {
-                            { nameof(e.InitialPassword), e.InitialPassword },
-                            { nameof(e.VerificationKey), e.VerificationKey}
-                        }
+                        OperationFeedback = opFeedback
                     }
                 );
             }

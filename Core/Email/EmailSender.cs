@@ -16,10 +16,10 @@ namespace MapHive.Server.Core.Email
         /// Sends an email to the recipient. Email is sent in a fire'n'forget manner.
         /// Note: in some scenarios fire'n'forget means the email may not eventually be sent at all.
         /// </summary>
-        /// <param name="a">EmailAccount deails</param>
-        /// <param name="t">Email data to be sent out</param>
+        /// <param name="emailAccount">EmailAccount deails</param>
+        /// <param name="emailTemplate">Email data to be sent out</param>
         /// <param name="recipient">Email of a recipient</param>
-        public static void Send(EmailAccount a, EmailTemplate t, string recipient)
+        public static void Send(EmailAccount emailAccount, IEmailTemplate emailTemplate, string recipient)
         {
             Task.Run(() =>
             {
@@ -27,21 +27,21 @@ namespace MapHive.Server.Core.Email
 
                 mail.To.Add(recipient);
 
-                mail.From = new MailAddress(a.Sender);
+                mail.From = new MailAddress(emailAccount.Sender);
 
-                mail.Subject = t.Title;
+                mail.Subject = emailTemplate.Title;
                 mail.SubjectEncoding = Encoding.UTF8;
 
-                mail.Body = t.Body;
-                mail.IsBodyHtml = t.IsBodyHtml;
+                mail.Body = emailTemplate.Body;
+                mail.IsBodyHtml = emailTemplate.IsBodyHtml;
                 mail.BodyEncoding = Encoding.UTF8;
 
                 var smtp = new SmtpClient
                 {
-                    Host = a.SmtpHost,
-                    Port = a.SmtpPort ?? 587,
-                    Credentials = new System.Net.NetworkCredential(a.User, a.Pass),
-                    EnableSsl = a.Ssl ?? false
+                    Host = emailAccount.SmtpHost,
+                    Port = emailAccount.SmtpPort ?? 587,
+                    Credentials = new System.Net.NetworkCredential(emailAccount.User, emailAccount.Pass),
+                    EnableSsl = emailAccount.Ssl ?? false
                 };
 
                 try
