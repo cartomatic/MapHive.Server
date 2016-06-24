@@ -30,22 +30,22 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(t => t.ParentUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("parent_uuid") {IsUnique = true}));
+                    new IndexAnnotation(new IndexAttribute("idx_parent_uuid") {IsUnique = true}));
 
             Property(t => t.ChildUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("child_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_child_uuid") { IsUnique = true }));
 
             Property(t => t.ParentTypeUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("parent_type_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_parent_type_uuid") { IsUnique = true }));
 
             Property(t => t.ChildTypeUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("child_type_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_child_type_uuid") { IsUnique = true }));
 
         }
     }

@@ -10,9 +10,10 @@ namespace MapHive.Server.Core.Localisation
 {
     /// <summary>
     /// Provides a standardised translation object with automated serialisation
+    /// In order to use it with EF, a non-generic concrete type must be used
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public partial class Translations<T> : Dictionary<string, T>, ITranslations
+    public partial class TranslationsGeneric<T> : Dictionary<string, T>, ITranslations
     {
         private static JsonSerializerSettings JsonSerializerSettings => new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() };
 

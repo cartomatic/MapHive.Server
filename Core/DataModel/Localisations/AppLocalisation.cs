@@ -33,14 +33,14 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Set of translations for a particular key
         /// </summary>
-        public Translations<string> Translations { get; set; }
+        public Translations Translations { get; set; }
 
 
         ITranslations ILocalisation.Translations
         {
             get { return Translations; }
 
-            set { Translations = (Translations<string>)value; }
+            set { Translations = (Translations)value; }
         }
     }
 

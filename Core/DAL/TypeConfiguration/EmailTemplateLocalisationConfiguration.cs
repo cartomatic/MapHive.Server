@@ -12,10 +12,13 @@ using MapHive.Server.Core.Localisation;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
-    public class EmailTemplateLocalisationConfiguration : ILocalisationConfiguration<DataModel.EmailTemplateLocalisation>
+    public class EmailTemplateLocalisationConfiguration : EntityTypeConfiguration<EmailTemplateLocalisation>
+    //Note:
+    //Deriving from ILocalisationConfiguration<DataModel.AppLocalisation> does not work. EF needs a concrete type nd throws otherwise
     {
         public EmailTemplateLocalisationConfiguration()
         {
+            ToTable("email_template_localisations");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.ApplicationName).HasColumnName("application_name");
@@ -24,10 +27,13 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.Identifier).HasColumnName("identifier");
             Property(en => en.IsEmailHtml).HasColumnName("is_email_html");
 
+            //Stuff below would be true if the class derived from ILocalisationConfiguration; this does not seem to work though...
             //Note: Translations dobe via ILocalisationConfiguration
+            Property(p => p.Translations.Serialised).HasColumnName("translations");
+
 
             Property(t => t.ApplicationName).HasColumnAnnotation(
-                "Index", new IndexAnnotation(new IndexAttribute("application")));
+                "Index", new IndexAnnotation(new IndexAttribute("idx_application")));
 
             //make a compond unique key 
 

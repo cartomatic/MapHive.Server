@@ -42,7 +42,7 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Template translations
         /// </summary>
-        public Translations<EmailTemplate> Translations { get; set; }
+        public EmailTranslations Translations { get; set; }
 
         /// <summary>
         /// explicit interface implementation
@@ -51,7 +51,7 @@ namespace MapHive.Server.Core.DataModel
         {
             get { return Translations; }
 
-            set { Translations = (Translations<EmailTemplate>)value; }
+            set { Translations = (EmailTranslations)value; }
         }
     }
 }
