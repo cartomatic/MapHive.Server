@@ -25,7 +25,7 @@ namespace MapHive.Server.DataModel.DAL.TypeConfiguration
 
             Property(t => t.Email)
                 .HasColumnAnnotation(
-                    "idx",
+                    "Index",
                     new IndexAnnotation(new IndexAttribute("uq_email") { IsUnique = true }));
         }
     }

@@ -28,7 +28,7 @@ namespace MapHive.Server.DataModel.DAL.TypeConfiguration
 
             Property(t => t.ShortName)
                 .HasColumnAnnotation(
-                    "idx",
+                    "Index",
                     new IndexAnnotation(new IndexAttribute("uq_short_name") { IsUnique = true }));
         }
     }

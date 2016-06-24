@@ -14,7 +14,7 @@ using MapHive.Server.DataModel.DAL.TypeConfiguration;
 
 namespace MapHive.Server.DataModel.DAL
 {
-    public class MapHiveDbContext : BaseDbContext, ILinksDbContext
+    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised
     {
         public MapHiveDbContext()
             : base() 
@@ -28,8 +28,13 @@ namespace MapHive.Server.DataModel.DAL
 
         public DbSet<Application> Applications { get; set; }
         public DbSet<User> Users { get; set; }
+
+        //ILinksDbContext
         public DbSet<Link> Links { get; set; }
-        
+
+        //ILocalised
+        public DbSet<AppLocalisation> AppLocalisations { get; set; }
+        public DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -38,10 +43,14 @@ namespace MapHive.Server.DataModel.DAL
             //type configs
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new LinkConfiguration());
-            modelBuilder.Configurations.Add(new LinkDataConfiguration());
 
+            modelBuilder.Configurations.Add(new LinkConfiguration());
+
+            modelBuilder.Configurations.Add(new AppLocalisationConfiguration());
+            modelBuilder.Configurations.Add(new EmailTemplateLocalisationConfiguration());
         }
+
+        
     }
 
     
