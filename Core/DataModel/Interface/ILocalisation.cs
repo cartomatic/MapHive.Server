@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapHive.Server.Core.Localisation
+namespace MapHive.Server.Core.DataModel.Interface
 {
-    public partial class Localisation
+    public interface ILocalisation
     {
-
+        ITranslations Translations { get; set; }
     }
 }
