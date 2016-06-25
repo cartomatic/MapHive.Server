@@ -20,6 +20,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         requires_auth = c.Boolean(nullable: false),
                         is_common = c.Boolean(nullable: false),
                         is_default = c.Boolean(nullable: false),
+                        insertion_order = c.Int(nullable: false, identity: true),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
                         create_date = c.DateTime(),
@@ -30,7 +31,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.short_name, unique: true, name: "uq_short_name");
             
             CreateTable(
-                "metadata.app_localisations",
+                "metadata.localisation_app_translations",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -38,6 +39,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         class_name = c.String(),
                         translation_key = c.String(),
                         translations = c.String(),
+                        insertion_order = c.Int(nullable: false, identity: true),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
                         create_date = c.DateTime(),
@@ -47,7 +49,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .PrimaryKey(t => t.uuid);
             
             CreateTable(
-                "metadata.email_template_localisations",
+                "metadata.localisation_email_templates",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -57,6 +59,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         identifier = c.String(),
                         is_email_html = c.Boolean(nullable: false),
                         translations = c.String(),
+                        insertion_order = c.Int(nullable: false, identity: true),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
                         create_date = c.DateTime(),
@@ -70,7 +73,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 "metadata.links",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
+                        id = c.Int(nullable: false, identity: true),
                         parent_uuid = c.Guid(nullable: false),
                         child_uuid = c.Guid(nullable: false),
                         parent_type_uuid = c.Guid(nullable: false),
@@ -78,11 +81,11 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         sort_order = c.Int(),
                         link_json_data = c.String(),
                     })
-                .PrimaryKey(t => t.Id)
-                .Index(t => t.parent_uuid, unique: true, name: "idx_parent_uuid")
-                .Index(t => t.child_uuid, unique: true, name: "idx_child_uuid")
-                .Index(t => t.parent_type_uuid, unique: true, name: "idx_parent_type_uuid")
-                .Index(t => t.child_type_uuid, unique: true, name: "idx_child_type_uuid");
+                .PrimaryKey(t => t.id)
+                .Index(t => t.parent_uuid, name: "idx_parent_uuid")
+                .Index(t => t.child_uuid, name: "idx_child_uuid")
+                .Index(t => t.parent_type_uuid, name: "idx_parent_type_uuid")
+                .Index(t => t.child_type_uuid, name: "idx_child_type_uuid");
             
             CreateTable(
                 "metadata.users",
@@ -94,6 +97,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         email = c.String(),
                         is_account_closed = c.Boolean(nullable: false),
                         is_account_verified = c.Boolean(nullable: false),
+                        insertion_order = c.Int(nullable: false, identity: true),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
                         create_date = c.DateTime(),
@@ -112,12 +116,12 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             DropIndex("metadata.links", "idx_parent_type_uuid");
             DropIndex("metadata.links", "idx_child_uuid");
             DropIndex("metadata.links", "idx_parent_uuid");
-            DropIndex("metadata.email_template_localisations", "uq_app_name_and_identifier");
+            DropIndex("metadata.localisation_email_templates", "uq_app_name_and_identifier");
             DropIndex("metadata.applications", "uq_short_name");
             DropTable("metadata.users");
             DropTable("metadata.links");
-            DropTable("metadata.email_template_localisations");
-            DropTable("metadata.app_localisations");
+            DropTable("metadata.localisation_email_templates");
+            DropTable("metadata.localisation_app_translations");
             DropTable("metadata.applications");
         }
     }

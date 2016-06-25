@@ -18,6 +18,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             ToTable(table);
 
             HasKey(p => p.Id);
+            Property(en => en.Id).HasColumnName("id");
 
             Property(en => en.ParentUuid).HasColumnName("parent_uuid");
             Property(en => en.ChildUuid).HasColumnName("child_uuid");
@@ -30,22 +31,22 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(t => t.ParentUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("idx_parent_uuid") {IsUnique = true}));
+                    new IndexAnnotation(new IndexAttribute("idx_parent_uuid") { }));
 
             Property(t => t.ChildUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("idx_child_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_child_uuid") { }));
 
             Property(t => t.ParentTypeUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("idx_parent_type_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_parent_type_uuid") { }));
 
             Property(t => t.ChildTypeUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("idx_child_type_uuid") { IsUnique = true }));
+                    new IndexAnnotation(new IndexAttribute("idx_child_type_uuid") { }));
 
         }
     }

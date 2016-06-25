@@ -14,6 +14,7 @@ namespace MapHive.Server.Core.DataModel
     public class Dto<TDto> : IBase, IDto<TDto>
         where TDto : class
     {
+        public int InsOr { get; set; }
         public Guid TypeUuid { get; set; }
         public Guid Uuid { get; set; }
         public Guid? CreatedBy { get; set; }

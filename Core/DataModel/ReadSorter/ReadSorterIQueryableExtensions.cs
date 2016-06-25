@@ -20,7 +20,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="defaultSortProperty"></param>
         /// <param name="defaultSortOrder"></param>
         /// <returns></returns>
-        public static IQueryable<T> ApplyReadSorters<T>(this IQueryable<T> query, IEnumerable<ReadSorter> sorters, string defaultSortProperty = "createdate", string defaultSortOrder = Asc)
+        public static IQueryable<T> ApplyReadSorters<T>(this IQueryable<T> query, IEnumerable<ReadSorter> sorters, string defaultSortProperty = "insor", string defaultSortOrder = Asc)
         {
             // If sorters not provided or empty, add a default one - sorting is needed when using take / skip later on
             if (sorters == null || !sorters.Any())

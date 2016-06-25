@@ -16,7 +16,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
     {
         public AppLocalisationConfiguration()
         {
-            ToTable("app_localisations");
+            ToTable("localisation_app_translations");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.ApplicationName).HasColumnName("application_name");

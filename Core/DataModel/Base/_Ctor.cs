@@ -10,6 +10,12 @@ namespace MapHive.Server.Core.DataModel
     public abstract partial class Base : IBase, IValidate
     {
         /// <summary>
+        /// Order the objects are inserted into db. used for implicit sorting
+        /// TODO - make the creation order implicit, so it is not exposed to the clients
+        /// </summary>
+        public int InsOr { get; set; }
+
+        /// <summary>
         /// Type identifier - used to establish links between objects. not saved in a database;
         /// declared via class constructor.
         /// Important: when uuid is changed in code it will affect all the links in the database(s)

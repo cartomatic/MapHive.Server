@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,9 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
         public static EntityTypeConfiguration<T> ApplyIBaseConfiguration<T>(this EntityTypeConfiguration<T> entity) where T : class, IBase
         {
             entity.HasKey(t => t.Uuid);
+
+            entity.Property(en => en.InsOr).HasColumnName("insertion_order");
+            entity.Property(en => en.InsOr).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             entity.Property(en => en.Uuid).HasColumnName("uuid");
             entity.Property(en => en.CreatedBy).HasColumnName("created_by");

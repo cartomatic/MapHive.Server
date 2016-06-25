@@ -35,43 +35,50 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         /// Test link seeder to verify if all the stuff works...
         /// </summary>
         /// <param name="context"></param>
-        private async void TestLinkSeed(MapHiveDbContext context)
+        private static void TestLinkSeed(MapHiveDbContext context)
         {
-            var l = new Link
+            try
             {
-                ParentTypeUuid = default(Guid),
-                ChildTypeUuid = default(Guid),
-                ParentUuid = default(Guid),
-                ChildUuid = default(Guid)
-            };
-
-            l.LinkData.Add("some_link_data_consumer", new Dictionary<string, object>
-            {
-                { "prop1", "Some textual property" },
-                { "prop2", 123 },
-                { "prop3", DateTime.Now }
-            });
-
-            context.Links.AddOrUpdate(
-                l,
-                new Link
+                var l = new Link
                 {
                     ParentTypeUuid = default(Guid),
                     ChildTypeUuid = default(Guid),
                     ParentUuid = default(Guid),
-                    ChildUuid = default(Guid),
-                    LinkData = new LinkData
+                    ChildUuid = default(Guid)
+                };
+
+                l.LinkData.Add("some_link_data_consumer", new Dictionary<string, object>
+                {
+                    {"prop1", "Some textual property"},
+                    {"prop2", 123},
+                    {"prop3", DateTime.Now}
+                });
+
+                context.Links.AddOrUpdate(
+                    l,
+                    new Link
                     {
+                        ParentTypeUuid = default(Guid),
+                        ChildTypeUuid = default(Guid),
+                        ParentUuid = default(Guid),
+                        ChildUuid = default(Guid),
+                        LinkData = new LinkData
                         {
-                            "will_this_nicely_serialize", new Dictionary<string, object>
                             {
-                                { "prop1", new Application() },
-                                { "prop2", new Link() }
+                                "will_this_nicely_serialize", new Dictionary<string, object>
+                                {
+                                    {"prop1", new Application()},
+                                    {"prop2", new Link()}
+                                }
                             }
                         }
                     }
-                }
-            );
+                );
+            }
+            catch (Exception ex)
+            {
+                System.IO.File.WriteAllText(@"f:\err.txt", ex.Message + Environment.NewLine + ex.StackTrace);
+            }
         }
 
         private static void ApplicationsSeed(MapHiveDbContext context)
