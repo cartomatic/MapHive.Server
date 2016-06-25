@@ -70,18 +70,38 @@ namespace MapHive.Server.API.Controllers
         }
 
         /// <summary>
-        /// Gets a list of applocalisations 
+        /// Gets a default lang
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(string))]
-        [Route("defaultlangcode")]
+        [Route("default")]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetAppsWithAuthRequired(string langCode, string appNames)
+        public async Task<IHttpActionResult> GetDefaultLang()
         {
             try
             {
-                return Ok(await AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, langCode, (appNames ?? string.Empty).Split(',')));
+                return Ok(await Lang.GetDefaultLang(_dbCtx as MapHiveDbContext));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets a default lang code
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ResponseType(typeof(string))]
+        [Route("default/langcode")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetDefaultLangCode()
+        {
+            try
+            {
+                return Ok((await Lang.GetDefaultLang(_dbCtx as MapHiveDbContext))?.LangCode);
             }
             catch (Exception ex)
             {
