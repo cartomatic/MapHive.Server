@@ -30,9 +30,9 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
 
             ApplicationsSeed(context);
 
-            //LangsSeed(context);
+            LangsSeed(context);
 
-            //AppLocalisationsSeed(context);
+            AppLocalisationsSeed(context);
         }
 
         private void AppLocalisationsSeed(MapHiveDbContext context)
@@ -41,6 +41,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             context.AppLocalisations.AddOrUpdate(
                 new AppLocalisation
                 {
+                    Uuid = Guid.NewGuid(),
                     ApplicationName = "mh",
                     ClassName = "some.class.Name",
                     TranslationKey = "someTranslationKey",
@@ -52,6 +53,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new AppLocalisation
                 {
+                    Uuid = Guid.NewGuid(),
                     ApplicationName = "SomeApp",
                     ClassName = "some.class.Name",
                     TranslationKey = "someTranslationKey",
@@ -72,11 +74,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         {
             context.Langs.AddOrUpdate(new Lang
             {
+                Uuid = Guid.NewGuid(),
                 LangCode = "pl",
                 Name = "Polski"
             },
             new Lang
             {
+                Uuid = Guid.NewGuid(),
                 LangCode = "en",
                 Name = "English",
                 IsDefault = true
