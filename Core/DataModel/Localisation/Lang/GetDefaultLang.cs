@@ -26,7 +26,7 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="TDbCtx"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Lang> GetDefaultLang<TDbCtx>(TDbCtx dbCtx)
+        public static async Task<Lang> GetDefaultLang<TDbCtx>(TDbCtx dbCtx)
             where TDbCtx : DbContext, ILocalised
         {
             return DefaultLang ?? (DefaultLang = await dbCtx.Langs.FirstOrDefaultAsync(l => l.LangCode == DefaultLangCode)) ?? (DefaultLang = await dbCtx.Langs.FirstOrDefaultAsync(l => l.LangCode == DefaultLangCode));

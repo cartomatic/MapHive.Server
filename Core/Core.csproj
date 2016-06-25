@@ -120,6 +120,7 @@
     <Compile Include="DataModel\Links\Link.cs" />
     <Compile Include="DataModel\Links\LinkData.cs" />
     <Compile Include="DataModel\Links\LinksDiff.cs" />
+    <Compile Include="DataModel\Localisation\AppLocalisation\GetAppLocalisations.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_Ctor.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_Blank.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_DataModel.cs" />
