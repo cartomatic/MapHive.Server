@@ -15,5 +15,6 @@ namespace MapHive.Server.Core.DAL.Interface
     {
         DbSet<AppLocalisation> AppLocalisations { get; set; }
         DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
+        DbSet<Lang> Langs { get; set; }
     }
 }

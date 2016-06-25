@@ -9,12 +9,8 @@ using Newtonsoft.Json.Serialization;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public class AppLocalisation : Base, ILocalisation
+    public partial class AppLocalisation : Base, ILocalisation
     {
-        public AppLocalisation() : base(Guid.Parse("987ce604-4125-44e6-bd6d-8db0857756a4"))
-        {
-        }
-
         /// <summary>
         /// Application name a translation applies to; Fully qualified namespaces is achieved by combining it with the ClassName 
         /// </summary>
@@ -43,6 +39,5 @@ namespace MapHive.Server.Core.DataModel
             set { Translations = (Translations)value; }
         }
     }
-
     
 }

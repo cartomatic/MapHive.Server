@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DataModel.Interface;
-using MapHive.Server.Core.Localisation;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {

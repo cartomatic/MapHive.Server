@@ -35,6 +35,7 @@ namespace MapHive.Server.DataModel.DAL
         //ILocalised
         public DbSet<AppLocalisation> AppLocalisations { get; set; }
         public DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
+        public DbSet<Lang> Langs { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -48,6 +49,7 @@ namespace MapHive.Server.DataModel.DAL
 
             modelBuilder.Configurations.Add(new AppLocalisationConfiguration());
             modelBuilder.Configurations.Add(new EmailTemplateLocalisationConfiguration());
+            modelBuilder.Configurations.Add(new LangConfiguration());
         }
 
         

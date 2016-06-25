@@ -29,6 +29,58 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
 #endif
 
             ApplicationsSeed(context);
+
+            //LangsSeed(context);
+
+            //AppLocalisationsSeed(context);
+        }
+
+        private void AppLocalisationsSeed(MapHiveDbContext context)
+        {
+
+            context.AppLocalisations.AddOrUpdate(
+                new AppLocalisation
+                {
+                    ApplicationName = "mh",
+                    ClassName = "some.class.Name",
+                    TranslationKey = "someTranslationKey",
+                    Translations = new Translations
+                    {
+                        { "en", "Some EN property" },
+                        { "pl", "Some PL property" }
+                    }
+                },
+                new AppLocalisation
+                {
+                    ApplicationName = "SomeApp",
+                    ClassName = "some.class.Name",
+                    TranslationKey = "someTranslationKey",
+                    Translations = new Translations
+                    {
+                        { "en", "Some EN property" },
+                        { "pl", "Some PL property" }
+                    }
+                }
+            );
+        }
+
+        /// <summary>
+        /// Default app langs
+        /// </summary>
+        /// <param name="context"></param>
+        private void LangsSeed(MapHiveDbContext context)
+        {
+            context.Langs.AddOrUpdate(new Lang
+            {
+                LangCode = "pl",
+                Name = "Polski"
+            },
+            new Lang
+            {
+                LangCode = "en",
+                Name = "English",
+                IsDefault = true
+            });
         }
 
         /// <summary>

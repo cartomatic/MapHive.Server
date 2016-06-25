@@ -46,7 +46,8 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         modify_date = c.DateTime(),
                         end_date = c.DateTime(),
                     })
-                .PrimaryKey(t => t.uuid);
+                .PrimaryKey(t => t.uuid)
+                .Index(t => new { t.application_name, t.class_name, t.translation_key }, unique: true, name: "uq_app_name_class_name_translation_key");
             
             CreateTable(
                 "metadata.localisation_email_templates",
@@ -68,6 +69,24 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                     })
                 .PrimaryKey(t => t.uuid)
                 .Index(t => new { t.application_name, t.identifier }, unique: true, name: "uq_app_name_and_identifier");
+            
+            CreateTable(
+                "metadata.localisation_langs",
+                c => new
+                    {
+                        uuid = c.Guid(nullable: false),
+                        lang_code = c.String(),
+                        name = c.String(),
+                        description = c.String(),
+                        is_default = c.Boolean(nullable: false),
+                        insertion_order = c.Int(nullable: false, identity: true),
+                        created_by = c.Guid(),
+                        last_modified_by = c.Guid(),
+                        create_date = c.DateTime(),
+                        modify_date = c.DateTime(),
+                        end_date = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.uuid);
             
             CreateTable(
                 "metadata.links",
@@ -117,9 +136,11 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             DropIndex("metadata.links", "idx_child_uuid");
             DropIndex("metadata.links", "idx_parent_uuid");
             DropIndex("metadata.localisation_email_templates", "uq_app_name_and_identifier");
+            DropIndex("metadata.localisation_app_translations", "uq_app_name_class_name_translation_key");
             DropIndex("metadata.applications", "uq_short_name");
             DropTable("metadata.users");
             DropTable("metadata.links");
+            DropTable("metadata.localisation_langs");
             DropTable("metadata.localisation_email_templates");
             DropTable("metadata.localisation_app_translations");
             DropTable("metadata.applications");
