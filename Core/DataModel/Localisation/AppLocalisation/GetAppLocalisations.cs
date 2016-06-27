@@ -18,7 +18,9 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         private static Dictionary<string, IEnumerable<AppLocalisation>> AppLocalisations { get; set; } = new Dictionary<string, IEnumerable<AppLocalisation>>();
 
+
         //TODO - think about implementing extra cache for lang, app???
+
 
         /// <summary>
         /// Gets translations for the specified apps
@@ -31,9 +33,23 @@ namespace MapHive.Server.Core.DataModel
         public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisations<TDbCtx>(TDbCtx dbCtx, string langCode, params string[] appNames)
             where TDbCtx : DbContext, ILocalised
         {
+            return await GetAppLocalisations(dbCtx, new[] {langCode}, appNames);
+        }
+
+        /// <summary>
+        /// Gets localisations for specified lang codes and apps
+        /// </summary>
+        /// <typeparam name="TDbCtx"></typeparam>
+        /// <param name="dbCtx"></param>
+        /// <param name="langCodes"></param>
+        /// <param name="appNames"></param>
+        /// <returns></returns>
+        public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisations<TDbCtx>(TDbCtx dbCtx, IEnumerable<string> langCodes, IEnumerable<string> appNames)
+            where TDbCtx : DbContext, ILocalised
+        {
             var ret = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
 
-            if (string.IsNullOrEmpty(langCode) || appNames == null || appNames.Length == 0)
+            if (langCodes == null || !langCodes.Any() || appNames == null || !appNames.Any())
                 return ret;
 
             var defaultLang = await Lang.GetDefaultLang(dbCtx);
@@ -62,7 +78,7 @@ namespace MapHive.Server.Core.DataModel
                     {
                         classTranslations[appL.TranslationKey] = new Dictionary<string, string>();
                     }
-                    foreach (var translation in appL.Translations.Where(t => t.Key == defaultLang.LangCode || t.Key == langCode))
+                    foreach (var translation in appL.Translations.Where(t => t.Key == defaultLang.LangCode || langCodes.Contains(t.Key)))
                     {
                         classTranslations[appL.TranslationKey].Add(translation.Key, translation.Value);
                     }

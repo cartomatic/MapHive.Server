@@ -10,7 +10,7 @@ namespace MapHive.Server.Core.DataModel
 {
     public partial class Lang
     {
-        protected static List<Lang> SupportedLangs { get; set; }
+        private static List<Lang> SupportedLangs { get; set; }
 
         /// <summary>
         /// Gets a list of supported languages
@@ -18,7 +18,7 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="TDbCtx"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Lang>> GetSupportedLangs<TDbCtx>(TDbCtx dbCtx)
+        public static async Task<IEnumerable<Lang>> GetSupportedLangs<TDbCtx>(TDbCtx dbCtx)
             where TDbCtx : DbContext, ILocalised
         {
             return (SupportedLangs ?? (SupportedLangs = await dbCtx.Langs.ToListAsync()));

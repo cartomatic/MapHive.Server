@@ -85,6 +85,9 @@
     <Compile Include="API\BaseApiController\HttpDelete.cs" />
     <Compile Include="API\BaseApiController\IDtoUtils.cs" />
     <Compile Include="API\BaseApiController\_Blank.cs" />
+    <Compile Include="API\Serialisation\CamelCasedOutputControllerAttribute.cs" />
+    <Compile Include="API\Serialisation\CamelCasedOutputMethodAttribute.cs" />
+    <Compile Include="API\Serialisation\UnmodifiedDictKeyCasingOutputMethodAttribute.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\TypeConfiguration\LangConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />

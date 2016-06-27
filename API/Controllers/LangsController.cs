@@ -74,7 +74,7 @@ namespace MapHive.Server.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ResponseType(typeof(string))]
+        [ResponseType(typeof(Lang))]
         [Route("default")]
         [AllowAnonymous]
         public async Task<IHttpActionResult> GetDefaultLang()
@@ -102,6 +102,42 @@ namespace MapHive.Server.API.Controllers
             try
             {
                 return Ok((await Lang.GetDefaultLang(_dbCtx as MapHiveDbContext))?.LangCode);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets supported langs
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<Lang>))]
+        [Route("supported")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetSupportedLangs()
+        {
+            try
+            {
+                return Ok(await Lang.GetSupportedLangs(_dbCtx as MapHiveDbContext));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<string>))]
+        [Route("supported/langcodes")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetSupportedLangCodes()
+        {
+            try
+            {
+                return Ok((await Lang.GetSupportedLangs(_dbCtx as MapHiveDbContext)).Select(l => l.LangCode));
             }
             catch (Exception ex)
             {

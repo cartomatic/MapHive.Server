@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MapHive.Server.Core.API;
+using MapHive.Server.Core.API.Serialisation;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.DataModel;
@@ -70,18 +71,49 @@ namespace MapHive.Server.API.Controllers
         }
 
         /// <summary>
-        /// Gets a list of applocalisations 
+        /// Gets an app localisation - all the translations retrieved from a db, for a given app.
         /// </summary>
+        /// <param name="langCode"></param>
+        /// <param name="appName"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(Dictionary<string, Dictionary<string, Dictionary<string, string>>>))]
         [Route("localiseit")]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> GetAppsWithAuthRequired(string langCode, string appNames)
+        [UnmodifiedDictKeyCasingOutputMethod]
+        public async Task<IHttpActionResult> GetAppLocalisation(string langCode, string appName)
         {
             try
             {
-                return Ok(await AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, langCode, (appNames ?? string.Empty).Split(',')));
+                return
+                    Ok(
+                        await
+                            AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, langCode,
+                                string.IsNullOrWhiteSpace(appName) ? new string[0] : new[] {appName}));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets an app localisation - all the translations retrieved from a db, for a given app.
+        /// </summary>
+        /// <param name="langCodes"></param>
+        /// <param name="appNames"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [ResponseType(typeof(Dictionary<string, Dictionary<string, Dictionary<string, string>>>))]
+        [Route("localiseit")]
+        [AllowAnonymous]
+        [UnmodifiedDictKeyCasingOutputMethod]
+        public async Task<IHttpActionResult> GetAppLocalisations(string langCodes, string appNames)
+        {
+            try
+            {
+                return Ok(await AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
             }
             catch (Exception ex)
             {
