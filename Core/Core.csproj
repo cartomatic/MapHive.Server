@@ -124,6 +124,9 @@
     <Compile Include="DataModel\Links\LinkData.cs" />
     <Compile Include="DataModel\Links\LinksDiff.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\GetAppLocalisations.cs" />
+    <Compile Include="DataModel\Localisation\AppLocalisation\Create.cs" />
+    <Compile Include="DataModel\Localisation\AppLocalisation\Update.cs" />
+    <Compile Include="DataModel\Localisation\AppLocalisation\Destroy.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_Ctor.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_Blank.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\_DataModel.cs" />
@@ -131,8 +134,10 @@
     <Compile Include="DataModel\Localisation\EmailTemplateLocalisation\_Blank.cs" />
     <Compile Include="DataModel\Localisation\EmailTemplateLocalisation\_Ctor.cs" />
     <Compile Include="DataModel\Localisation\EmailTemplateLocalisation\_DataModel.cs" />
-    <Compile Include="DataModel\Localisation\Lang\GetDefaultLang.cs" />
+    <Compile Include="DataModel\Localisation\Lang\DefaultLang.cs" />
     <Compile Include="DataModel\Localisation\Lang\GetSupportedLangs.cs" />
+    <Compile Include="DataModel\Localisation\Lang\Create.cs" />
+    <Compile Include="DataModel\Localisation\Lang\Update.cs" />
     <Compile Include="DataModel\Localisation\Lang\_DataModel.cs" />
     <Compile Include="DataModel\Localisation\Lang\_Blank.cs" />
     <Compile Include="DataModel\Localisation\Lang\_Ctor.cs" />

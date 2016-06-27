@@ -14,13 +14,47 @@ namespace MapHive.Server.Core.DataModel
     public partial class AppLocalisation
     {
         /// <summary>
-        /// App localisations cache. invalidated on app localisation create, update, destroy
+        /// App localisations records cache. invalidated on app localisation create, update, destroy
         /// </summary>
-        private static Dictionary<string, IEnumerable<AppLocalisation>> AppLocalisations { get; set; } = new Dictionary<string, IEnumerable<AppLocalisation>>();
+        private static Dictionary<string, IEnumerable<AppLocalisation>> AppLocalisationsCache { get; set; } = new Dictionary<string, IEnumerable<AppLocalisation>>();
 
 
-        //TODO - think about implementing extra cache for lang, app???
+        /// <summary>
+        /// Client localisations cache - cahce of the localisations prepared for the client output
+        /// </summary>
+        private static Dictionary<string, object> ClientLocalisationsCache { get; set; } = new Dictionary<string, object>();
+        //Q: how will this behave? Will the static live in app domain, so will be shared even when there are multiple worker processes?
 
+
+        /// <summary>
+        /// Ivalidates app localisations cache
+        /// </summary>
+        /// <param name="appName"></param>
+        private static void InvalidateAppLocalisationsCache(string appName)
+        {
+            if (AppLocalisationsCache.ContainsKey(appName))
+            {
+                AppLocalisationsCache.Remove(appName);
+            }
+
+            //clients cache too...
+            var keysToInvalidate = ClientLocalisationsCache.Keys.Where(k => k.IndexOf(appName) > -1);
+            foreach (var key in keysToInvalidate)
+            {
+                ClientLocalisationsCache.Remove(key);
+            }
+        }
+
+        /// <summary>
+        /// Generates a cache key for the client localisations
+        /// </summary>
+        /// <param name="langCodes"></param>
+        /// <param name="appNames"></param>
+        /// <returns></returns>
+        private static string GetClientLocalisationsCacheKey(IEnumerable<string> langCodes, IEnumerable<string> appNames)
+        {
+            return $"{appNames.OrderBy(s => s)}_{langCodes.OrderBy(s => s)}";
+        }
 
         /// <summary>
         /// Gets translations for the specified apps
@@ -54,16 +88,24 @@ namespace MapHive.Server.Core.DataModel
 
             var defaultLang = await Lang.GetDefaultLang(dbCtx);
 
+
+            //see if there is cache for the current combination already
+            var cacheKey = GetClientLocalisationsCacheKey(langCodes, appNames);
+            if (ClientLocalisationsCache.ContainsKey(cacheKey))
+            {
+                return (Dictionary<string, Dictionary<string, Dictionary<string, string>>>)ClientLocalisationsCache[cacheKey];
+            }
+
             //fetch localisations if needed
             foreach (var appName in appNames)
             {
-                if (!AppLocalisations.ContainsKey(appName))
+                if (!AppLocalisationsCache.ContainsKey(appName) || AppLocalisationsCache[appName] == null)
                 {
-                    AppLocalisations[appName] =
+                    AppLocalisationsCache[appName] =
                         await dbCtx.AppLocalisations.Where(al => al.ApplicationName == appName).ToListAsync();
                 }
 
-                var appLocalisations = AppLocalisations[appName];
+                var appLocalisations = AppLocalisationsCache[appName];
 
                 foreach (var appL in appLocalisations)
                 {
@@ -84,6 +126,9 @@ namespace MapHive.Server.Core.DataModel
                     }
                 }
             }
+
+            //cahce the output
+            ClientLocalisationsCache[cacheKey] = ret;
 
             return ret;
         }
