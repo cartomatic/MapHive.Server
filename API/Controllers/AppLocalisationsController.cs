@@ -74,14 +74,14 @@ namespace MapHive.Server.API.Controllers
         /// Gets an app localisation - all the translations retrieved from a db, for a given app.
         /// </summary>
         /// <param name="langCode"></param>
-        /// <param name="appName"></param>
+        /// <param name="appNames"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(Dictionary<string, Dictionary<string, Dictionary<string, string>>>))]
         [Route("localiseit")]
         [AllowAnonymous]
         [UnmodifiedDictKeyCasingOutputMethod]
-        public async Task<IHttpActionResult> GetAppLocalisation(string langCode, string appName)
+        public async Task<IHttpActionResult> GetAppLocalisation(string langCode, string appNames)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace MapHive.Server.API.Controllers
                     Ok(
                         await
                             AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, langCode,
-                                string.IsNullOrWhiteSpace(appName) ? new string[0] : new[] {appName}));
+                                string.IsNullOrWhiteSpace(appNames) ? new string[0] : appNames.Split(',')));
             }
             catch (Exception ex)
             {

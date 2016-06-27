@@ -54,6 +54,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
@@ -178,6 +182,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Identity.cs" />
     <Compile Include="Utils\Reflection.cs" />
+    <Compile Include="WebClientConfiguration\WebConfig.cs" />
+    <Compile Include="WebClientConfiguration\Localisation.cs" />
+    <Compile Include="WebClientConfiguration\RestSharpSerialisers\JsonNetSerialiser.cs" />
+    <Compile Include="WebClientConfiguration\ClientConfiguration.cs" />
+    <Compile Include="WebClientConfiguration\WebClientConfigurationExtensions.cs" />
+    <Compile Include="WebClientConfiguration\Prepare.cs" />
+    <Compile Include="WebClientConfiguration\AppsWithAuthRequired.cs" />
+    <Compile Include="WebClientConfiguration\Lang.cs" />
+    <Compile Include="WebClientConfiguration\_Ctor.cs" />
+    <Compile Include="WebClientConfiguration\_Blank.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -195,6 +209,10 @@
     <ProjectReference Include="..\..\Utils\Number\Number.csproj">
       <Project>{398545d8-33cc-4b60-a7b5-91c77ead25b1}</Project>
       <Name>Number</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utils\Web\Web.csproj">
+      <Project>{45666acc-c047-4608-8213-f109504ee551}</Project>
+      <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
