@@ -20,6 +20,10 @@ namespace MapHive.Server.Core
         {
             var cfg = new Dictionary<string, object>();
 
+            //output the app hash properties
+            cfg[nameof(AppHashProperties)] = AppHashProperties;
+            cfg[nameof(HashPropertyDelimiter)] = HashPropertyDelimiter;
+            cfg[nameof(HashPropertyValueDelimiter)] = HashPropertyValueDelimiter;
 
             //do an 'auth preflight', so user gets better experience - app will prompt for authentication straight away.
             cfg["AuthRequiredAppIdentifiers"] = await GetIdentifiersForAppsRequiringAuth();

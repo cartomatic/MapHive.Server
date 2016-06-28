@@ -87,7 +87,10 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Returns applications available to the current user; does not require auth, and for guests return a list of common apps.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("userapps")]
         [ResponseType(typeof(IEnumerable<Application>))]
