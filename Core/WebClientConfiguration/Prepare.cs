@@ -30,7 +30,7 @@ namespace MapHive.Server.Core
 
 
             //API endpoint - where the MapHive services are
-            cfg["ApiEndPoint"] = ConfigurationManager.AppSettings["MhApiEndPoint"];
+            cfg["ApiEndPoint"] = ConfigurationManager.AppSettings["ApiEndPoint"];
 
             //Allowed origins for the xwindow post message communication
             cfg["AllowedXWindowMsgBusOrigins"] = ConfigurationManager.AppSettings["AllowedXWindowMsgBusOrigins"]?.Split(',');
@@ -39,9 +39,9 @@ namespace MapHive.Server.Core
             //API map - customisation of the default api endpoints declared in the MapHive ExtJs
             try
             {
-                cfg["MhApiMap"] =
+                cfg["apiMap"] =
                     JsonConvert.DeserializeObject<Dictionary<string, string>>(
-                        ConfigurationManager.AppSettings["MhApiMap"]);
+                        ConfigurationManager.AppSettings["apiMap"]);
             }
             catch
             {

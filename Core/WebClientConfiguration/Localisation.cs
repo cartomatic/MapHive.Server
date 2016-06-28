@@ -18,7 +18,7 @@ namespace MapHive.Server.Core
         private static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisation(string appNames, string langCode)
         {
             var client = new RestClient(GetApiEndpoint());
-            var request = new RestRequest(GetApiMethodUrl("applocalisations"), Method.GET);
+            var request = new RestRequest(GetApiCallUrl("applocalisations"), Method.GET);
 
             request.AddQueryParameter("appNames", appNames);
             request.AddQueryParameter("langCode", langCode);

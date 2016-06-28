@@ -86,7 +86,7 @@ namespace MapHive.Server.Core
         private static async Task<IEnumerable<string>> GetSupportedLangCodes()
         {
             var client = new RestClient(GetApiEndpoint());
-            var request = new RestRequest(GetApiMethodUrl("supportedlangcodes"), Method.GET);
+            var request = new RestRequest(GetApiCallUrl("supportedlangcodes"), Method.GET);
 
             return (await client.ExecuteTaskAsync<List<string>>(request)).Data;
         }
@@ -99,7 +99,7 @@ namespace MapHive.Server.Core
         private static async Task<string> GetDefaultLangCode()
         {
             var client = new RestClient(GetApiEndpoint());
-            var request = new RestRequest(GetApiMethodUrl("defaultlangcode"), Method.GET);
+            var request = new RestRequest(GetApiCallUrl("defaultlangcode"), Method.GET);
 
             return (await client.ExecuteTaskAsync<string>(request)).Data;
         }

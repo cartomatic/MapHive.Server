@@ -16,13 +16,13 @@ namespace MapHive.Server.Core
         /// <returns></returns>
         private static string GetApiEndpoint()
         {
-            return ConfigurationManager.AppSettings["MhApiEndpoint"];
+            return ConfigurationManager.AppSettings["ApiEndpoint"];
         }
 
         /// <summary>
         /// Api methods - some mh api endpoints that are consulted during the client config preparation
         /// </summary>
-        private static Dictionary<string, string> ApiMethods { get; set; }
+        private static Dictionary<string, string> CfgApiCalls { get; set; }
 
 
         /// <summary>
@@ -30,15 +30,15 @@ namespace MapHive.Server.Core
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        private static string GetApiMethodUrl(string key)
+        private static string GetApiCallUrl(string key)
         {
-            if (ApiMethods == null)
+            if (CfgApiCalls == null)
             {
-                ApiMethods =
+                CfgApiCalls =
                     JsonConvert.DeserializeObject<Dictionary<string, string>>(
-                        ConfigurationManager.AppSettings["MhApiMethods"]);
+                        ConfigurationManager.AppSettings["CfgApiCalls"]);
             }
-            return ApiMethods[key];
+            return CfgApiCalls[key];
         }
     }
 }

@@ -16,7 +16,7 @@ namespace MapHive.Server.Core
         private static async Task<IEnumerable<string>> GetIdentifiersForAppsRequiringAuth()
         {
             var client = new RestClient(GetApiEndpoint());
-            var request = new RestRequest(GetApiMethodUrl("authidentifiers"), Method.GET);
+            var request = new RestRequest(GetApiCallUrl("authidentifiers"), Method.GET);
 
             return (await client.ExecuteTaskAsync<List<string>>(request)).Data;
         }
