@@ -93,6 +93,8 @@
     <Compile Include="API\Serialisation\CamelCasedOutputMethodAttribute.cs" />
     <Compile Include="API\Serialisation\UnmodifiedDictKeyCasingOutputMethodAttribute.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
+    <Compile Include="DAL\Interface\IXWindow.cs" />
+    <Compile Include="DAL\TypeConfiguration\XWindowOriginConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LangConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
     <Compile Include="DAL\Interface\ILinksDbContext.cs" />
@@ -166,6 +168,11 @@
     <Compile Include="DataModel\Validation\ValidationErrors.cs" />
     <Compile Include="DataModel\Validation\ValidationFailedException.cs" />
     <Compile Include="DataModel\Validation\ValidationRules.cs" />
+    <Compile Include="DataModel\XWindowOrigin\Validation.cs" />
+    <Compile Include="DataModel\XWindowOrigin\GetAllowedXWindowOrigins.cs" />
+    <Compile Include="DataModel\XWindowOrigin\_DataModel.cs" />
+    <Compile Include="DataModel\XWindowOrigin\_Ctor.cs" />
+    <Compile Include="DataModel\XWindowOrigin\_Blank.cs" />
     <Compile Include="Email\EmailAccount.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
@@ -190,6 +197,7 @@
     <Compile Include="WebClientConfiguration\Prepare.cs" />
     <Compile Include="WebClientConfiguration\AppsWithAuthRequired.cs" />
     <Compile Include="WebClientConfiguration\Lang.cs" />
+    <Compile Include="WebClientConfiguration\GetAllowedXWindowOrigins.cs" />
     <Compile Include="WebClientConfiguration\_Ctor.cs" />
     <Compile Include="WebClientConfiguration\_Blank.cs" />
   </ItemGroup>

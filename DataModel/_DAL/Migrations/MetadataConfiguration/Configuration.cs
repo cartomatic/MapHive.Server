@@ -1,6 +1,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using MapHive.Server.Core.DataModel;
+using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.Core.Utils;
 
 namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
@@ -33,6 +34,8 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             LangsSeed(context);
 
             AppLocalisationsSeed(context);
+
+            XWindowOriginsSeed(context);
         }
 
         private void AppLocalisationsSeed(MapHiveDbContext context)
@@ -142,7 +145,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             context.Applications.AddOrUpdate(
                 new Application
                 {
-                    Uuid = Guid.Parse("aebe8c25-92a8-49c5-a54e-1b542727c879"),
+                    Uuid = Guid.NewGuid(),
                     ShortName = "mhhgis",
                     Name = "HGIS v1",
                     Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
@@ -152,7 +155,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.Parse("79f03dc6-7591-4011-92f3-09d07aa1b048"),
+                    Uuid = Guid.NewGuid(),
                     ShortName = "mhmapapp",
                     Name = "MapHive MapApp",
                     Description = "MapHIve Map App",
@@ -162,7 +165,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.Parse("9f1f40a6-94df-4e7b-b2b0-b2b14a3b70f6"),
+                    Uuid = Guid.NewGuid(),
                     Name = "Admin",
                     ShortName = "mhadmin",
                     Description = "MapHive Admin",
@@ -173,13 +176,75 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.Parse("28f28ebd-b2f6-4872-857d-46763e193753"),
+                    Uuid = Guid.NewGuid(),
+                    //no short name, so can test uuid in the url part!
+                    Name = "MapHive MapApp",
+                    Description = "MapHive map app",
+                    Url = "https://maps.maphive.local/",
+                    RequiresAuth = false
+                },
+                new Application
+                {
+                    Uuid = Guid.NewGuid(),
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive SiteAdmin",
                     Description = "MapHive platform Admin app",
-                    Url = "https://siteadmin.maphive.local/",
-                    RequiresAuth = true
-                });
+                    Url = "https://masterofpuppets.maphive.local/",
+                    RequiresAuth = false
+                },
+                new Application
+                {
+                    Uuid = Guid.NewGuid(),
+                    ShortName = "tapp1",
+                    Name = "TApp1",
+                    Description = "A test HOST app that suppresses nested framed apps",
+                    Url = "https://test1.maphive.local/?suppressnested=true#some/hash/123/456",
+                    IsCommon = true
+                },
+                new Application
+                {
+                    Uuid = Guid.NewGuid(),
+                    ShortName = "tapp2",
+                    Name = "TApp2",
+                    Description = "A test HOST app that suppresses nested framed apps",
+                    Url = "https://test2.maphive.local/?param=test param so can be sure paraterised app urls also work&suppressnested=true",
+                    UseSplashscreen = true,
+                    IsCommon = true
+                },
+                new Application
+                {
+                    Uuid = Guid.NewGuid(),
+                    ShortName = "tapp3",
+                    Name = "TApp3",
+                    Description = "A test HOST app that suppresses nested framed apps",
+                    Url = "https://test3.maphive.local/",
+                    IsCommon = true
+                }
+                );
+        }
+
+        private static void XWindowOriginsSeed(IXWindow context)
+        {
+            var origins = new[]
+            {
+                "", "hive", "hgis", "admin", "masterofpuppets", "testhive", "test1", "test2", "test3"
+            };
+
+            foreach (var origin in origins)
+            {
+                context.XWindowOrigins.AddOrUpdate(
+                    new XWindowOrigin
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Origin = $"{origin}{(string.IsNullOrEmpty(origin) ? "" : ".")}maphive.local"
+                    },
+                    new XWindowOrigin
+                    {
+                        Uuid = Guid.NewGuid(),
+                        Origin = $"{origin}{(string.IsNullOrEmpty(origin) ? "" : ".")}maphive.net"
+                    }
+                );
+            }
         }
     }
 }

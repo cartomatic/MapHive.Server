@@ -33,7 +33,7 @@ namespace MapHive.Server.Core
             cfg["ApiEndPoint"] = ConfigurationManager.AppSettings["ApiEndPoint"];
 
             //Allowed origins for the xwindow post message communication
-            cfg["AllowedXWindowMsgBusOrigins"] = ConfigurationManager.AppSettings["AllowedXWindowMsgBusOrigins"]?.Split(',');
+            cfg["AllowedXWindowMsgBusOrigins"] = await GetAllowedXWindowOrigins();
 
 
             //API map - customisation of the default api endpoints declared in the MapHive ExtJs

@@ -126,6 +126,23 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .PrimaryKey(t => t.uuid)
                 .Index(t => t.email, unique: true, name: "uq_email");
             
+            CreateTable(
+                "metadata.xwindow_origins",
+                c => new
+                    {
+                        uuid = c.Guid(nullable: false),
+                        origin = c.String(),
+                        description = c.String(),
+                        custom = c.Boolean(nullable: false),
+                        insertion_order = c.Int(nullable: false, identity: true),
+                        created_by = c.Guid(),
+                        last_modified_by = c.Guid(),
+                        create_date = c.DateTime(),
+                        modify_date = c.DateTime(),
+                        end_date = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.uuid);
+            
         }
         
         public override void Down()
@@ -138,6 +155,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             DropIndex("metadata.localisation_email_templates", "uq_app_name_and_identifier");
             DropIndex("metadata.localisation_app_translations", "uq_app_name_class_name_translation_key");
             DropIndex("metadata.applications", "uq_short_name");
+            DropTable("metadata.xwindow_origins");
             DropTable("metadata.users");
             DropTable("metadata.links");
             DropTable("metadata.localisation_langs");

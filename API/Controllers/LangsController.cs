@@ -54,7 +54,7 @@ namespace MapHive.Server.API.Controllers
         // POST: /applocalisations
         [HttpPost]
         [Route("")]
-        [ResponseType(typeof(AppLocalisation))]
+        [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Post(Lang obj)
         {
             return await base.Post(obj);

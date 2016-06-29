@@ -23,8 +23,6 @@ namespace MapHive.Server.Core
             request.AddQueryParameter("appNames", appNames);
             request.AddQueryParameter("langCode", langCode);
 
-            var x = client.Execute(request);
-
             return (await client.ExecuteTaskAsync<Dictionary<string, Dictionary<string, Dictionary<string, string>>>>(request)).Data;
         }
     }
