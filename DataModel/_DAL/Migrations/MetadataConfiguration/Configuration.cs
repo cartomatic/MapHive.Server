@@ -190,7 +190,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                     Name = "MapHive SiteAdmin",
                     Description = "MapHive platform Admin app",
                     Url = "https://masterofpuppets.maphive.local/",
-                    RequiresAuth = false
+                    RequiresAuth = true
                 },
                 new Application
                 {
