@@ -50,6 +50,9 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="IdentityModel">
+      <HintPath>..\packages\IdentityModel.1.11.0\lib\net45\IdentityModel.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -92,6 +95,14 @@
     <Compile Include="API\Serialisation\CamelCasedOutputControllerAttribute.cs" />
     <Compile Include="API\Serialisation\CamelCasedOutputMethodAttribute.cs" />
     <Compile Include="API\Serialisation\UnmodifiedDictKeyCasingOutputMethodAttribute.cs" />
+    <Compile Include="Auth\ValidateToken.cs" />
+    <Compile Include="Auth\ActivateAccount.cs" />
+    <Compile Include="Auth\LetMeIn.cs" />
+    <Compile Include="Auth\LetMeOutOfHere.cs" />
+    <Compile Include="Auth\AuthenticationOutput.cs" />
+    <Compile Include="Auth\IdSrvTokenClientOpts.cs" />
+    <Compile Include="Auth\RefreshToken.cs" />
+    <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
     <Compile Include="DAL\TypeConfiguration\XWindowOriginConfiguration.cs" />
@@ -223,9 +234,7 @@
       <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Auth\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

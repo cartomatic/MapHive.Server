@@ -60,7 +60,7 @@ namespace MapHive.Server.API
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             //add authorise attribute to all requests
-            //httpConfiguration.Filters.Add(new AuthorizeAttribute());
+            config.Filters.Add(new AuthorizeAttribute());
 
             var corsCfg =
                 JsonConvert.DeserializeObject<Dictionary<string, string>>(ConfigurationManager.AppSettings["CorsCfg"]);
