@@ -53,9 +53,11 @@ namespace MapHive.Server.Core.DataModel
                         {
                             Message = error.ErrorMessage,
                             Code = error.ErrorCode,
-                            PropertyName = error.PropertyName
+                            PropertyName = error.PropertyName,
+                            Info = error.FormattedMessagePlaceholderValues
                         }
                     );
+
                 }
 
                 throw validationFailedException;
