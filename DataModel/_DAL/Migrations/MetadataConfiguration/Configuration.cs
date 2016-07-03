@@ -11,7 +11,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<MapHiveDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<MapHiveDbContext>
     {
         public Configuration()
         {
