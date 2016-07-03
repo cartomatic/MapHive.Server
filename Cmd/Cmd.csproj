@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BrockAllen.MembershipReboot, Version=8.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BrockAllen.MembershipReboot.8.4.0\lib\net45\BrockAllen.MembershipReboot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +62,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -66,10 +71,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CmdHandler\HandleSetUp.cs" />
-    <Compile Include="CmdHandler\HandleDropDb.cs" />
-    <Compile Include="CmdHandler\HandleDataSourceCredentials.cs" />
+    <Compile Include="CmdHandler\Handle_SetUp.cs" />
+    <Compile Include="CmdHandler\Handle_DropDb.cs" />
+    <Compile Include="CmdHandler\Handle_DataSourceCredentials.cs" />
     <Compile Include="CmdHandler\HandleException.cs" />
+    <Compile Include="CmdHandler\Handle_AddSuperUser.cs" />
     <Compile Include="CmdHandler\_Blank.cs" />
     <Compile Include="CmdHandler\_Ctor.cs" />
     <Compile Include="Program.cs" />
@@ -87,6 +93,10 @@
     <ProjectReference Include="..\..\Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{1C72B362-267B-4527-9012-7A7431FBBA3B}</Project>
+      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{6467c396-fb96-42eb-b2e0-c7659fef5af4}</Project>

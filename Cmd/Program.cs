@@ -10,6 +10,13 @@ namespace MapHive.Server.Cmd
     {
         static void Main(string[] args)
         {
+            Task.WaitAll(
+                Task.Run(() => MainAsync(args))
+            );
+        }
+
+        static async Task MainAsync(string[] args)
+        {
             var cmdWatcher = new Cartomatic.CmdPrompt.Core.CmdWatcher(new CommandHandler())
             {
                 Prompt = "MapHive...Bzz...>",
@@ -19,7 +26,7 @@ namespace MapHive.Server.Cmd
             //setup if needed
 
 
-            cmdWatcher.Init();
+            await cmdWatcher.Init();
 
 
             Console.ReadLine();
