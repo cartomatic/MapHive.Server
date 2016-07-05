@@ -131,6 +131,7 @@
     <Compile Include="DataModel\Dto\DtoObjectExtensions.cs" />
     <Compile Include="DataModel\Interface\IBase.cs" />
     <Compile Include="DataModel\Interface\IDto.cs" />
+    <Compile Include="DataModel\Interface\IJsonSerialisableType.cs" />
     <Compile Include="DataModel\Interface\ILink.cs" />
     <Compile Include="DataModel\Interface\ILinkData.cs" />
     <Compile Include="DataModel\Interface\ILinksDiff.cs" />

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MapHive.Server.Core.DataModel.Interface
 {
-    public interface ITranslations : IJsonSerialisableType
+    public interface IJsonSerialisableType
     {
+        string Serialised { get; set; }
     }
 }

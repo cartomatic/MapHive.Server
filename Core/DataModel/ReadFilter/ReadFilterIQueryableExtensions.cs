@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Cartomatic.Utils.Number;
+using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
@@ -54,20 +55,45 @@ namespace MapHive.Server.Core.DataModel
                     //ExtJs sends string filters ike this:
                     //{"operator":"like","value":"some value","property":"name"}
 
-                    //make sure the type of the property to filter by is ok
-                    if (propertyToFilterBy.PropertyType != typeof(string))
+                    //Note:
+                    //In some cases complex types are used to simplify interaction with them in an object orineted way (so through properties) and at the same time
+                    //such types are stored as a single json string entry in the database
+                    //in such case a type shoudl implement IJsonSerialisableType. I so it should be possible to filter such type as it was a string
+                    //(which it indeed is on the db side)
+                    if (propertyToFilterBy.PropertyType.GetInterfaces().Contains(typeof(IJsonSerialisableType)))
+                    {
+                        //This will call to lower on the property that the filter applies to;
+                        //pretty much means call ToLower on the property - something like p => p.ToLower()
+                        var toLower = Expression.Call(
+                            Expression.Property(//this specify the property to filter by on the param object specified earlier - so p => p.Property
+                                Expression.Property(expType, filter.Property), 
+                                "serialised" //and we dig deeper here to reach p.Property.Serialised
+                            ),
+                            typeof(string).GetMethod("ToLower", Type.EmptyTypes) //this is the method to be called on the property specified above
+                        );
+
+                        //finally need to assemble an equivaluent of p.Property.ToLower().Contains(filter.Value)
+                        filterExpression = Expression.Call(toLower, "Contains", null, Expression.Constant(((string)filter.Value.ToString()).ToLower(), typeof(string)));
+                    }
+                    else
+                    {
+                        //this should be a string
+
+                        //make sure the type of the property to filter by is ok
+                        if (propertyToFilterBy.PropertyType != typeof(string))
                             throw new BadRequestException($"The property {targetType}.{propertyToFilterBy.Name} is not of 'string' type.");
 
-                    
-                    //This will call to lower on the property that the filter applies to;
-                    //pretty much means call ToLower on the property - something like p => p.ToLower()
-                    var toLower = Expression.Call(
-                        Expression.Property(expType, filter.Property), //this specify the property to filter by on the param object specified earlier - so p => p.Property
-                        typeof(string).GetMethod("ToLower", Type.EmptyTypes) //this is the method to be called on the property specified above
-                    );
 
-                    //finally need to assemble an equivaluent of p.Property.ToLower().Contains(filter.Value)
-                    filterExpression = Expression.Call(toLower, "Contains", null, Expression.Constant(((string)filter.Value.ToString()).ToLower(), typeof(string)));
+                        //This will call to lower on the property that the filter applies to;
+                        //pretty much means call ToLower on the property - something like p => p.ToLower()
+                        var toLower = Expression.Call(
+                            Expression.Property(expType, filter.Property), //this specify the property to filter by on the param object specified earlier - so p => p.Property
+                            typeof(string).GetMethod("ToLower", Type.EmptyTypes) //this is the method to be called on the property specified above
+                        );
+
+                        //finally need to assemble an equivaluent of p.Property.ToLower().Contains(filter.Value)
+                        filterExpression = Expression.Call(toLower, "Contains", null, Expression.Constant(((string)filter.Value.ToString()).ToLower(), typeof(string)));
+                    }
                 }
 
                 //range filter
@@ -167,5 +193,6 @@ namespace MapHive.Server.Core.DataModel
             // Return query with filter expressions
             return query.Provider.CreateQuery<T>(whereBody);
         }
+        
     }
 }
