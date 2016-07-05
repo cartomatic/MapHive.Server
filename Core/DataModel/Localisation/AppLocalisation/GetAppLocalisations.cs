@@ -38,7 +38,7 @@ namespace MapHive.Server.Core.DataModel
             }
 
             //clients cache too...
-            var keysToInvalidate = ClientLocalisationsCache.Keys.Where(k => k.IndexOf(appName) > -1);
+            var keysToInvalidate = ClientLocalisationsCache.Keys.Where(k => k.IndexOf(appName) > -1).ToList();
             foreach (var key in keysToInvalidate)
             {
                 ClientLocalisationsCache.Remove(key);
@@ -53,7 +53,7 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         private static string GetClientLocalisationsCacheKey(IEnumerable<string> langCodes, IEnumerable<string> appNames)
         {
-            return $"{appNames.OrderBy(s => s)}_{langCodes.OrderBy(s => s)}";
+            return $"{string.Join("_", appNames.OrderBy(s => s))}___{string.Join("_", langCodes.OrderBy(s => s))}";
         }
 
         /// <summary>
