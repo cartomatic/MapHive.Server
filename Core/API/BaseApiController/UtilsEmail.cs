@@ -32,7 +32,7 @@ namespace MapHive.Server.Core.API
                     dbCtx.EmailTemplates.Where(t => string.IsNullOrEmpty(t.ApplicationName) && t.Identifier == emailIdentifier).FirstOrDefaultAsync();
 
             //request or default lang
-            var langCode = await GetRequestLangCode();
+            var langCode = GetRequestLangCode();
             var defaultLangCode = await GetDefaultLang(dbCtx);
 
             //finaly 

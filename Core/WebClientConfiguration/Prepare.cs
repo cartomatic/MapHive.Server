@@ -50,6 +50,7 @@ namespace MapHive.Server.Core
 
             //grab the localisation for the application
             cfg["LangCode"] = await GetRequestLang();
+            cfg[nameof(LangParam)] = LangParam;
             cfg["Localisation"] = await GetAppLocalisation(appIdentifiers, (string)cfg["LangCode"]);
 
             return cfg;

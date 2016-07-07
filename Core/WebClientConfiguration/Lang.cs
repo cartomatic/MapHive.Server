@@ -39,15 +39,7 @@ namespace MapHive.Server.Core
             //finally, if no data in a cookie is present, check the lang defined in the request
 
             //url test
-            foreach (string param in request.Params)
-            {
-                if (param == LangParam)
-                {
-                    lng = request.Params[param];
-
-                    break;
-                }
-            }
+            lng = request.Params[LangParam];
 
             //now it's the cookie time
             if (string.IsNullOrEmpty(lng))

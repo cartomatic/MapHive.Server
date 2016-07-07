@@ -17,22 +17,19 @@ namespace MapHive.Server.Core.API
         /// Tries to obtain a language of a request
         /// </summary>
         /// <returns></returns>
-        public async Task<string> GetRequestLangCode()
+        protected string GetRequestLangCode()
         {
             var request = HttpContext.Current.Request;
-            var lng = string.Empty;
+
+            //first headers
+            var lng = request.Headers[WebClientConfiguration.LangParam];
 
             //url test
-            foreach (string param in request.Params)
+            if (string.IsNullOrEmpty(lng))
             {
-                if (param == WebClientConfiguration.LangParam)
-                {
-                    lng = request.Params[param];
-
-                    break;
-                }
+                lng = request.Params[WebClientConfiguration.LangParam];
             }
-
+           
             //now it's the cookie time
             if (string.IsNullOrEmpty(lng))
             {
@@ -56,7 +53,7 @@ namespace MapHive.Server.Core.API
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<string> GetDefaultLang(ILocalised dbCtx)
+        protected async Task<string> GetDefaultLang(ILocalised dbCtx)
         {
             return (await dbCtx.Langs.FirstOrDefaultAsync(l => l.IsDefault))?.LangCode;
         }

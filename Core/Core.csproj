@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BaseApiController\UtilsRequest.cs" />
     <Compile Include="API\BaseApiController\UtilsLang.cs" />
     <Compile Include="API\BaseApiController\UtilsEmail.cs" />
     <Compile Include="API\BaseApiController\_Ctor.cs" />
