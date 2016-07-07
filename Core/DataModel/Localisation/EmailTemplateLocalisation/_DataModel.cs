@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Description of a template
         /// </summary>
-        public string Desription { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Name of the application a template is meant for; should be used along with the Identifier to narrow searches when looking up a template;

@@ -1,4 +1,4 @@
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.Collections.Generic;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.Interface;
@@ -34,6 +34,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             LangsSeed(context);
 
             AppLocalisationsSeed(context);
+            EmailLocalisationsSeed(context);
 
             XWindowOriginsSeed(context);
         }
@@ -44,7 +45,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             context.AppLocalisations.AddOrUpdate(
                 new AppLocalisation
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("17dd0189-ed1b-404f-b39c-b1e3f4718d40"),
                     ApplicationName = "mh",
                     ClassName = "some.class.Name",
                     TranslationKey = "someTranslationKey",
@@ -56,7 +57,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new AppLocalisation
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("7dbb4b9a-e192-4d00-941e-c90069604e4f"),
                     ApplicationName = "SomeApp",
                     ClassName = "some.class.Name",
                     TranslationKey = "someTranslationKey",
@@ -64,6 +65,46 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                     {
                         { "en", "Some EN property" },
                         { "pl", "Some PL property" }
+                    }
+                },
+                new AppLocalisation
+                {
+                    Uuid = Guid.Parse("cc58679a-ac75-43c6-8b1c-94d3238b95d6"),
+                    ApplicationName = "mh",
+                    ClassName = "module.data.DataViewBase",
+                    TranslationKey = "btnCreate",
+                    Translations = new Translations
+                    {
+                        { "en", "NEW WHOAA!!!" }
+                    }
+                },
+                new AppLocalisation
+                {
+                    Uuid = Guid.Parse("b77cdffe-4da6-4327-a087-41ee45018ead"),
+                    ApplicationName = "MasterOfPuppets",
+                    ClassName = "view.applications.Applications",
+                    TranslationKey = "btnCreate",
+                    Translations = new Translations
+                    {
+                        { "en", "XXX" }
+                    }
+                }
+            );
+        }
+
+        private void EmailLocalisationsSeed(MapHiveDbContext context)
+        {
+            context.EmailTemplates.AddOrUpdate(
+                new EmailTemplateLocalisation
+                {
+                    Name = "User created",
+                    Description = "Email sent when user has been created. Replacement tokens are: {InitialPassword}, {VerificationKey}, ... to be updated...",
+                    Identifier = "user_created",
+                    IsBodyHtml = true,
+                    Translations = new EmailTranslations
+                    {
+                        { "en", new EmailTemplate{Title = "User created email title.", Body = "<font color=\"FF00FF\" face=\"courier new\" size=\"5\"><i>Some </i></font>nice HTML or so<b>met</b>hi<span style=\"background-color: rgb(153, 204, 0); \"><font color=\"800000\" size=\"7\">n<u>g</u>!</font></span>"} },
+                        { "pl", new EmailTemplate{Title = "Utworzono konto użytkownika.", Body = "Email z informacjami co dalej po utworzeniu konta usera..."} }
                     }
                 }
             );
@@ -77,13 +118,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         {
             context.Langs.AddOrUpdate(new Lang
             {
-                Uuid = Guid.NewGuid(),
+                Uuid = Guid.Parse("ece753c3-f079-4772-8aa2-0960aeabc94d"),
                 LangCode = "pl",
                 Name = "Polski"
             },
             new Lang
             {
-                Uuid = Guid.NewGuid(),
+                Uuid = Guid.Parse("8323d1bb-e6f5-49d3-a441-837017d6e97e"),
                 LangCode = "en",
                 Name = "English",
                 IsDefault = true
@@ -145,7 +186,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             context.Applications.AddOrUpdate(
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("30aca350-41a4-4906-be82-da1247537f19"),
                     ShortName = "mhhgis",
                     Name = "HGIS v1",
                     Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
@@ -155,7 +196,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("473cb87f-815f-4362-aaca-021d163b60b7"),
                     ShortName = "mhmapapp",
                     Name = "MapHive MapApp",
                     Description = "MapHIve Map App",
@@ -165,7 +206,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("744e10e2-ffd8-4857-8909-d8638c8eb6f5"),
                     Name = "Admin",
                     ShortName = "mhadmin",
                     Description = "MapHive Admin",
@@ -176,7 +217,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("cc6dbf2e-f2f0-462f-a4a3-e2c13aa21e49"),
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive MapApp",
                     Description = "MapHive map app",
@@ -185,7 +226,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("1e025446-1a25-4639-a302-9ce0e2017a59"),
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive SiteAdmin",
                     Description = "MapHive platform Admin app",
@@ -194,7 +235,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("2781a6da-38f7-49a5-8837-05c825e776b6"),
                     ShortName = "tapp1",
                     Name = "TApp1",
                     Description = "A test HOST app that suppresses nested framed apps",
@@ -203,7 +244,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("bddb6bfb-b6a9-4478-a236-5e5ba5d8f8fc"),
                     ShortName = "tapp2",
                     Name = "TApp2",
                     Description = "A test HOST app that suppresses nested framed apps",
@@ -213,7 +254,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 },
                 new Application
                 {
-                    Uuid = Guid.NewGuid(),
+                    Uuid = Guid.Parse("748acb4b-ab56-46bb-a348-a669ebd19f6f"),
                     ShortName = "tapp3",
                     Name = "TApp3",
                     Description = "A test HOST app that suppresses nested framed apps",

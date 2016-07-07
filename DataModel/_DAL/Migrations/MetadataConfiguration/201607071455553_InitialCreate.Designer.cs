@@ -7,13 +7,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class EmailTemplateLocalisationModelChange : IMigrationMetadata
+    public sealed partial class InitialCreate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(EmailTemplateLocalisationModelChange));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201607071317218_EmailTemplateLocalisationModelChange"; }
+            get { return "201607071455553_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

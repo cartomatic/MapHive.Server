@@ -58,7 +58,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         description = c.String(),
                         application_name = c.String(),
                         identifier = c.String(),
-                        is_email_html = c.Boolean(nullable: false),
+                        is_body_html = c.Boolean(nullable: false),
                         translations = c.String(),
                         insertion_order = c.Int(nullable: false, identity: true),
                         created_by = c.Guid(),

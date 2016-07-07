@@ -67,13 +67,9 @@
     <Compile Include="Application\_DataModel.cs" />
     <Compile Include="Application\_Blank.cs" />
     <Compile Include="Application\_Ctor.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201606290940591_InitialCreate.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201606290940591_InitialCreate.Designer.cs">
-      <DependentUpon>201606290940591_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071317218_EmailTemplateLocalisationModelChange.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071317218_EmailTemplateLocalisationModelChange.Designer.cs">
-      <DependentUpon>201607071317218_EmailTemplateLocalisationModelChange.cs</DependentUpon>
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.cs" />
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.Designer.cs">
+      <DependentUpon>201607071455553_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="_DAL\Migrations\MetadataConfiguration\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,11 +94,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201606290940591_InitialCreate.resx">
-      <DependentUpon>201606290940591_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201607071317218_EmailTemplateLocalisationModelChange.resx">
-      <DependentUpon>201607071317218_EmailTemplateLocalisationModelChange.cs</DependentUpon>
+    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.resx">
+      <DependentUpon>201607071455553_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
