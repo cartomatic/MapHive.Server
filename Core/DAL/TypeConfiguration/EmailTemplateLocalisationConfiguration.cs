@@ -24,7 +24,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.Name).HasColumnName("name");
             Property(en => en.Desription).HasColumnName("description");
             Property(en => en.Identifier).HasColumnName("identifier");
-            Property(en => en.IsEmailHtml).HasColumnName("is_email_html");
+            Property(en => en.IsBodyHtml).HasColumnName("is_body_html");
 
             //Stuff below would be true if the class derived from ILocalisationConfiguration; this does not seem to work though...
             //Note: Translations dobe via ILocalisationConfiguration

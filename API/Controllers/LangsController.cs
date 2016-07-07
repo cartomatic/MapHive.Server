@@ -15,7 +15,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("langs")]
-    public class LangsController : BaseApiController<AppLocalisation, MapHiveDbContext>
+    public class LangsController : BaseApiController<Lang, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public LangsController()
@@ -23,7 +23,7 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /applocalisations
+        // GET: /langs
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<Lang>))]
@@ -33,7 +33,7 @@ namespace MapHive.Server.API.Controllers
             return await base.Get(sort, filter, start, limit);
         }
 
-        // GET: /applocalisations/5
+        // GET: /langs/5
         [HttpGet]
         [ResponseType(typeof(Lang))]
         [Route("{uuid}")]
@@ -42,7 +42,7 @@ namespace MapHive.Server.API.Controllers
             return await base.Get(uuid);
         }
 
-        // PUT: /applocalisations/5
+        // PUT: /langs/5
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(Lang))]
@@ -51,7 +51,7 @@ namespace MapHive.Server.API.Controllers
             return await base.Put(obj, uuid);
         }
 
-        // POST: /applocalisations
+        // POST: /langs
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(Lang))]
@@ -60,7 +60,7 @@ namespace MapHive.Server.API.Controllers
             return await base.Post(obj);
         }
 
-        // DELETE: /applocalisations/5
+        // DELETE: /langs/5
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(Lang))]

@@ -33,7 +33,7 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Whether or not body template contains HTML
         /// </summary>
-        public bool IsEmailHtml { get; set; }
+        public bool IsBodyHtml { get; set; }
 
         /// <summary>
         /// Template translations
