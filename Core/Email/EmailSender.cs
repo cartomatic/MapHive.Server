@@ -19,7 +19,7 @@ namespace MapHive.Server.Core.Email
         /// <param name="emailAccount">EmailAccount deails</param>
         /// <param name="emailTemplate">Email data to be sent out</param>
         /// <param name="recipient">Email of a recipient</param>
-        public static void Send(EmailAccount emailAccount, IEmailTemplate emailTemplate, string recipient)
+        public static void Send(IEmailAccount emailAccount, IEmailTemplate emailTemplate, string recipient)
         {
             Task.Run(() =>
             {

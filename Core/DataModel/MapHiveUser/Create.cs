@@ -32,6 +32,13 @@ namespace MapHive.Server.Core.DataModel
         {
             return await obj.Create<T, TAccount>(dbCtx, userAccountService);
         }
+
+        public static async Task<T> Create<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount, IEmailTemplate emailTemplate)
+            where T : MapHiveUser
+            where TAccount : RelationalUserAccount
+        {
+            return await obj.Create<T, TAccount>(dbCtx, userAccountService, emailAccount, emailTemplate);
+        }
     }
 
     public abstract partial class MapHiveUser
@@ -67,7 +74,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="emailAccount"></param>
         /// <param name="emailTemplate"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Create<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, EmailAccount emailAccount = null, IEmailTemplate emailTemplate = null)
+        protected internal virtual async Task<T> Create<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount = null, IEmailTemplate emailTemplate = null)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {

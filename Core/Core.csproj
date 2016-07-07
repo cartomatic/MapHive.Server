@@ -83,6 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BaseApiController\UtilsLang.cs" />
+    <Compile Include="API\BaseApiController\UtilsEmail.cs" />
     <Compile Include="API\BaseApiController\_Ctor.cs" />
     <Compile Include="API\BaseApiController\ExceptionHandler.cs" />
     <Compile Include="API\BaseApiController\CustomResponseHeaders.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Email\EmailAccount.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
+    <Compile Include="Email\IEmailAccount.cs" />
     <Compile Include="Email\IEmailTemplate.cs" />
     <Compile Include="Events\IOpFeedbackEventArgs.cs" />
     <Compile Include="Events\MembershipRebootEventHandlers.cs" />

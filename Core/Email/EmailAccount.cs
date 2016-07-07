@@ -10,7 +10,7 @@ namespace MapHive.Server.Core.Email
     /// <summary>
     /// Email account details needed to connect to the smtp server
     /// </summary>
-    public class EmailAccount
+    public class EmailAccount : IEmailAccount
     {
         /// <summary>
         /// Sender email - from 
