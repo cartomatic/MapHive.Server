@@ -8,8 +8,8 @@ namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler : Cartomatic.CmdPrompt.Core.DefaultCmdCommandHandler
     {
-        public CommandHandler()
-            : base ("MapHive CMD v1.0....")
+        public CommandHandler(string handlerInfo)
+            : base (handlerInfo)
         {
             //register some xtra commands
             SetUpCommandMap(new Dictionary<string, string>
@@ -23,6 +23,11 @@ namespace MapHive.Server.Cmd.Core
 
             //default db credentials
             SetDefaultDsc();
+        }
+
+        public CommandHandler()
+            : this ("MapHive CMD v1.0....")
+        {
         }
     }
 }
