@@ -10,14 +10,14 @@ namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {
-        private Cartomatic.Utils.Data.DataSourceCredentials DataSourceCredentials { get; set; }
+        protected Cartomatic.Utils.Data.DataSourceCredentials Dsc { get; set; }
 
         /// <summary>
         /// Sets default db credentials
         /// </summary>
-        private void SetDefaultDsc()
+        protected virtual void SetDefaultDsc()
         {
-            DataSourceCredentials = new DataSourceCredentials
+            Dsc = new DataSourceCredentials
             {
                 DataSourceType = DataSourceType.PgSql,
                 ServerHost = "localhost",
@@ -33,7 +33,7 @@ namespace MapHive.Server.Cmd.Core
         /// handles setting db credentials
         /// </summary>
         /// <param name="args"></param>
-        protected void Handle_Dsc(Dictionary<string, string> args)
+        protected virtual void Handle_Dsc(Dictionary<string, string> args)
         {
             var cmd = GetCallerName();
 
@@ -69,7 +69,7 @@ namespace MapHive.Server.Cmd.Core
 
                 if (ValidateDbCredentials(serverhost, servername, serverport, database, user, pass))
                 {
-                    DataSourceCredentials = new DataSourceCredentials
+                    Dsc = new DataSourceCredentials
                     {
                         ServerHost = serverhost,
                         ServerName = servername,
@@ -94,24 +94,24 @@ namespace MapHive.Server.Cmd.Core
         /// <summary>
         /// Prints currently configured database credentials
         /// </summary>
-        private void PrintDbc()
+        protected virtual void PrintDbc()
         {
             Console.WriteLine("Current database credentials:");
 
             var cl = ConsoleColor.DarkMagenta;
 
             Console.Write("serverhost:");
-            ConsoleEx.Write(DataSourceCredentials.ServerHost, cl);
+            ConsoleEx.Write(Dsc.ServerHost, cl);
             Console.Write(", servername:");
-            ConsoleEx.Write(DataSourceCredentials.ServerName, cl);
+            ConsoleEx.Write(Dsc.ServerName, cl);
             Console.Write(", serverport:");
-            ConsoleEx.Write(DataSourceCredentials.ServerPort.ToString(), cl);
+            ConsoleEx.Write(Dsc.ServerPort.ToString(), cl);
             Console.Write(", database:");
-            ConsoleEx.Write(DataSourceCredentials.DbName, cl);
+            ConsoleEx.Write(Dsc.DbName, cl);
             Console.Write(", user:");
-            ConsoleEx.Write(DataSourceCredentials.UserName, cl);
+            ConsoleEx.Write(Dsc.UserName, cl);
             Console.Write(", pass:");
-            ConsoleEx.Write(DataSourceCredentials.Pass, cl);
+            ConsoleEx.Write(Dsc.Pass, cl);
             Console.Write(Environment.NewLine);
 
             Console.WriteLine();
@@ -127,7 +127,7 @@ namespace MapHive.Server.Cmd.Core
         /// <param name="user"></param>
         /// <param name="pass"></param>
         /// <returns></returns>
-        private static bool ValidateDbCredentials(string serverhost, string servername, int? serverport, string database, string user, string pass)
+        protected virtual bool ValidateDbCredentials(string serverhost, string servername, int? serverport, string database, string user, string pass)
         {
             return !string.IsNullOrEmpty(serverhost) &&
                    serverport.HasValue &&

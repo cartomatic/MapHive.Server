@@ -50,18 +50,18 @@ namespace MapHive.Server.Cmd.Core
         /// Drops the specified dbs
         /// </summary>
         /// <param name="dbNames"></param>
-        private void DropDb(params string[] dbNames)
+        protected virtual void DropDb(params string[] dbNames)
         {
             //wipe out the db name for the connection as need to connect to the service db!
-            var curentDbName = DataSourceCredentials.DbName;
-            DataSourceCredentials.DbName = string.Empty;
+            var curentDbName = Dsc.DbName;
+            Dsc.DbName = string.Empty;
 
             try
             {
                 foreach (var dbName in dbNames)
                 {
                     //first cut the connection to the db if any
-                    using (var conn = new NpgsqlConnection(DataSourceCredentials.GetConnectionString()))
+                    using (var conn = new NpgsqlConnection(Dsc.GetConnectionString()))
                     {
                         conn.Open();
 
@@ -76,7 +76,7 @@ namespace MapHive.Server.Cmd.Core
                     }
 
                     //it should be possible to drop the db now
-                    using (var conn = new NpgsqlConnection(DataSourceCredentials.GetConnectionString()))
+                    using (var conn = new NpgsqlConnection(Dsc.GetConnectionString()))
                     {
                         conn.Open();
 
@@ -98,7 +98,7 @@ namespace MapHive.Server.Cmd.Core
             finally
             {
                 //restore previously set dbname
-                DataSourceCredentials.DbName = curentDbName;
+                Dsc.DbName = curentDbName;
             }
         }
     }

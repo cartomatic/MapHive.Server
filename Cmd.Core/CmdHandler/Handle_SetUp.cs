@@ -93,10 +93,10 @@ namespace MapHive.Server.Cmd.Core
                         var dbc = new DataSourceCredentials
                         {
                             DbName = migrationConfigs[migrationCfg],
-                            ServerHost = DataSourceCredentials.ServerHost,
-                            ServerPort = DataSourceCredentials.ServerPort,
-                            UserName = DataSourceCredentials.UserName,
-                            Pass = DataSourceCredentials.Pass,
+                            ServerHost = Dsc.ServerHost,
+                            ServerPort = Dsc.ServerPort,
+                            UserName = Dsc.UserName,
+                            Pass = Dsc.Pass,
                             DataSourceType = DataSourceType.PgSql
                         };
 

@@ -10,7 +10,7 @@ namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {
-        private void HandleException(Exception ex, bool skipIntro = false)
+        protected virtual void HandleException(Exception ex, bool skipIntro = false)
         {
             
             if (!skipIntro)

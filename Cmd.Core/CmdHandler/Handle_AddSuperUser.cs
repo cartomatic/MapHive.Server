@@ -13,7 +13,7 @@ namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {
-        protected async Task Handle_AddSuperUser(Dictionary<string, string> args)
+        protected virtual async Task Handle_AddSuperUser(Dictionary<string, string> args)
         {
             var cmd = GetCallerName();
 
