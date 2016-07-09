@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3CF0E045-5AB8-4ABF-B6BB-1FF07380C0D9}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{83CE35A5-2042-4E3E-9737-6986E2EE0557}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MapHive.Server.Cmd</RootNamespace>
-    <AssemblyName>MapHive.Server.Cmd</AssemblyName>
+    <RootNamespace>MapHive.Server.Cmd.Core</RootNamespace>
+    <AssemblyName>MapHive.Server.Cmd.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -71,12 +68,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="CmdHandler\HandleException.cs" />
+    <Compile Include="CmdHandler\Handle_AddSuperUser.cs" />
+    <Compile Include="CmdHandler\Handle_DataSourceCredentials.cs" />
+    <Compile Include="CmdHandler\Handle_DropDb.cs" />
+    <Compile Include="CmdHandler\Handle_SetUp.cs" />
+    <Compile Include="CmdHandler\_Blank.cs" />
+    <Compile Include="CmdHandler\_Ctor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CmdPrompt\CmdPrompt.Core\CmdPrompt.Core.csproj">
@@ -87,18 +86,18 @@
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Cmd.Core\Cmd.Core.csproj">
-      <Project>{83ce35a5-2042-4e3e-9737-6986e2ee0557}</Project>
-      <Name>Cmd.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{1C72B362-267B-4527-9012-7A7431FBBA3B}</Project>
+      <Project>{1c72b362-267b-4527-9012-7a7431fbba3b}</Project>
       <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataModel\DataModel.csproj">
       <Project>{6467c396-fb96-42eb-b2e0-c7659fef5af4}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

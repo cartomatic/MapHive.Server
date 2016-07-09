@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapHive.Server.Cmd
+namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler : Cartomatic.CmdPrompt.Core.DefaultCmdCommandHandler
     {

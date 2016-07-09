@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cartomatic.CmdPrompt.Core;
 using MapHive.Server.Core.DataModel.Validation;
 
-namespace MapHive.Server.Cmd
+namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {

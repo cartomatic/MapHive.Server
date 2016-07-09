@@ -7,7 +7,7 @@ using Cartomatic.CmdPrompt.Core;
 using Cartomatic.Utils.Data;
 using Npgsql;
 
-namespace MapHive.Server.Cmd
+namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {

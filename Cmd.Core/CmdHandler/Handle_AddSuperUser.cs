@@ -9,7 +9,7 @@ using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Events;
 using MapHive.Server.DataModel.DAL;
 
-namespace MapHive.Server.Cmd
+namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {
