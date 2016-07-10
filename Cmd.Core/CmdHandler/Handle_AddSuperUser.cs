@@ -53,6 +53,9 @@ namespace MapHive.Server.Cmd.Core
             //TODO - make it somewhat dynamic!          
             try
             {
+                //destroy a previous account if any
+                await DestroyUser<DataModel.User>(email, new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
+
                 IDictionary<string, object> op = null;
                 user.UserCreated += (sender, eventArgs) =>
                 {

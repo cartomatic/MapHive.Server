@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdHandler\HandleException.cs" />
+    <Compile Include="CmdHandler\Handle_DestroyUser.cs" />
     <Compile Include="CmdHandler\Handle_AddSuperUser.cs" />
     <Compile Include="CmdHandler\Handle_DataSourceCredentials.cs" />
     <Compile Include="CmdHandler\Handle_DropDb.cs" />
