@@ -20,7 +20,7 @@ namespace MapHive.Server.Core.DataModel
         {
             var dbSet = dbCtx.Set<T>();
 
-            this.Validate();
+            await this.Validate(dbCtx);
 
             //test if an object exists
             if (!await ObjectExists(dbSet, uuid))

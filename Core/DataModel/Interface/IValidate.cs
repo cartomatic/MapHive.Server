@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,8 @@ namespace MapHive.Server.Core.DataModel.Interface
         IValidator GetValidator();
 
         /// <summary>
-        /// Validates data model. Should throw when model is not valid
+        /// Validates data model. Should throw when model is not valid; expected to be async!
         /// </summary>
-        void Validate();
+        Task Validate(DbContext dbCtx);
     }
 }

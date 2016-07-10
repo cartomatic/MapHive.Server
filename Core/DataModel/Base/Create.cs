@@ -20,7 +20,7 @@ namespace MapHive.Server.Core.DataModel
         {
             var dbSet = dbCtx.Set<T>();
 
-            this.Validate();
+            await this.Validate(dbCtx);
 
 
             //new object so do generate uuid but only if default. otherwise guid has been set by other party

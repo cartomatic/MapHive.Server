@@ -37,6 +37,12 @@ namespace MapHive.Server.Core.DataModel.Validation
             Message = "Email in use."
         };
 
+        public static IValidationError UniqueConstraint { get; } = new ValidationError
+        {
+            Code = "unique_constraint",
+            Message = "Field value must be unique."
+        };
+
         public static IValidationError UnknownError { get; } = new ValidationError
         {
             Code = "unknown_error",
