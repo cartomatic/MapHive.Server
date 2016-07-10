@@ -20,15 +20,16 @@ namespace MapHive.Server.Core.DataModel
         {
             var dbSet = dbCtx.Set<T>();
 
+            //reassign guid - it usually comes through rest api, so not always present on the object itself
+            Uuid = uuid;
+
             await this.Validate(dbCtx);
 
             //test if an object exists
             if (!await ObjectExists(dbSet, uuid))
                 return null;
 
-
             //looks like we're good to go with the update...
-            Uuid = uuid;
 
             dbCtx.Entry(this).State = EntityState.Modified;
 
