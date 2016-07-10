@@ -42,6 +42,20 @@ namespace MapHive.Server.Core.DataModel
             {
                 Expression filterExpression = null;
 
+                //if filter operator is not defined make it "==" for bools, "like" for strings and "eq" for numbers and dates
+                //this is mainly because when filtering directly on store, operator is not sent and may be null
+                if (string.IsNullOrEmpty(filter.Operator))
+                {
+                    if (filter.Value is string)
+                        filter.Operator = "like";
+
+                    else if (filter.Value is bool)
+                        filter.Operator = "==";
+
+                    else if (filter.Value.IsNumeric() || filter.Value is DateTime)
+                        filter.Operator = "eq";
+                }
+
                 //Check if model property exists; if not this is a bad, bad request...
                 var propertyToFilterBy = targetType.GetProperties().FirstOrDefault(p => string.Equals(p.Name, filter.Property, StringComparison.CurrentCultureIgnoreCase));
                 if (propertyToFilterBy == null)
