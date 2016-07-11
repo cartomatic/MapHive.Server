@@ -37,11 +37,15 @@ namespace MapHive.Server.Core.DataModel
             //type will be used to work out the p type, while "p" is the param name
             var expType = Expression.Parameter(targetType, "p");
 
+            //If a filter is marked as ExactMatch, then store it here and glue to the expression at the very end
+            var exactMatch = new List<Expression>();
+
             //Create expression for each supplied filter
             foreach (var filter in filters)
             {
                 Expression filterExpression = null;
 
+                
                 //if filter operator is not defined make it "==" for bools, "like" for strings and "eq" for numbers and dates
                 //this is mainly because when filtering directly on store, operator is not sent and may be null
                 if (string.IsNullOrEmpty(filter.Operator))
@@ -55,6 +59,10 @@ namespace MapHive.Server.Core.DataModel
                     else if (filter.Value.IsNumeric() || filter.Value is DateTime)
                         filter.Operator = "eq";
                 }
+
+                //TODO - support some more filter operators such as =, <, <=, >, >=, notin, !=; this should be simply just a minor modification of the conditions below
+
+
 
                 //Check if model property exists; if not this is a bad, bad request...
                 var propertyToFilterBy = targetType.GetProperties().FirstOrDefault(p => string.Equals(p.Name, filter.Property, StringComparison.CurrentCultureIgnoreCase));
@@ -185,15 +193,37 @@ namespace MapHive.Server.Core.DataModel
                 if (filterExpression == null)
                     throw new BadRequestException($"Filter operator: {filter.Operator} for type: {filter.Value.GetType()} is not implemented (property: {propertyToFilterBy.Name} should be {propertyToFilterBy.PropertyType})");
 
-                mainExpression = mainExpression == null ? 
-                    filterExpression : 
+
+                //Note:
+                //filter expression now has to be joined with previous filters BUT ONLY IF filter is not flagged with the ExactMatch. In such case this such filter is supposed
+                //limit the resultset and be applied as AndAlso but at the very end of the Lambda Expression Tree, so it actually provides something like this:
+                //(X AND / OR Y AND / OR Z) AND XX AND YY
+                //http://stackoverflow.com/questions/6295926/how-build-lambda-expression-tree-with-multiple-conditions
+                if (filter.ExactMatch)
+                {
+                    exactMatch.Add(filterExpression);
+                }
+                else
+                {
+                    mainExpression = mainExpression == null ?
+                    filterExpression :
                     greedy ? Expression.OrElse(mainExpression, filterExpression) : Expression.AndAlso(mainExpression, filterExpression);
+                }
+            }
+
+            //as all the filters have now been processed, add the exact match filters
+            foreach (var filterExpression in exactMatch)
+            {
+                mainExpression = mainExpression == null
+                    ? filterExpression
+                    : Expression.AndAlso(mainExpression, filterExpression);
             }
 
 
             // If no expression generated return base query
             if (mainExpression == null)
                 return query;
+
 
             //assemble a lambda that will be executed for the type in question
             var containsLambda = Expression.Lambda(mainExpression, expType);
