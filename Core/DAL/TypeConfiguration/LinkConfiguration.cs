@@ -15,7 +15,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
     {
         public LinkConfiguration(string table = "links")
         {
-            ToTable(table);
+            ToTable(table, "mh_meta");
 
             HasKey(p => p.Id);
             Property(en => en.Id).HasColumnName("id");

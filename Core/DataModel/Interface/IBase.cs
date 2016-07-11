@@ -12,10 +12,6 @@ namespace MapHive.Server.Core.DataModel.Interface
     /// </summary>
     public interface IBase
     {
-        /// <summary>
-        /// insertion order
-        /// </summary>
-        int InsOr { get; set; }
         Guid TypeUuid { get; }
         Guid Uuid { get; set; }
         Guid? CreatedBy { get; set; }
