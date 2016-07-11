@@ -14,7 +14,7 @@ namespace MapHive.Server.DataModel.DAL.TypeConfiguration
     {
         public ApplicationConfiguration()
         {
-            ToTable("applications");
+            ToTable("applications", "mh_meta");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.ShortName).HasColumnName("short_name");

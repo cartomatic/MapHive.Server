@@ -8,7 +8,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         public override void Up()
         {
             CreateTable(
-                "metadata.applications",
+                "mh_meta.applications",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -31,7 +31,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.short_name, unique: true, name: "uq_short_name");
             
             CreateTable(
-                "metadata.localisation_app_translations",
+                "mh_meta.localisation_app_translations",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -50,7 +50,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => new { t.application_name, t.class_name, t.translation_key }, unique: true, name: "uq_app_name_class_name_translation_key");
             
             CreateTable(
-                "metadata.localisation_email_templates",
+                "mh_meta.localisation_email_templates",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -71,7 +71,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => new { t.application_name, t.identifier }, unique: true, name: "uq_app_name_and_identifier");
             
             CreateTable(
-                "metadata.localisation_langs",
+                "mh_meta.localisation_langs",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -107,7 +107,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.child_type_uuid, name: "idx_child_type_uuid");
             
             CreateTable(
-                "metadata.users",
+                "mh_meta.users",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -127,7 +127,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.email, unique: true, name: "uq_email");
             
             CreateTable(
-                "metadata.xwindow_origins",
+                "mh_meta.xwindow_origins",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -147,21 +147,21 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         
         public override void Down()
         {
-            DropIndex("metadata.users", "uq_email");
+            DropIndex("mh_meta.users", "uq_email");
             DropIndex("metadata.links", "idx_child_type_uuid");
             DropIndex("metadata.links", "idx_parent_type_uuid");
             DropIndex("metadata.links", "idx_child_uuid");
             DropIndex("metadata.links", "idx_parent_uuid");
-            DropIndex("metadata.localisation_email_templates", "uq_app_name_and_identifier");
-            DropIndex("metadata.localisation_app_translations", "uq_app_name_class_name_translation_key");
-            DropIndex("metadata.applications", "uq_short_name");
-            DropTable("metadata.xwindow_origins");
-            DropTable("metadata.users");
+            DropIndex("mh_meta.localisation_email_templates", "uq_app_name_and_identifier");
+            DropIndex("mh_meta.localisation_app_translations", "uq_app_name_class_name_translation_key");
+            DropIndex("mh_meta.applications", "uq_short_name");
+            DropTable("mh_meta.xwindow_origins");
+            DropTable("mh_meta.users");
             DropTable("metadata.links");
-            DropTable("metadata.localisation_langs");
-            DropTable("metadata.localisation_email_templates");
-            DropTable("metadata.localisation_app_translations");
-            DropTable("metadata.applications");
+            DropTable("mh_meta.localisation_langs");
+            DropTable("mh_meta.localisation_email_templates");
+            DropTable("mh_meta.localisation_app_translations");
+            DropTable("mh_meta.applications");
         }
     }
 }

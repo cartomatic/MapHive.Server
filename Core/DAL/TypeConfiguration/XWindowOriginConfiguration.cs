@@ -15,7 +15,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
     {
         public XWindowOriginConfiguration()
         {
-            ToTable("xwindow_origins");
+            ToTable("xwindow_origins", "mh_meta");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.Origin).HasColumnName("origin");

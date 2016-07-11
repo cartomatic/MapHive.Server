@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
     {
         public EmailTemplateLocalisationConfiguration()
         {
-            ToTable("localisation_email_templates");
+            ToTable("localisation_email_templates", "mh_meta");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.ApplicationName).HasColumnName("application_name");

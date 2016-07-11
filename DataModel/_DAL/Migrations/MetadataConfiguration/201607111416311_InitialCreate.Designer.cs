@@ -13,7 +13,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         
         string IMigrationMetadata.Id
         {
-            get { return "201607071455553_InitialCreate"; }
+            get { return "201607111416311_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

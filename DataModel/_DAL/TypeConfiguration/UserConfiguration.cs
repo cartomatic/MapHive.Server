@@ -14,7 +14,7 @@ namespace MapHive.Server.DataModel.DAL.TypeConfiguration
     {
         public UserConfiguration()
         {
-            ToTable("users");
+            ToTable("users", "mh_meta");
             this.ApplyIBaseConfiguration();
 
             Property(p => p.Email).HasColumnName("email");

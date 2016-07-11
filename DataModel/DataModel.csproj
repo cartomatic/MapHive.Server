@@ -67,9 +67,9 @@
     <Compile Include="Application\_DataModel.cs" />
     <Compile Include="Application\_Blank.cs" />
     <Compile Include="Application\_Ctor.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.Designer.cs">
-      <DependentUpon>201607071455553_InitialCreate.cs</DependentUpon>
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607111416311_InitialCreate.cs" />
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607111416311_InitialCreate.Designer.cs">
+      <DependentUpon>201607111416311_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="_DAL\Migrations\MetadataConfiguration\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +96,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201607071455553_InitialCreate.resx">
-      <DependentUpon>201607071455553_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201607111416311_InitialCreate.resx">
+      <DependentUpon>201607111416311_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

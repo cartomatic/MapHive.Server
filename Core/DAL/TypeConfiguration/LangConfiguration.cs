@@ -15,7 +15,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
     {
         public LangConfiguration()
         {
-            ToTable("localisation_langs");
+            ToTable("localisation_langs", "mh_meta");
             this.ApplyIBaseConfiguration();
 
             Property(en => en.LangCode).HasColumnName("lang_code");
