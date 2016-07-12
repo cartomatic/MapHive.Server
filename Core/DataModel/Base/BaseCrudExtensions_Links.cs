@@ -385,5 +385,70 @@ namespace MapHive.Server.Core.DataModel
             //at this stage got the ids of parents, so can read them by uuid
             return await parent.Read<TParent>(db, links.Select(l => l.ParentUuid), detached: detached);
         }
+
+        /// <summary>
+        /// Reads children of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<TChild>> GetChildren<T, TChild>(this T obj, DbContext db,
+            bool detached = true)
+            where T : Base
+            where TChild : Base
+        {
+            //init the child object as need to get the type uuid off it
+            var child = (TChild)Activator.CreateInstance(typeof(TChild));
+
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return null;
+
+
+            //Get relationship links from database for this object; make sure to obey the detached param
+            var links = (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
+                .Where(x => x.ChildTypeUuid == child.TypeUuid && x.ParentUuid == obj.Uuid)
+                .OrderBy(x => x.Id)
+                //this should order by the actual insertion, so will give an indication which link has been assigned first
+                .ToList();
+
+            //at this stage got the ids of parents, so can read them by uuid
+            return await child.Read<TChild>(db, links.Select(l => l.ParentUuid), detached: detached);
+        }
+
+        /// <summary>
+        /// Gets a first child of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<TChild> GetFirstChild<T, TChild>(this T obj, DbContext db,
+            bool detached = true)
+            where T : Base
+            where TChild : Base
+        {
+            //init the child object as need to get the type uuid off it
+            var child = (TChild)Activator.CreateInstance(typeof(TChild));
+
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return null;
+
+
+            //Get relationship links from database for this object; make sure to obey the detached param
+            var link = (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
+                .FirstOrDefault(x => x.ChildTypeUuid == child.TypeUuid && x.ParentUuid == obj.Uuid);
+
+            //at this stage got the ids of parents, so can read them by uuid
+            if(link != null)
+                return await child.Read<TChild>(db, link.ChildUuid, detached: detached);
+            else
+                return null;
+        }
+
     }
 }

@@ -283,5 +283,124 @@ namespace MapHive.Server.Core.API
                 return InternalServerError();
             }
         }
+
+
+        /// <summary>
+        /// Reads children of given type
+        /// </summary>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public virtual async Task<IHttpActionResult> ReadChildren<TChild>(Guid uuid)
+            where TChild : Base
+        {
+
+            return await ReadChildren<TChild>(_dbCtx, uuid);
+        }
+
+        /// <summary>
+        /// Reads children of given type
+        /// </summary>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="db"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public virtual async Task<IHttpActionResult> ReadChildren<TChild>(DbContext db, Guid uuid)
+            where TChild : Base
+        {
+            //first get an instance of T to call the appropriate methods on it
+            var obj = (T)Activator.CreateInstance(typeof(T));
+
+            //read the object from the db
+            //this is web service read call so read as no tracking - detached 
+            obj = await obj.Read(db, uuid, detached: true);
+
+            if (obj == null)
+            {
+                return BadRequest();
+            }
+
+            //looks like the object has been retrieved, so can load the links for it now
+            try
+            {
+                //read the links for a specific property
+                //this is web service read call so read as no tracking - detached 
+                var data = await obj.GetChildren<T, TChild>(db, detached: true);
+
+                if (data == null || !data.Any())
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //if something goes wrong just fail
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Reads first child of given type
+        /// </summary>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public virtual async Task<IHttpActionResult> ReadFirstChild<TChild>(Guid uuid)
+            where TChild : Base
+        {
+
+            return await ReadFirstChild<TChild>(_dbCtx, uuid);
+        }
+
+        /// <summary>
+        /// Reads first child of given type
+        /// </summary>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="db"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        public virtual async Task<IHttpActionResult> ReadFirstChild<TChild>(DbContext db, Guid uuid)
+            where TChild : Base
+        {
+            //first get an instance of T to call the appropriate methods on it
+            var obj = (T)Activator.CreateInstance(typeof(T));
+
+            //read the object from the db
+            //this is web service read call so read as no tracking - detached 
+            obj = await obj.Read(db, uuid, detached: true);
+
+            if (obj == null)
+            {
+                return BadRequest();
+            }
+
+            //looks like the object has been retrieved, so can load the links for it now
+            try
+            {
+                //read the links for a specific property
+                //this is web service read call so read as no tracking - detached 
+                var data = await obj.GetFirstChild<T, TChild>(db, detached: true);
+
+                if (data == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(data);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //if something goes wrong just fail
+                return InternalServerError();
+            }
+        }
     }
 }
