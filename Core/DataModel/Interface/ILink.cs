@@ -45,5 +45,11 @@ namespace MapHive.Server.Core.DataModel.Interface
         /// Extra data to be saved with the link; can store data for different applications within the same link
         /// </summary>
         ILinkData LinkData { get; set; }
+
+        /// <summary>
+        /// LinkData setter; used so can set data into a collection of specific type, while still maintaining an interface input
+        /// </summary>
+        /// <param name="linkData"></param>
+        void SetLinkData(ILinkData linkData);
     }
 }

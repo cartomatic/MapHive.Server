@@ -21,13 +21,5 @@ namespace MapHive.Server.Core.DataModel
         ///// Link objects to be destroyed
         ///// </summary>
         public List<Guid> Destroy { get; set; } = new List<Guid>();
-
-
-        List<ILink> ILinksDiff.Upsert
-        {
-            get { return Upsert.Select(u => u as ILink).ToList(); }
-
-            set { Upsert = value.Select(u => u as Link).ToList(); }
-        }
     }
 }

@@ -11,7 +11,7 @@ namespace MapHive.Server.Core.DataModel.Interface
         /// <summary>
         /// Link objects to be either inserted or updated
         /// </summary>
-        List<ILink> Upsert { get; set; }
+        List<Link> Upsert { get; set; }
 
         /// <summary>
         /// Link objects to be destroyed

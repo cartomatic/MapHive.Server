@@ -98,7 +98,7 @@ namespace MapHive.Server.Core.DataModel
             }
 
             //update the link data that can change
-            link.LinkData = linkData;
+            link.SetLinkData(linkData);
             link.SortOrder = sortOrder;
 
             //since link is added also make sure to remove it from destroy diff as otherwise it would be first added to a db and then destroyed
