@@ -377,7 +377,7 @@ namespace MapHive.Server.Core.DataModel
 
             //Get relationship links from database for this object; make sure to obey the detached param
             var links = (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
-                .Where(x => x.ParentTypeUuid == obj.TypeUuid && x.ChildUuid == obj.Uuid)
+                .Where(x => x.ParentTypeUuid == parent.TypeUuid && x.ChildUuid == obj.Uuid)
                 .OrderBy(x => x.Id)
                 //this should order by the actual insertion, so will give an indication which link has been assigned first
                 .ToList();
@@ -414,8 +414,8 @@ namespace MapHive.Server.Core.DataModel
                 //this should order by the actual insertion, so will give an indication which link has been assigned first
                 .ToList();
 
-            //at this stage got the ids of parents, so can read them by uuid
-            return await child.Read<TChild>(db, links.Select(l => l.ParentUuid), detached: detached);
+            //at this stage got the ids of children, so can read them by uuid
+            return await child.Read<TChild>(db, links.Select(l => l.ChildUuid), detached: detached);
         }
 
         /// <summary>
