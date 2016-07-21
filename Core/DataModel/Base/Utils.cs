@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbSet"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        private static async Task<bool> ObjectExists<T>(DbSet<T> dbSet, Guid? uuid) where T : Base
+        protected static async Task<bool> ObjectExists<T>(DbSet<T> dbSet, Guid? uuid) where T : Base
         {
             return await dbSet.Where(e => e.Uuid == uuid).CountAsync() > 0;
         }
