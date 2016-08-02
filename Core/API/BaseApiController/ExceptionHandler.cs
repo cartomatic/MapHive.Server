@@ -65,7 +65,13 @@ namespace MapHive.Server.Core.API
                 },
 
                 //all the unfiltered end up as 500
-                (e) => new NegotiatedContentResult<object>(HttpStatusCode.InternalServerError, e.Message, this)
+                (e) =>
+                {
+                    #if DEBUG
+                    return new NegotiatedContentResult<object>(HttpStatusCode.InternalServerError, e.Message, this);
+                    #endif
+                    return new NegotiatedContentResult<object>(HttpStatusCode.InternalServerError, string.Empty, this);
+                }
             };
     }
 }
