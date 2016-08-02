@@ -63,6 +63,8 @@ namespace MapHive.Server.Core.DataModel
                 //TODO - support some more filter operators such as =, <, <=, >, >=, notin, !=; this should be simply just a minor modification of the conditions below
 
 
+                //Note: there is also a custom operator 'guid' used to filter by guid type. in such case passed value must be parsable to Guid
+                
 
                 //Check if model property exists; if not this is a bad, bad request...
                 var propertyToFilterBy = targetType.GetProperties().FirstOrDefault(p => string.Equals(p.Name, filter.Property, StringComparison.CurrentCultureIgnoreCase));
@@ -188,6 +190,41 @@ namespace MapHive.Server.Core.DataModel
                         throw new BadRequestException("Property: " + propertyToFilterBy.Name + ", " + ex.Message, ex.InnerException);
                     }
                 }
+                else if (filter.Operator == "guid")
+                {
+                    if (propertyToFilterBy.PropertyType != typeof(Guid) && propertyToFilterBy.PropertyType != typeof(Guid?))
+                        throw new BadRequestException($"The property { targetType }.{ propertyToFilterBy.Name} is not of 'Guid' or 'Guid?' type.");
+
+                    //Note: guid comes in as string from the client so need to parse it to guid prior to filtering.
+                    Guid parsedFilterValue;
+
+                    if (!Guid.TryParse(filter.Value, out parsedFilterValue))
+                    {
+                        throw new BadRequestException($"The filter value for { targetType }.{ propertyToFilterBy.Name}  property is not parsable to Guid.");
+                    }
+
+                    //Note: this keeps throwing on args types mismatch... maybe stuff below works... will see....
+                    //filterExpression = Expression.Call(
+                    //    Expression.Property(expType, filter.Property),
+                    //    "Equals",
+                    //    null,
+                    //    Expression.Constant(
+                    //        (Guid?)parsedFilterValue,
+                    //        //Expression.Convert( //need to convert types so nullable comparison is ok
+                    //        //    Expression.Constant(parsedFilterValue),
+                    //        //    propertyToFilterBy.PropertyType
+                    //        //),
+                    //        propertyToFilterBy.PropertyType
+                    //    )
+                    //);
+
+                    filterExpression = Expression.Equal(
+                        Expression.Property(expType, filter.Property),
+                        Expression.Constant(parsedFilterValue, propertyToFilterBy.PropertyType)
+                    );
+                }
+
+                //TODO - add range filters at some point...
 
                 // If no expression generated then throw exception
                 if (filterExpression == null)
