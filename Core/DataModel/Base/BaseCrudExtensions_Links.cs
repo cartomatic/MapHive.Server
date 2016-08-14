@@ -387,6 +387,60 @@ namespace MapHive.Server.Core.DataModel
         }
 
         /// <summary>
+        /// Gets a first parent of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TParent"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<TParent> GetFirstParent<T, TParent>(this T obj, DbContext db,
+            bool detached = true)
+            where T : Base
+            where TParent : Base
+        {
+            //init the child object as need to get the type uuid off it
+            var parent = (TParent)Activator.CreateInstance(typeof(TParent));
+
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return null;
+
+
+            //Get relationship links from database for this object; make sure to obey the detached param
+            var link = (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
+                .FirstOrDefault(x => x.ParentTypeUuid == parent.TypeUuid && x.ChildUuid == obj.Uuid);
+
+            //at this stage got the ids of parents, so can read them by uuid
+            if (link != null)
+                return await parent.Read<TParent>(db, link.ChildUuid, detached: detached);
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Determines if an object has any parents links of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TParent"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasParents<T, TParent>(this T obj, DbContext db, bool detached)
+            where T : Base
+            where TParent : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            var parent = (TParent)Activator.CreateInstance(typeof(TParent));
+
+            return await (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
+                .AnyAsync(x => x.ParentTypeUuid == parent.TypeUuid && x.ChildUuid == obj.Uuid);
+        }
+
+        /// <summary>
         /// Reads children of given type
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -450,5 +504,26 @@ namespace MapHive.Server.Core.DataModel
                 return null;
         }
 
+        /// <summary>
+        /// Determines if an object has any child links of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasChildren<T, TChild>(this T obj, DbContext db, bool detached)
+            where T : Base
+            where TChild : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            var child = (TChild) Activator.CreateInstance(typeof (TChild));
+
+            return await (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
+                .AnyAsync(x => x.ChildTypeUuid == child.TypeUuid && x.ParentUuid == obj.Uuid);
+        }
     }
 }
