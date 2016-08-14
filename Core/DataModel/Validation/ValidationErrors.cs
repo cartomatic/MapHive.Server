@@ -43,6 +43,12 @@ namespace MapHive.Server.Core.DataModel.Validation
             Message = "Field value must be unique."
         };
 
+        public static IValidationError NoIdentifier { get; } = new ValidationError
+        {
+            Code = "no_identifier",
+            Message = "Dataset requires a unique identifier field."
+        };
+
         public static IValidationError UnknownError { get; } = new ValidationError
         {
             Code = "unknown_error",
