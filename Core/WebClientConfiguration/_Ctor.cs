@@ -20,7 +20,10 @@ namespace MapHive.Server.Core
                 { "accessToken", "at" },
                 { "suppressAppToolbar", "suppress-app-toolbar" },
                 { "hosted", "hosted" },
-                { "suppressSplash", "suppress-splash" }
+                { "suppressSplash", "suppress-splash" },
+                { "auth", "auth" },
+                { "verificationKey", "vk" },
+                { "initialPassword", "ip" }
             };
 
         /// <summary>
