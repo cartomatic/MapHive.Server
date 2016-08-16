@@ -22,7 +22,7 @@ namespace MapHive.Server.Core.API
             var request = HttpContext.Current.Request;
 
             //first headers
-            var lng = request.Headers[WebClientConfiguration.LangParam];
+            var lng = request.Headers[WebClientConfiguration.HeaderLang];
 
             //url test
             if (string.IsNullOrEmpty(lng))

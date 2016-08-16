@@ -52,6 +52,11 @@ namespace MapHive.Server.Core
             cfg["LangCode"] = await GetRequestLang();
             cfg[nameof(LangParam)] = LangParam;
             cfg["Localisation"] = await GetAppLocalisation(appIdentifiers, (string)cfg["LangCode"]);
+            cfg[nameof(HeaderLang)] = HeaderLang;
+
+            //some other xtra headers
+            cfg[nameof(HeaderTotal)] = HeaderTotal;
+            cfg[nameof(HeaderSource)] = HeaderSource;
 
             return cfg;
         }

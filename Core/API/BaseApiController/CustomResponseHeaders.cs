@@ -15,10 +15,10 @@ namespace MapHive.Server.Core.API
         /// <param name="total"></param>
         protected static void AppendTotalHeader(int total)
         {
-            HttpContext.Current.Response.AppendHeader("mhapi-total", $"{total}");
+            HttpContext.Current.Response.AppendHeader(WebClientConfiguration.HeaderTotal, $"{total}");
 
             //need to expose this header too, otherwise client will not have access to it!
-            HttpContext.Current.Response.AppendHeader("Access-Control-Expose-Headers", "mhapi-total");
+            HttpContext.Current.Response.AppendHeader("Access-Control-Expose-Headers", WebClientConfiguration.HeaderTotal);
         }
     }
 }

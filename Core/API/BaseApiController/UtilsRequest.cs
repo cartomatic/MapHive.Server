@@ -19,7 +19,7 @@ namespace MapHive.Server.Core.API
         /// <returns></returns>
         public string GetRequestSource()
         {
-            return HttpContext.Current.Request.Headers[WebClientConfiguration.SourceHeader];
+            return HttpContext.Current.Request.Headers[WebClientConfiguration.HeaderSource];
         }
     }
 }

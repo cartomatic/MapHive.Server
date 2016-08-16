@@ -52,8 +52,18 @@ namespace MapHive.Server.Core
         public static string LangParam { get; set; } = "lng";
 
         /// <summary>
+        /// Header used to pass lang info along
+        /// </summary>
+        public static string HeaderLang { get; set; } = "MH-Lng";
+
+        /// <summary>
         /// Source header used to send the full location of the request; handy when need to revide the url part stuff (after hash) as this is not sent to the server by a browser
         /// </summary>
-        public static string SourceHeader { get; set; } = "Source";
+        public static string HeaderSource { get; set; } = "MH-Src";
+
+        /// <summary>
+        /// header used when returning lists to indicate a full dataset count for given request
+        /// </summary>
+        public static string HeaderTotal { get; set; } = "MH-Total";
     }
 }
