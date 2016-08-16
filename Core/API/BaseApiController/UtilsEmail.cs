@@ -10,7 +10,7 @@ using MapHive.Server.Core.Email;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiController
     {
         /// <summary>
         /// Extracts an email template and a confogured email account based on the email identifier. Since application name is not provided it only matches email identifiers for templates that do not have the app name set. Tries to work out the lang to extract the translation for email dynamically

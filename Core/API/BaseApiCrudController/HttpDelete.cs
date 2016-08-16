@@ -10,7 +10,7 @@ using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiCrudController<T, TDbCtx>
     {
         /// <summary>
         /// Defualt delete action

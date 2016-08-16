@@ -7,13 +7,13 @@ using System.Web;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiController
     {
         /// <summary>
         /// Appends a mhapi-total header with a supplied value to the headers collection 
         /// </summary>
         /// <param name="total"></param>
-        public static void AppendTotalHeader(int total)
+        protected static void AppendTotalHeader(int total)
         {
             HttpContext.Current.Response.AppendHeader("mhapi-total", $"{total}");
 

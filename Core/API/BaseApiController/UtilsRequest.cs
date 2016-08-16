@@ -11,7 +11,7 @@ using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiController
     {
         //TODO - grab a referrer, url from param, and webconfig url if nothing else worked; needed to send a msg where a user can validate account, finalise pass reset, etc. Or maybe there should be a separate app tp dpo just this???
 

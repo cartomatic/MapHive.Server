@@ -11,7 +11,7 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiCrudController<T, TDbCtx>
     {
         /// <summary>
         /// Defualt get all action

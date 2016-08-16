@@ -11,7 +11,7 @@ using MapHive.Server.Core.DataModel.Validation;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiController
     {
         /// <summary>
         /// Handles exception using a customised handler

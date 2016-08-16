@@ -7,7 +7,7 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.API
 {
-    public abstract partial class BaseApiController<T, TDbCtx>
+    public abstract partial class BaseApiCrudController<T, TDbCtx>
     {
         public IDto<TDto> CrateIDtoInstance<TDto>()
             where TDto : class
