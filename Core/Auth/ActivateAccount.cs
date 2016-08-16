@@ -46,6 +46,7 @@ namespace MapHive.Server.Core
             }
             else
             {
+                userAccountService.VerifyEmailFromKey(verificationKey, initialPassword);
                 output.Success = true;
                 return output;
             }
