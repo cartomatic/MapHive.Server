@@ -13,7 +13,13 @@ namespace MapHive.Server.Core.API
 {
     public abstract partial class BaseApiController
     {
-        //TODO - grab a referrer, url from param, and webconfig url if nothing else worked; needed to send a msg where a user can validate account, finalise pass reset, etc. Or maybe there should be a separate app tp dpo just this???
-
+        /// <summary>
+        /// Extracts a source header off the request. Source header is used by the MH env to pass a full request source including hash, because hash is never sent to the client
+        /// </summary>
+        /// <returns></returns>
+        public string GetRequestSource()
+        {
+            return HttpContext.Current.Request.Headers[WebClientConfiguration.SourceHeader];
+        }
     }
 }

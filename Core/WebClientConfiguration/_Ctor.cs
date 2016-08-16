@@ -50,5 +50,10 @@ namespace MapHive.Server.Core
         /// URL param used to identify language the app should localise itself for
         /// </summary>
         public static string LangParam { get; set; } = "lng";
+
+        /// <summary>
+        /// Source header used to send the full location of the request; handy when need to revide the url part stuff (after hash) as this is not sent to the server by a browser
+        /// </summary>
+        public static string SourceHeader { get; set; } = "Source";
     }
 }
