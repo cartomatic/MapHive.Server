@@ -23,5 +23,20 @@ namespace MapHive.Server.Core.Events
                 _a?.Invoke(evt);
             }
         }
+
+        public class PasswordResetRequestedEventHandler<TAccount> : IEventHandler<PasswordResetRequestedEvent<TAccount>>
+        {
+            private readonly Action<PasswordResetRequestedEvent<TAccount>> _a;
+
+            public PasswordResetRequestedEventHandler(Action<PasswordResetRequestedEvent<TAccount>> a)
+            {
+                _a = a;
+            }
+
+            public void Handle(PasswordResetRequestedEvent<TAccount> evt)
+            {
+                _a?.Invoke(evt);
+            }
+        }
     }
 }

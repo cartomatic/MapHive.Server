@@ -11,6 +11,19 @@ namespace MapHive.Server.Core
 {
     public partial class Auth
     {
+        public class AccountActivationOutput
+        {
+            public bool Success { get; set; }
+
+            public bool VerificationKeyStale { get; set; }
+
+            public bool UnknownUser { get; set; }
+
+            public string VerificationKey { get; set; }
+
+            public string Email { get; set; }
+        }
+
         public static async Task<AccountActivationOutput> ActivateAccount<TAccount>(
             UserAccountService<TAccount> userAccountService, string verificationKey, string initialPassword)
             where TAccount : RelationalUserAccount
