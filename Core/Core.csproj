@@ -112,6 +112,7 @@
     <Compile Include="Auth\IdSrvTokenClientOpts.cs" />
     <Compile Include="Auth\RefreshToken.cs" />
     <Compile Include="Auth\RequestPassReset.cs" />
+    <Compile Include="Auth\ChangePasswordFromResetKey.cs" />
     <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
