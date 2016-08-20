@@ -38,5 +38,24 @@ namespace MapHive.Server.Core.Events
                 _a?.Invoke(evt);
             }
         }
+
+        /// <summary>
+        /// A generic evt handler - used to preview what events are actually fired by the userservice; debugging use mainly.
+        /// </summary>
+        /// <typeparam name="TAccount"></typeparam>
+        public class UserAccountEventHandler<TAccount> : IEventHandler<UserAccountEvent<TAccount>>
+        {
+            private readonly Action<UserAccountEvent<TAccount>> _a;
+
+            public UserAccountEventHandler(Action<UserAccountEvent<TAccount>> a)
+            {
+                _a = a;
+            }
+
+            public void Handle(UserAccountEvent<TAccount> evt)
+            {
+                _a?.Invoke(evt);
+            }
+        }
     }
 }

@@ -10,11 +10,33 @@ namespace MapHive.Server.Core
 {
     public partial class Auth
     {
-        public static async Task<bool> ChangePasswordFromResetKey<TAccount>(
+        public class ChangePasswordFromResetKeyOutput
+        {
+            public bool Success { get; set; }
+
+            public string FailureReason { get; set; }
+        }
+
+        public static async Task<ChangePasswordFromResetKeyOutput> ChangePasswordFromResetKey<TAccount>(
             UserAccountService<TAccount> userAccountService, string newPass, string verificationKey)
             where TAccount : RelationalUserAccount
         {
-            return userAccountService.ChangePasswordFromResetKey(verificationKey, newPass);
+            var output = new ChangePasswordFromResetKeyOutput();
+            try
+            {
+                output.Success = userAccountService.ChangePasswordFromResetKey(verificationKey, newPass);
+            }
+            catch (Exception ex)
+            {
+                var stop = true;
+
+                if (ex.Message == "The new password must be different from the old password.")
+                {
+                    output.FailureReason = "new_pass_same_as_old_pass";
+                }
+            }
+
+            return output;
         }
     }
 }
