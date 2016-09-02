@@ -11,14 +11,12 @@ namespace MapHive.Server.Cmd.Core
         public CommandHandler(string handlerInfo)
             : base (handlerInfo)
         {
-            //register some xtra commands
+            //register some xtra command aliases
             SetUpCommandMap(new Dictionary<string, string>
             {
-                { "dsc", "dsc" }, { "conn", "dsc" },
-                { "dropdb", "dropdb" },
-                { "setup", "setup" },
-                { "addsuperuser", "addsuperuser" }, { "addsuper", "addsuperuser" }, { "addmaster", "addsuperuser" },
-                { "destroyuser", "destroyuser" }, { "xuser", "destroyuser" }
+                { "conn", "dsc" },
+                { "addsuper", "addsuperuser" }, { "addmaster", "addsuperuser" },
+                { "xuser", "destroyuser" }
             });
 
 
