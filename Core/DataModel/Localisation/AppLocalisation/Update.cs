@@ -20,10 +20,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal override async Task<T> Update<T>(DbContext dbCtx, Guid uuid)
+        protected internal override async Task<T> UpdateAsync<T>(DbContext dbCtx, Guid uuid)
         {
             InvalidateAppLocalisationsCache(ApplicationName);
-            return await base.Update<T>(dbCtx, uuid);
+            return await base.UpdateAsync<T>(dbCtx, uuid);
         }
     }
 }

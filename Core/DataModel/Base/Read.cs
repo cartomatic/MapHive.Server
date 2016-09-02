@@ -24,7 +24,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="limit"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        protected internal virtual async Task<IEnumerable<T>> Read<T>(DbContext dbCtx, IEnumerable<ReadSorter> sorters,
+        protected internal virtual async Task<IEnumerable<T>> ReadAsync<T>(DbContext dbCtx, IEnumerable<ReadSorter> sorters,
             IEnumerable<ReadFilter> filters, int start = 0, int limit = 25, bool detached = true) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
@@ -41,7 +41,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="filters"></param>
         /// <returns></returns>
-        protected internal virtual async Task<int> ReadCount<T>(DbContext dbCtx, IEnumerable<ReadFilter> filters)
+        protected internal virtual async Task<int> ReadCountAsync<T>(DbContext dbCtx, IEnumerable<ReadFilter> filters)
             where T : Base
         {
             var dbSet = dbCtx.Set<T>();
@@ -59,7 +59,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Read<T>(DbContext dbCtx, Guid uuid, bool detached = true) where T : Base
+        protected internal virtual async Task<T> ReadAsync<T>(DbContext dbCtx, Guid uuid, bool detached = true) where T : Base
         {
             T result = null;
 
@@ -85,7 +85,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuids">List of object uuids to read; their sort order determines the order of a returned list</param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        protected internal virtual async Task<IEnumerable<T>> Read<T>(DbContext dbCtx, IEnumerable<Guid> uuids, bool detached = true)
+        protected internal virtual async Task<IEnumerable<T>> ReadAsync<T>(DbContext dbCtx, IEnumerable<Guid> uuids, bool detached = true)
             where T : Base
         {
             if (uuids == null)

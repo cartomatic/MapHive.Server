@@ -13,7 +13,7 @@ namespace MapHive.Server.Core
         /// Pokes the configured API to obtain identifiers for the apps that do require authentication
         /// </summary>
         /// <returns></returns>
-        private static async Task<IEnumerable<string>> GetIdentifiersForAppsRequiringAuth()
+        private static async Task<IEnumerable<string>> GetIdentifiersForAppsRequiringAuthAsync()
         {
             var client = new RestClient(GetApiEndpoint());
             var request = new RestRequest(GetApiCallUrl("authidentifiers"), Method.GET);

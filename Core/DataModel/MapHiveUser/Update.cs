@@ -25,11 +25,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="userAccountService"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public static async Task<T> Update<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
+        public static async Task<T> UpdateAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
-            return await obj.Update<T, TAccount>(dbCtx, userAccountService, uuid);
+            return await obj.UpdateAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
     }
 
@@ -42,7 +42,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal override Task<T> Update<T>(DbContext dbCtx, Guid uuid)
+        protected internal override Task<T> UpdateAsync<T>(DbContext dbCtx, Guid uuid)
         {
             throw new InvalidOperationException(WrongCrudMethodErrorInfo);
         }
@@ -56,14 +56,14 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="userAccountService"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Update<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
+        protected internal virtual async Task<T> UpdateAsync<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
             T output;
 
             //need to validate the model first
-            this.Validate();
+            this.ValidateAsync();
 
 
             //make sure the email is ALWAYS lower case
@@ -81,7 +81,7 @@ namespace MapHive.Server.Core.DataModel
 
 
             //in order to check if some mbr ops are needed need to compare the incoming data with the db equivalent
-            var currentStateOfUser = await Read<T>(dbCtx, uuid);
+            var currentStateOfUser = await ReadAsync<T>(dbCtx, uuid);
 
 
             //work out if email is being updated and make sure to throw if it is not possible!
@@ -154,7 +154,7 @@ namespace MapHive.Server.Core.DataModel
                 }
 
                 //mbr work done, so can update the user within the mh metadata db
-                output = await base.Update<T>(dbCtx, uuid);
+                output = await base.UpdateAsync<T>(dbCtx, uuid);
 
 
                 //looks like we're good to go, so can commit

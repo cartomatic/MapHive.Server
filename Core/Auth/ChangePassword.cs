@@ -26,7 +26,7 @@ namespace MapHive.Server.Core
         /// <param name="newPass"></param>
         /// <param name="oldPass"></param>
         /// <returns></returns>
-        public static async Task<ChangePassOutput> ChangePassword<TAccount>(
+        public static async Task<ChangePassOutput> ChangePasswordAsync<TAccount>(
             UserAccountService<TAccount> userAccountService, string newPass, string oldPass)
             where TAccount : RelationalUserAccount
         {

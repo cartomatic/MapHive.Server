@@ -16,7 +16,7 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="TDbCtx"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<string>> GetAllowedXWindowOrigins<TDbCtx>(TDbCtx dbCtx)
+        public static async Task<IEnumerable<string>> GetAllowedXWindowOriginsAsync<TDbCtx>(TDbCtx dbCtx)
             where TDbCtx : DbContext, IXWindow
         {
             //TODO - plug in user based tests! via user registered apps, and such

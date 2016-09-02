@@ -9,7 +9,7 @@ namespace MapHive.Server.Core
 {
     public partial class WebClientConfiguration
     {
-        private static async Task<IEnumerable<string>> GetAllowedXWindowOrigins()
+        private static async Task<IEnumerable<string>> GetAllowedXWindowOriginsAsync()
         {
             var client = new RestClient(GetApiEndpoint());
             var request = new RestRequest(GetApiCallUrl("allowedxwindoworigins"), Method.GET);

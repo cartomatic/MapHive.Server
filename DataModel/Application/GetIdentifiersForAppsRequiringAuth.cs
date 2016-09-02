@@ -14,7 +14,7 @@ namespace MapHive.Server.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<string>> GetIdentifiersForAppsRequiringAuth(DbContext dbCtx)
+        public static async Task<IEnumerable<string>> GetIdentifiersForAppsRequiringAuthAsync(DbContext dbCtx)
         {
             var output = new List<string>();
 

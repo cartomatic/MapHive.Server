@@ -16,7 +16,7 @@ namespace MapHive.Server.Core
             public string VerificationKey { get; set; }
         }
 
-        public static async Task<PassResetRequestOutput> RequestPassReset<TAccount>(
+        public static async Task<PassResetRequestOutput> RequestPassResetAsync<TAccount>(
             UserAccountService<TAccount> userAccountService, string email)
             where TAccount : RelationalUserAccount
         {

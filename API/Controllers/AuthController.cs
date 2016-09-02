@@ -29,7 +29,7 @@ namespace MapHive.Server.API.Controllers
             [FromUri(BinderType = typeof (TypeConverterModelBinder))] string pass
             )
         {
-            return Ok(await Auth.LetMeIn(email, pass));
+            return Ok(await Auth.LetMeInAsync(email, pass));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace MapHive.Server.API.Controllers
             //extract access token off the request
             var accessToken = Request.Headers.Authorization.Parameter.Replace("Bearer ", "");
 
-            await Auth.LetMeOutOfHere(accessToken);
+            await Auth.LetMeOutOfHereAsync(accessToken);
             return Ok();
         }
 
@@ -59,7 +59,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof (Auth.AuthOutput))]
         public async Task<IHttpActionResult> ValidateToken(string accessToken)
         {
-            var tokenValidationOutput = await Auth.ValidateToken(accessToken);
+            var tokenValidationOutput = await Auth.ValidateTokenAsync(accessToken);
             if (tokenValidationOutput.Success)
             {
                 return Ok(tokenValidationOutput);

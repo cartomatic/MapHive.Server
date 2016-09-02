@@ -16,11 +16,11 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="T"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Create<T>(DbContext dbCtx) where T : Base
+        protected internal virtual async Task<T> CreateAsync<T>(DbContext dbCtx) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
 
-            await this.Validate(dbCtx);
+            await this.ValidateAsync(dbCtx);
 
 
             //new object so do generate uuid but only if default. otherwise guid has been set by other party
@@ -28,7 +28,7 @@ namespace MapHive.Server.Core.DataModel
                 Uuid = Guid.NewGuid();
 
             //test if an object exists; needed in a case the uuid has already been reserved for the collection
-            if (await ObjectExists(dbSet, this.Uuid))
+            if (await ObjectExistsAsync(dbSet, this.Uuid))
                 return null;
 
 
@@ -39,7 +39,7 @@ namespace MapHive.Server.Core.DataModel
             await dbCtx.SaveChangesAsync();
 
             //along with links
-            await this.SaveLinks(dbCtx);
+            await this.SaveLinksAsync(dbCtx);
 
             return (T)this;
         }

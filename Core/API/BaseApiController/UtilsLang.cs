@@ -53,7 +53,7 @@ namespace MapHive.Server.Core.API
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected async Task<string> GetDefaultLang(ILocalised dbCtx)
+        protected async Task<string> GetDefaultLangAsync(ILocalised dbCtx)
         {
             return (await dbCtx.Langs.FirstOrDefaultAsync(l => l.IsDefault))?.LangCode;
         }

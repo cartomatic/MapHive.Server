@@ -16,17 +16,17 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Update<T>(DbContext dbCtx, Guid uuid) where T : Base
+        protected internal virtual async Task<T> UpdateAsync<T>(DbContext dbCtx, Guid uuid) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
 
             //reassign guid - it usually comes through rest api, so not always present on the object itself
             Uuid = uuid;
 
-            await this.Validate(dbCtx);
+            await this.ValidateAsync(dbCtx);
 
             //test if an object exists
-            if (!await ObjectExists(dbSet, uuid))
+            if (!await ObjectExistsAsync(dbSet, uuid))
                 return null;
 
             //looks like we're good to go with the update...
@@ -35,7 +35,7 @@ namespace MapHive.Server.Core.DataModel
 
             await dbCtx.SaveChangesAsync();
 
-            await this.SaveLinks(dbCtx);
+            await this.SaveLinksAsync(dbCtx);
 
             return (T)this;
         }

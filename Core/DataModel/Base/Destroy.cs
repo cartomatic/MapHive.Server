@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Destroy<T>(DbContext dbCtx, Guid uuid) where T : Base
+        protected internal virtual async Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid) where T : Base
         {
             var dbSet = dbCtx.Set<T>();
             

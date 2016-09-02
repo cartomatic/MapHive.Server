@@ -62,11 +62,11 @@ namespace MapHive.Server.Cmd.Core
                     op = eventArgs.OperationFeedback;
                 }; 
 
-                await user.Create(new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
+                await user.CreateAsync(new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
 
                 //once user is created, need to perform an update in order to set it as valid
                 user.IsAccountVerified = true;
-                await user.Update(new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"), user.Uuid);
+                await user.UpdateAsync(new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"), user.Uuid);
 
                 //and also need to change the pass as the default procedure autogenerates a pass
                 CustomUserAccountService.GetInstance("MapHiveMbr")

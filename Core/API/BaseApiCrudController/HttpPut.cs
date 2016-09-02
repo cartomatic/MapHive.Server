@@ -19,9 +19,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Put(T obj, Guid uuid, DbContext db = null)
+        public virtual async Task<IHttpActionResult> PutAsync(T obj, Guid uuid, DbContext db = null)
         {
-            return await Update(db ?? _dbCtx, obj, uuid);
+            return await UpdateAsync(db ?? _dbCtx, obj, uuid);
         }
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Put<TDto>(TDto obj, Guid uuid, DbContext db = null) where TDto : class
+        public virtual async Task<IHttpActionResult> PutAsync<TDto>(TDto obj, Guid uuid, DbContext db = null) where TDto : class
         {
-            return await Update(db ?? _dbCtx, obj, uuid);
+            return await UpdateAsync(db ?? _dbCtx, obj, uuid);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <typeparam name="TDto">Type to transfer the data from when creating an instance of T; must implement IDto of TDto</typeparam>
         /// <returns></returns>
-        protected virtual async Task<IHttpActionResult> Update<TDto>(DbContext db, TDto obj, Guid uuid) where TDto : class
+        protected virtual async Task<IHttpActionResult> UpdateAsync<TDto>(DbContext db, TDto obj, Guid uuid) where TDto : class
         {
             try
             {
@@ -64,7 +64,7 @@ namespace MapHive.Server.Core.API
                     coreObj = obj as T;
                 }
 
-                var entity = await coreObj.Update(db, uuid);
+                var entity = await coreObj.UpdateAsync(db, uuid);
 
                 if (entity != null)
                     return Ok(entity);

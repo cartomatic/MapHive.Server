@@ -20,10 +20,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<T> Create<T>(this T obj, DbContext dbCtx)
+        public static async Task<T> CreateAsync<T>(this T obj, DbContext dbCtx)
             where T : Base
         {
-            return await obj.Create<T>(dbCtx);
+            return await obj.CreateAsync<T>(dbCtx);
         }
     }
 }

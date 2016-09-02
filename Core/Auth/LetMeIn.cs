@@ -16,10 +16,10 @@ namespace MapHive.Server.Core
         /// <param name="email"></param>
         /// <param name="pass"></param>
         /// <returns></returns>
-        public static async Task<AuthOutput> LetMeIn(string email, string pass)
+        public static async Task<AuthOutput> LetMeInAsync(string email, string pass)
         {
             return AuthOutput.FromTokenResponse(
-                await AuthenticateUser(email, pass)    
+                await AuthenticateUserAsync(email, pass)    
             );
         }
 
@@ -29,7 +29,7 @@ namespace MapHive.Server.Core
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        private static async Task<TokenResponse> AuthenticateUser(string email, string password)
+        private static async Task<TokenResponse> AuthenticateUserAsync(string email, string password)
         {
             var idSrvTokenClientOpts = IdSrvTokenClientOpts.InitDefault();
 

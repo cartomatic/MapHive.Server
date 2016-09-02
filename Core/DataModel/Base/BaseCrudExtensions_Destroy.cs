@@ -21,10 +21,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public static async Task<T> Destroy<T>(this T obj, DbContext dbCtx, Guid uuid)
+        public static async Task<T> DestroyAsync<T>(this T obj, DbContext dbCtx, Guid uuid)
             where T : Base
         {
-            return await obj.Destroy<T>(dbCtx, uuid);
+            return await obj.DestroyAsync<T>(dbCtx, uuid);
         }
 
     }

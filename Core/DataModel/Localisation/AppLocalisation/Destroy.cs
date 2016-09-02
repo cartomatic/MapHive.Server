@@ -20,10 +20,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal override async Task<T> Destroy<T>(DbContext dbCtx, Guid uuid)
+        protected internal override async Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid)
         {
             InvalidateAppLocalisationsCache(ApplicationName);
-            return await base.Destroy<T>(dbCtx, uuid);    
+            return await base.DestroyAsync<T>(dbCtx, uuid);    
         }
     }
 }

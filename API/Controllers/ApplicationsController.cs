@@ -13,7 +13,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("applications")]
-    public class ApplicationsController : BaseApiController<Application, MapHiveDbContext>
+    public class ApplicationsController : BaseApiCrudController<Application, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public ApplicationsController()
@@ -28,7 +28,7 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.Get(sort, filter, start, limit);
+            return await base.GetAsync(sort, filter, start, limit);
         }
 
         // GET: /applications/5
@@ -37,7 +37,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.Get(uuid);
+            return await base.GetAsync(uuid);
         }
 
         // PUT: /applications/5
@@ -46,7 +46,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Application))]
         public async Task<IHttpActionResult> Put(Application obj, Guid uuid)
         {
-            return await base.Put(obj, uuid);
+            return await base.PutAsync(obj, uuid);
         }
 
         // POST: /applications
@@ -55,7 +55,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Application))]
         public async Task<IHttpActionResult> Post(Application obj)
         {
-            return await base.Post(obj);
+            return await base.PostAsync(obj);
         }
 
         // DELETE: /applications/5
@@ -64,7 +64,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Application))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.Delete(uuid);
+            return await base.DeleteAsync(uuid);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetIdentifiersForAppsRequiringAuth(_dbCtx));
+                return Ok(await Application.GetIdentifiersForAppsRequiringAuthAsync(_dbCtx));
             }
             catch (Exception ex)
             {
@@ -102,12 +102,12 @@ namespace MapHive.Server.API.Controllers
                 if (User.Identity.IsAuthenticated)
                 {
                     //TODO - this will require testing for the actual read access based in a role
-                    return await base.Get();
+                    return await base.GetAsync();
                 }
                 else
                 {
                     //get just the common apps a user can see
-                    return Ok(await Application.GetCommonApps(_dbCtx));
+                    return Ok(await Application.GetCommonAppsAsync(_dbCtx));
                 }
             }
             catch (Exception ex)

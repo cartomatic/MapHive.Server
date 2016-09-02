@@ -16,7 +16,7 @@ namespace MapHive.Server.Core
         /// <param name="appIdentifier"></param>
         /// <param name="langCode"></param>
         /// <returns></returns>
-        public static async Task<Dictionary<string, object>> Prepare(string appIdentifiers)
+        public static async Task<Dictionary<string, object>> PrepareAsync(string appIdentifiers)
         {
             var cfg = new Dictionary<string, object>();
 
@@ -26,14 +26,14 @@ namespace MapHive.Server.Core
             cfg[nameof(HashPropertyValueDelimiter)] = HashPropertyValueDelimiter;
 
             //do an 'auth preflight', so user gets better experience - app will prompt for authentication straight away.
-            cfg["AuthRequiredAppIdentifiers"] = await GetIdentifiersForAppsRequiringAuth();
+            cfg["AuthRequiredAppIdentifiers"] = await GetIdentifiersForAppsRequiringAuthAsync();
 
 
             //API endpoint - where the MapHive services are
             cfg["ApiEndPoint"] = ConfigurationManager.AppSettings["ApiEndPoint"];
 
             //Allowed origins for the xwindow post message communication
-            cfg["AllowedXWindowMsgBusOrigins"] = await GetAllowedXWindowOrigins();
+            cfg["AllowedXWindowMsgBusOrigins"] = await GetAllowedXWindowOriginsAsync();
 
 
             //API map - customisation of the default api endpoints declared in the MapHive ExtJs
@@ -49,9 +49,9 @@ namespace MapHive.Server.Core
             }
 
             //grab the localisation for the application
-            cfg["LangCode"] = await GetRequestLang();
+            cfg["LangCode"] = await GetRequestLangAsync();
             cfg[nameof(LangParam)] = LangParam;
-            cfg["Localisation"] = await GetAppLocalisation(appIdentifiers, (string)cfg["LangCode"]);
+            cfg["Localisation"] = await GetAppLocalisationAsync(appIdentifiers, (string)cfg["LangCode"]);
             cfg[nameof(HeaderLang)] = HeaderLang;
 
             //some other xtra headers

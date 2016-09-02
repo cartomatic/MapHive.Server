@@ -18,9 +18,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Delete(Guid uuid, DbContext db = null)
+        public virtual async Task<IHttpActionResult> DeleteAsync(Guid uuid, DbContext db = null)
         {
-            return await Destroy(db ?? _dbCtx, uuid);
+            return await DestroyAsync(db ?? _dbCtx, uuid);
         }
 
         /// <summary>
@@ -29,14 +29,14 @@ namespace MapHive.Server.Core.API
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected virtual async Task<IHttpActionResult> Destroy(DbContext db, Guid uuid)
+        protected virtual async Task<IHttpActionResult> DestroyAsync(DbContext db, Guid uuid)
         {
             //all stuff is instance based, so need to obtain one first
             T obj = (T)Activator.CreateInstance(typeof(T));
 
             try
             {
-                obj = await obj.Destroy(db, uuid);
+                obj = await obj.DestroyAsync(db, uuid);
 
                 if (obj != null)
                 {

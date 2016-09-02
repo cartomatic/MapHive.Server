@@ -10,7 +10,7 @@ namespace MapHive.Server.Core
 {
     public partial class Auth
     {
-        public static async Task<AuthOutput> ValidateToken(string accessToken)
+        public static async Task<AuthOutput> ValidateTokenAsync(string accessToken)
         {
             var idSrvTokenClientOpts = IdSrvTokenClientOpts.InitDefault();
 

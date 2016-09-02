@@ -15,7 +15,7 @@ namespace MapHive.Server.Core
         /// <param name="appNames">Comma delimited names of the apps / packages to obtain the localisations for</param>
         /// <param name="langCode"></param>
         /// <returns></returns>
-        private static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisation(string appNames, string langCode)
+        private static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisationAsync(string appNames, string langCode)
         {
             var client = new RestClient(GetApiEndpoint());
             var request = new RestRequest(GetApiCallUrl("applocalisations"), Method.GET);

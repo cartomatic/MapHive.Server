@@ -24,11 +24,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="propertySpecifiers"></param>
         /// <returns></returns>
-        public static async Task<T> MaterialiseLinksAsAttached<T>(this T obj, DbContext db,
+        public static async Task<T> MaterialiseLinksAsAttachedAsync<T>(this T obj, DbContext db,
             params Expression<Func<T, IEnumerable<Base>>>[] propertySpecifiers)
             where T : Base
         {
-            return await obj.MaterialiseLinks(db, propertySpecifiers, false);
+            return await obj.MaterialiseLinksAsync(db, propertySpecifiers, false);
         }
 
         /// <summary>
@@ -39,11 +39,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="propertySpecifiers"></param>
         /// <returns></returns>
-        public static async Task<T> MaterialiseLinksAsDetached<T>(this T obj, DbContext db,
+        public static async Task<T> MaterialiseLinksAsDetachedAsync<T>(this T obj, DbContext db,
             params Expression<Func<T, IEnumerable<Base>>>[] propertySpecifiers)
             where T : Base
         {
-            return await obj.MaterialiseLinks(db, propertySpecifiers, true);
+            return await obj.MaterialiseLinksAsync(db, propertySpecifiers, true);
         }
 
         /// <summary>
@@ -55,13 +55,13 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="detached">Whether or not the loaded objects should be deatched from db context or not</param>
         /// <param name="propertySpecifiers"></param>
         /// <returns></returns>
-        private static async Task<T> MaterialiseLinks<T>(this T obj, DbContext db,
+        private static async Task<T> MaterialiseLinksAsync<T>(this T obj, DbContext db,
             IEnumerable<Expression<Func<T, IEnumerable<Base>>>> propertySpecifiers, bool detached)
             where T : Base
         {
             var list = propertySpecifiers.Select(GetPropertyMemberInfoFromExpression).ToList();
 
-            await obj.MaterialiseLinks(db, list, detached);
+            await obj.MaterialiseLinksAsync(db, list, detached);
 
             return obj;
         }
@@ -147,7 +147,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="props">IEnumerable Of T where T : Base properties to load the links into</param>
         /// <param name="detached">Whether or not the loaded objects should be deatched from db context or not</param>
         /// <returns></returns>
-        private static async Task<T> MaterialiseLinks<T>(this T obj, DbContext db, IEnumerable<MemberInfo> props,
+        private static async Task<T> MaterialiseLinksAsync<T>(this T obj, DbContext db, IEnumerable<MemberInfo> props,
             bool detached = true)
             where T : Base
         {
@@ -253,11 +253,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        public static async Task SaveLinks<T>(this T obj, DbContext db)
+        public static async Task SaveLinksAsync<T>(this T obj, DbContext db)
             where T : Base
         {
-            await obj.UpsertLinks(db);
-            await obj.DestroyLinks(db);
+            await obj.UpsertLinksAsync(db);
+            await obj.DestroyLinksAsync(db);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        private static async Task UpsertLinks<T>(this T obj, DbContext db)
+        private static async Task UpsertLinksAsync<T>(this T obj, DbContext db)
             where T : Base
         {
 
@@ -334,7 +334,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        private static async Task DestroyLinks<T>(this T obj, DbContext db)
+        private static async Task DestroyLinksAsync<T>(this T obj, DbContext db)
             where T : Base
         {
             var destory = obj.Links.Destroy;
@@ -363,7 +363,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached">Whether or not the loaded objects should be deatched from db context or not</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<TParent>> GetParents<T, TParent>(this T obj, DbContext db,
+        public static async Task<IEnumerable<TParent>> GetParentsAsync<T, TParent>(this T obj, DbContext db,
             bool detached = true)
             where T : Base
             where TParent : Base
@@ -383,7 +383,7 @@ namespace MapHive.Server.Core.DataModel
                 .ToList();
 
             //at this stage got the ids of parents, so can read them by uuid
-            return await parent.Read<TParent>(db, links.Select(l => l.ParentUuid), detached: detached);
+            return await parent.ReadAsync<TParent>(db, links.Select(l => l.ParentUuid), detached: detached);
         }
 
         /// <summary>
@@ -395,7 +395,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<TParent> GetFirstParent<T, TParent>(this T obj, DbContext db,
+        public static async Task<TParent> GetFirstParentAsync<T, TParent>(this T obj, DbContext db,
             bool detached = true)
             where T : Base
             where TParent : Base
@@ -413,7 +413,7 @@ namespace MapHive.Server.Core.DataModel
 
             //at this stage got the ids of parents, so can read them by uuid
             if (link != null)
-                return await parent.Read<TParent>(db, link.ChildUuid, detached: detached);
+                return await parent.ReadAsync<TParent>(db, link.ChildUuid, detached: detached);
             else
                 return null;
         }
@@ -427,7 +427,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<bool> HasParents<T, TParent>(this T obj, DbContext db, bool detached)
+        public static async Task<bool> HasParentsAsync<T, TParent>(this T obj, DbContext db, bool detached)
             where T : Base
             where TParent : Base
         {
@@ -449,7 +449,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<TChild>> GetChildren<T, TChild>(this T obj, DbContext db,
+        public static async Task<IEnumerable<TChild>> GetChildrenAsync<T, TChild>(this T obj, DbContext db,
             bool detached = true)
             where T : Base
             where TChild : Base
@@ -469,7 +469,7 @@ namespace MapHive.Server.Core.DataModel
                 .ToList();
 
             //at this stage got the ids of children, so can read them by uuid
-            return await child.Read<TChild>(db, links.Select(l => l.ChildUuid), detached: detached);
+            return await child.ReadAsync<TChild>(db, links.Select(l => l.ChildUuid), detached: detached);
         }
 
         /// <summary>
@@ -481,7 +481,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<TChild> GetFirstChild<T, TChild>(this T obj, DbContext db,
+        public static async Task<TChild> GetFirstChildAsync<T, TChild>(this T obj, DbContext db,
             bool detached = true)
             where T : Base
             where TChild : Base
@@ -499,7 +499,7 @@ namespace MapHive.Server.Core.DataModel
 
             //at this stage got the ids of parents, so can read them by uuid
             if(link != null)
-                return await child.Read<TChild>(db, link.ChildUuid, detached: detached);
+                return await child.ReadAsync<TChild>(db, link.ChildUuid, detached: detached);
             else
                 return null;
         }
@@ -513,7 +513,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="db"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<bool> HasChildren<T, TChild>(this T obj, DbContext db, bool detached)
+        public static async Task<bool> HasChildrenAsync<T, TChild>(this T obj, DbContext db, bool detached)
             where T : Base
             where TChild : Base
         {

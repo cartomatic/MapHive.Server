@@ -26,10 +26,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="limit"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<T>> Read<T>(this T obj, DbContext dbCtx, List<ReadSorter> sorters,
+        public static async Task<IEnumerable<T>> ReadAsync<T>(this T obj, DbContext dbCtx, List<ReadSorter> sorters,
             List<ReadFilter> filters, int start = 0, int limit = 25, bool detached = true) where T : Base
         {
-            return await obj.Read<T>(dbCtx, sorters, filters, start, limit, detached);
+            return await obj.ReadAsync<T>(dbCtx, sorters, filters, start, limit, detached);
         }
 
         /// <summary>
@@ -41,10 +41,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="filters"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<int> ReadCount<T>(this T obj, DbContext dbCtx, List<ReadFilter> filters)
+        public static async Task<int> ReadCountAsync<T>(this T obj, DbContext dbCtx, List<ReadFilter> filters)
             where T : Base
         {
-            return await obj.ReadCount<T>(dbCtx, filters);
+            return await obj.ReadCountAsync<T>(dbCtx, filters);
         }
 
         /// <summary>
@@ -56,9 +56,9 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         /// <param name="detached"></param>
         /// <returns></returns>
-        public static async Task<T> Read<T>(this T obj, DbContext dbCtx, Guid uuid, bool detached = true) where T : Base
+        public static async Task<T> ReadAsync<T>(this T obj, DbContext dbCtx, Guid uuid, bool detached = true) where T : Base
         {
-            return await obj.Read<T>(dbCtx, uuid, detached);
+            return await obj.ReadAsync<T>(dbCtx, uuid, detached);
         }
     }
 }

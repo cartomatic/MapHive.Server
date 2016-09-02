@@ -24,7 +24,7 @@ namespace MapHive.Server.Core
             public string Email { get; set; }
         }
 
-        public static async Task<AccountActivationOutput> ActivateAccount<TAccount>(
+        public static async Task<AccountActivationOutput> ActivateAccountAsync<TAccount>(
             UserAccountService<TAccount> userAccountService, string verificationKey, string initialPassword)
             where TAccount : RelationalUserAccount
         {

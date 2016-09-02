@@ -22,6 +22,6 @@ namespace MapHive.Server.Core.DataModel.Interface
         /// <summary>
         /// Validates data model. Should throw when model is not valid; expected to be async!
         /// </summary>
-        Task Validate(DbContext dbCtx);
+        Task ValidateAsync(DbContext dbCtx);
     }
 }

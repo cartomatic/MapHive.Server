@@ -21,10 +21,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public static async Task<T> Update<T>(this T obj, DbContext dbCtx, Guid uuid)
+        public static async Task<T> UpdateAsync<T>(this T obj, DbContext dbCtx, Guid uuid)
             where T : Base
         {
-            return await obj.Update<T>(dbCtx, uuid);
+            return await obj.UpdateAsync<T>(dbCtx, uuid);
         }
 
     }

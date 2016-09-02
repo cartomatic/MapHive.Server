@@ -16,10 +16,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal override async Task<T> Update<T>(DbContext dbCtx, Guid uuid)
+        protected internal override async Task<T> UpdateAsync<T>(DbContext dbCtx, Guid uuid)
         {
-            await ResetCurrentDefaultLang(dbCtx);
-            return await base.Update<T>(dbCtx, uuid);
+            await ResetCurrentDefaultLangAsync(dbCtx);
+            return await base.UpdateAsync<T>(dbCtx, uuid);
         }
     }
 }

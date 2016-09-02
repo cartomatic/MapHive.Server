@@ -13,7 +13,7 @@ namespace MapHive.Server.Core
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static async Task LetMeOutOfHere(string accessToken)
+        public static async Task LetMeOutOfHereAsync(string accessToken)
         {
             //TODO
             //https://identityserver.github.io/Documentation/docs/endpoints/endSession.html

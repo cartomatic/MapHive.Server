@@ -16,9 +16,9 @@ namespace MapHive.Server.Core
         /// </summary>
         /// <param name="setCookie"></param>
         /// <returns></returns>
-        public static async Task<string> GetRequestLang(bool setCookie = true)
+        public static async Task<string> GetRequestLangAsync(bool setCookie = true)
         {
-            return await GetRequestLang(HttpContext.Current.Request, HttpContext.Current.Response, setCookie);
+            return await GetRequestLangAsync(HttpContext.Current.Request, HttpContext.Current.Response, setCookie);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace MapHive.Server.Core
         /// <param name="response"></param>
         /// <param name="setCookie"></param>
         /// <returns></returns>
-        private static async Task<string> GetRequestLang(HttpRequest request, System.Web.HttpResponse response, bool setCookie = true)
+        private static async Task<string> GetRequestLangAsync(HttpRequest request, System.Web.HttpResponse response, bool setCookie = true)
         {
             string lng = null;
 
@@ -57,9 +57,9 @@ namespace MapHive.Server.Core
             }
 
             //make sure the language defaults to whatever is set if it has not been worked out or is not supported
-            if (string.IsNullOrEmpty(lng) || !(await GetSupportedLangCodes()).Contains(lng))
+            if (string.IsNullOrEmpty(lng) || !(await GetSupportedLangCodesAsync()).Contains(lng))
             {
-                lng = await GetDefaultLangCode();
+                lng = await GetDefaultLangCodeAsync();
             }
 
             //finally before returning set the lang in cookie for further usage
@@ -75,7 +75,7 @@ namespace MapHive.Server.Core
         /// Gets a list of supported lang codes of the configured WebAPI
         /// </summary>
         /// <returns></returns>
-        private static async Task<IEnumerable<string>> GetSupportedLangCodes()
+        private static async Task<IEnumerable<string>> GetSupportedLangCodesAsync()
         {
             var client = new RestClient(GetApiEndpoint());
             var request = new RestRequest(GetApiCallUrl("supportedlangcodes"), Method.GET);
@@ -88,7 +88,7 @@ namespace MapHive.Server.Core
         /// Gets a default lang code off the confogured web api
         /// </summary>
         /// <returns></returns>
-        private static async Task<string> GetDefaultLangCode()
+        private static async Task<string> GetDefaultLangCodeAsync()
         {
             var client = new RestClient(GetApiEndpoint());
             var request = new RestRequest(GetApiCallUrl("defaultlangcode"), Method.GET);

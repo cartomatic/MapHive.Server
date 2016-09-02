@@ -18,10 +18,10 @@ namespace MapHive.Server.Core.API
         /// <param name="emailIdentifier"></param>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected async Task<Tuple<IEmailAccount, IEmailTemplate>> GetEmailStuff(string emailIdentifier,
+        protected async Task<Tuple<IEmailAccount, IEmailTemplate>> GetEmailStuffAsync(string emailIdentifier,
             ILocalised dbCtx)
         {
-            return await this.GetEmailStuff(emailIdentifier, string.Empty, dbCtx);
+            return await this.GetEmailStuffAsync(emailIdentifier, string.Empty, dbCtx);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace MapHive.Server.Core.API
         /// <param name="appName"></param>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected async Task<Tuple<IEmailAccount, IEmailTemplate>> GetEmailStuff(string emailIdentifier, string appName, ILocalised dbCtx)
+        protected async Task<Tuple<IEmailAccount, IEmailTemplate>> GetEmailStuffAsync(string emailIdentifier, string appName, ILocalised dbCtx)
         {
             EmailAccount ea = null;
             EmailTemplate et = null;
@@ -52,7 +52,7 @@ namespace MapHive.Server.Core.API
 
             //request or default lang
             var langCode = GetRequestLangCode();
-            var defaultLangCode = await GetDefaultLang(dbCtx);
+            var defaultLangCode = await GetDefaultLangAsync(dbCtx);
 
             //finaly 
             var localisedEmail = 

@@ -16,7 +16,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("applocalisations")]
-    public class AppLocalisationController : BaseApiController<AppLocalisation, MapHiveDbContext>
+    public class AppLocalisationController : BaseApiCrudController<AppLocalisation, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public AppLocalisationController()
@@ -31,7 +31,7 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.Get(sort, filter, start, limit);
+            return await base.GetAsync(sort, filter, start, limit);
         }
 
         // GET: /applocalisations/5
@@ -40,7 +40,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.Get(uuid);
+            return await base.GetAsync(uuid);
         }
 
         // PUT: /applocalisations/5
@@ -49,7 +49,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(AppLocalisation))]
         public async Task<IHttpActionResult> Put(AppLocalisation obj, Guid uuid)
         {
-            return await base.Put(obj, uuid);
+            return await base.PutAsync(obj, uuid);
         }
 
         // POST: /applocalisations
@@ -58,7 +58,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(AppLocalisation))]
         public async Task<IHttpActionResult> Post(AppLocalisation obj)
         {
-            return await base.Post(obj);
+            return await base.PostAsync(obj);
         }
 
         // DELETE: /applocalisations/5
@@ -67,7 +67,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(AppLocalisation))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.Delete(uuid);
+            return await base.DeleteAsync(uuid);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace MapHive.Server.API.Controllers
                 return
                     Ok(
                         await
-                            AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, langCode,
+                            AppLocalisation.GetAppLocalisationsAsync(_dbCtx as MapHiveDbContext, langCode,
                                 string.IsNullOrWhiteSpace(appNames) ? new string[0] : appNames.Split(',')));
             }
             catch (Exception ex)
@@ -113,7 +113,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await AppLocalisation.GetAppLocalisations(_dbCtx as MapHiveDbContext, (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
+                return Ok(await AppLocalisation.GetAppLocalisationsAsync(_dbCtx as MapHiveDbContext, (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
             }
             catch (Exception ex)
             {

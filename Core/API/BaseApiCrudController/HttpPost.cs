@@ -17,9 +17,9 @@ namespace MapHive.Server.Core.API
         /// <param name="obj"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Post(T obj, DbContext db = null)
+        public virtual async Task<IHttpActionResult> PostAsync(T obj, DbContext db = null)
         {
-            return await Create(db ?? _dbCtx, obj);
+            return await CreateAsync(db ?? _dbCtx, obj);
         }
 
         /// <summary>
@@ -29,9 +29,9 @@ namespace MapHive.Server.Core.API
         /// <param name="obj"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Post<DTO>(DTO obj, DbContext db = null) where DTO : class
+        public virtual async Task<IHttpActionResult> PostAsync<DTO>(DTO obj, DbContext db = null) where DTO : class
         {
-            return await Create(db ?? _dbCtx, obj);
+            return await CreateAsync(db ?? _dbCtx, obj);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace MapHive.Server.Core.API
         /// <param name="obj"></param>
         /// <typeparam name="TDto">Type to transfer the data from when creating an instance of T; must implement IDto of TDto</typeparam>
         /// <returns></returns>
-        protected virtual async Task<IHttpActionResult> Create<TDto>(DbContext db, TDto obj) where TDto : class
+        protected virtual async Task<IHttpActionResult> CreateAsync<TDto>(DbContext db, TDto obj) where TDto : class
         {
             try
             {
@@ -60,7 +60,7 @@ namespace MapHive.Server.Core.API
                     coreObj = obj as T;
                 }
 
-                var entity = await coreObj.Create(db);
+                var entity = await coreObj.CreateAsync(db);
 
                 if (entity != null)
                     return Ok(entity);

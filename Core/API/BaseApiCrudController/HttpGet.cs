@@ -22,9 +22,9 @@ namespace MapHive.Server.Core.API
         /// <param name="limit"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0, int limit = 25, DbContext db = null)
+        public virtual async Task<IHttpActionResult> GetAsync(string sort = null, string filter = null, int start = 0, int limit = 25, DbContext db = null)
         {
-            return await Read<T>(db ?? _dbCtx, sort, filter, start, limit);
+            return await ReadAsync<T>(db ?? _dbCtx, sort, filter, start, limit);
         }
 
         /// <summary>
@@ -37,9 +37,9 @@ namespace MapHive.Server.Core.API
         /// <param name="limit"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Get<TDto>(string sort = null, string filter = null, int start = 0, int limit = 25, DbContext db = null) where TDto : class
+        public virtual async Task<IHttpActionResult> GetAsync<TDto>(string sort = null, string filter = null, int start = 0, int limit = 25, DbContext db = null) where TDto : class
         {
-            return await Read<TDto>(db ?? _dbCtx, sort, filter, start, limit);
+            return await ReadAsync<TDto>(db ?? _dbCtx, sort, filter, start, limit);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace MapHive.Server.Core.API
         /// <param name="start"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        protected virtual async Task<IHttpActionResult> Read<TDto>(DbContext db, string sort = null, string filter = null,
+        protected virtual async Task<IHttpActionResult> ReadAsync<TDto>(DbContext db, string sort = null, string filter = null,
             int start = 0, int limit = 25) where TDto : class
         {
             //all stuff is instance based, so need to obtain one first
@@ -63,12 +63,12 @@ namespace MapHive.Server.Core.API
                 var filters = filter.ExtJsJsonFiltersToReadFilters();
 
                 //this is web service read call so read as no tracking - detached 
-                var data = await obj.Read(db, sort.ExtJsJsonSortersToReadSorters(), filters, start, limit, detached: true);
+                var data = await obj.ReadAsync(db, sort.ExtJsJsonSortersToReadSorters(), filters, start, limit, detached: true);
 
                 if (data.Any())
                 {
                     //got the data, so can get the count too.
-                    AppendTotalHeader(await obj.ReadCount(db, filters));
+                    AppendTotalHeader(await obj.ReadCountAsync(db, filters));
 
                     //Note: this could and should be done in a more elegant way. but had no smart ideas at a time. will come back to this at some stage...
                     //do dto hocus pocus if needed
@@ -101,9 +101,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Get(Guid uuid, DbContext db = null)
+        public virtual async Task<IHttpActionResult> GetAsync(Guid uuid, DbContext db = null)
         {
-            return await Read<T>(db ?? _dbCtx, uuid);
+            return await ReadAsync<T>(db ?? _dbCtx, uuid);
         }
 
         /// <summary>
@@ -113,9 +113,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="db">DbContext to be used; when not provided a default instance of TDbCtx will be used</param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> Get<TDto>(Guid uuid, DbContext db = null) where TDto : class
+        public virtual async Task<IHttpActionResult> GetAsync<TDto>(Guid uuid, DbContext db = null) where TDto : class
         {
-            return await Read<TDto>(db ?? _dbCtx, uuid);
+            return await ReadAsync<TDto>(db ?? _dbCtx, uuid);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <typeparam name="TDto">Type to convert to; must implement IDTO of DTO</typeparam>
         /// <returns></returns>
-        protected virtual async Task<IHttpActionResult> Read<TDto>(DbContext db, Guid uuid) where TDto : class
+        protected virtual async Task<IHttpActionResult> ReadAsync<TDto>(DbContext db, Guid uuid) where TDto : class
         {
             //all stuff is instance based, so need to obtain one first
             T obj = (T)Activator.CreateInstance(typeof(T));
@@ -133,7 +133,7 @@ namespace MapHive.Server.Core.API
             try
             {
                 //this is web service read call so read as no tracking - detached 
-                var entity = await obj.Read(db, uuid, detached: true);
+                var entity = await obj.ReadAsync(db, uuid, detached: true);
                 if (entity != null)
                 {
                     //Note: this could and should be done in a more elegant way. but had no smart ideas at a time. will come back to this at some stage...
@@ -167,9 +167,9 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="propertySpecifier"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadLinks(Guid uuid, Expression<Func<T, IEnumerable<Base>>> propertySpecifier)
+        public virtual async Task<IHttpActionResult> ReadLinksAsync(Guid uuid, Expression<Func<T, IEnumerable<Base>>> propertySpecifier)
         {
-            return await ReadLinks(_dbCtx, uuid, propertySpecifier);
+            return await ReadLinksAsync(_dbCtx, uuid, propertySpecifier);
         }
 
         /// <summary>
@@ -179,14 +179,14 @@ namespace MapHive.Server.Core.API
         /// <param name="uuid"></param>
         /// <param name="propertySpecifier"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadLinks(DbContext db, Guid uuid, Expression<Func<T, IEnumerable<Base>>> propertySpecifier)
+        public virtual async Task<IHttpActionResult> ReadLinksAsync(DbContext db, Guid uuid, Expression<Func<T, IEnumerable<Base>>> propertySpecifier)
         {
             //first get an instance of T to call the appropriate methods on it
             var obj = (T)Activator.CreateInstance(typeof(T));
 
             //read the object from the db
             //this is web service read call so read as no tracking - detached 
-            obj = await obj.Read(db, uuid, detached: true);
+            obj = await obj.ReadAsync(db, uuid, detached: true);
 
             if (obj == null)
             {
@@ -198,7 +198,7 @@ namespace MapHive.Server.Core.API
             {
                 //read the links for a specific property
                 //this is web service read call so read as no tracking - detached 
-                await obj.MaterialiseLinksAsDetached(db, propertySpecifier);
+                await obj.MaterialiseLinksAsDetachedAsync(db, propertySpecifier);
 
                 //at this stage should have the links loaded, so can return the content of a property
                 var mi = Utils.Reflection.GetPropertyMemberInfoFromExpression(propertySpecifier);
@@ -231,11 +231,11 @@ namespace MapHive.Server.Core.API
         /// <typeparam name="TParent"></typeparam>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadParents<TParent>(Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadParentsAsync<TParent>(Guid uuid)
             where TParent : Base
         {
 
-            return await ReadParents<TParent>(_dbCtx, uuid);
+            return await ReadParentsAsync<TParent>(_dbCtx, uuid);
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace MapHive.Server.Core.API
         /// <param name="db"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadParents<TParent>(DbContext db, Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadParentsAsync<TParent>(DbContext db, Guid uuid)
             where TParent : Base
         {
             //first get an instance of T to call the appropriate methods on it
@@ -253,7 +253,7 @@ namespace MapHive.Server.Core.API
 
             //read the object from the db
             //this is web service read call so read as no tracking - detached 
-            obj = await obj.Read(db, uuid, detached: true);
+            obj = await obj.ReadAsync(db, uuid, detached: true);
 
             if (obj == null)
             {
@@ -265,7 +265,7 @@ namespace MapHive.Server.Core.API
             {
                 //read the links for a specific property
                 //this is web service read call so read as no tracking - detached 
-                var data = await obj.GetParents<T, TParent>(db, detached: true);
+                var data = await obj.GetParentsAsync<T, TParent>(db, detached: true);
 
                 if (data == null || !data.Any())
                 {
@@ -291,11 +291,11 @@ namespace MapHive.Server.Core.API
         /// <typeparam name="TChild"></typeparam>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadChildren<TChild>(Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadChildrenAsync<TChild>(Guid uuid)
             where TChild : Base
         {
 
-            return await ReadChildren<TChild>(_dbCtx, uuid);
+            return await ReadChildrenAsync<TChild>(_dbCtx, uuid);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace MapHive.Server.Core.API
         /// <param name="db"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadChildren<TChild>(DbContext db, Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadChildrenAsync<TChild>(DbContext db, Guid uuid)
             where TChild : Base
         {
             //first get an instance of T to call the appropriate methods on it
@@ -313,7 +313,7 @@ namespace MapHive.Server.Core.API
 
             //read the object from the db
             //this is web service read call so read as no tracking - detached 
-            obj = await obj.Read(db, uuid, detached: true);
+            obj = await obj.ReadAsync(db, uuid, detached: true);
 
             if (obj == null)
             {
@@ -325,7 +325,7 @@ namespace MapHive.Server.Core.API
             {
                 //read the links for a specific property
                 //this is web service read call so read as no tracking - detached 
-                var data = await obj.GetChildren<T, TChild>(db, detached: true);
+                var data = await obj.GetChildrenAsync<T, TChild>(db, detached: true);
 
                 if (data == null || !data.Any())
                 {
@@ -350,11 +350,11 @@ namespace MapHive.Server.Core.API
         /// <typeparam name="TChild"></typeparam>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadFirstChild<TChild>(Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadFirstChildAsync<TChild>(Guid uuid)
             where TChild : Base
         {
 
-            return await ReadFirstChild<TChild>(_dbCtx, uuid);
+            return await ReadFirstChildAsync<TChild>(_dbCtx, uuid);
         }
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace MapHive.Server.Core.API
         /// <param name="db"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public virtual async Task<IHttpActionResult> ReadFirstChild<TChild>(DbContext db, Guid uuid)
+        public virtual async Task<IHttpActionResult> ReadFirstChildAsync<TChild>(DbContext db, Guid uuid)
             where TChild : Base
         {
             //first get an instance of T to call the appropriate methods on it
@@ -372,7 +372,7 @@ namespace MapHive.Server.Core.API
 
             //read the object from the db
             //this is web service read call so read as no tracking - detached 
-            obj = await obj.Read(db, uuid, detached: true);
+            obj = await obj.ReadAsync(db, uuid, detached: true);
 
             if (obj == null)
             {
@@ -384,7 +384,7 @@ namespace MapHive.Server.Core.API
             {
                 //read the links for a specific property
                 //this is web service read call so read as no tracking - detached 
-                var data = await obj.GetFirstChild<T, TChild>(db, detached: true);
+                var data = await obj.GetFirstChildAsync<T, TChild>(db, detached: true);
 
                 if (data == null)
                 {

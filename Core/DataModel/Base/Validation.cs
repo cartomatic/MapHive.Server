@@ -30,7 +30,7 @@ namespace MapHive.Server.Core.DataModel
         /// Validates the class data model; used prior to saving changes;
         /// </summary>
         /// <exception cref="ValidationFailedException"></exception>
-        public virtual async Task Validate(DbContext dbCtx = null)
+        public virtual async Task ValidateAsync(DbContext dbCtx = null)
         {
             // Get validator class with config (validation criteria)
             var validator = GetValidator();
@@ -64,14 +64,14 @@ namespace MapHive.Server.Core.DataModel
                 throw validationFailedException;
             }
 
-            await ValidateAgainstDb(dbCtx);
+            await ValidateAgainstDbAsync(dbCtx);
         }
 
         /// <summary>
         /// Performs extra validation against database. An extenson point for performing validations that do depend on db state
         /// </summary>
         /// <param name="dbCtx"></param>
-        protected virtual async Task ValidateAgainstDb(DbContext dbCtx)
+        protected virtual async Task ValidateAgainstDbAsync(DbContext dbCtx)
         {
             return;
         }

@@ -19,10 +19,10 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="T"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected internal override async Task<T> Create<T>(DbContext dbCtx)
+        protected internal override async Task<T> CreateAsync<T>(DbContext dbCtx)
         {
             InvalidateAppLocalisationsCache(ApplicationName);
-            return await base.Create<T>(dbCtx);
+            return await base.CreateAsync<T>(dbCtx);
         }
     }
 }

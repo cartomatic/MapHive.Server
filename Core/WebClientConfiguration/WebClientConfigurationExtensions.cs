@@ -17,7 +17,7 @@ namespace MapHive.Server.Core
         /// <param name="p"></param>
         /// <param name="appIdentifiers"></param>
         /// <returns></returns>
-        public static async Task InjectMhCfg(this System.Web.UI.Page p, string appIdentifiers)
+        public static async Task InjectMhCfgAsync(this System.Web.UI.Page p, string appIdentifiers)
         {
             //search for title index, so can inject the script just after that
             //assuming that all the meta stuff goes before the title though...
@@ -37,7 +37,7 @@ namespace MapHive.Server.Core
             System.Web.UI.HtmlControls.HtmlGenericControl mhCfgScript = new System.Web.UI.HtmlControls.HtmlGenericControl("script");
             mhCfgScript.Attributes["type"] = "text/javascript";
 
-            mhCfgScript.InnerHtml = await GetScriptContent(appIdentifiers);
+            mhCfgScript.InnerHtml = await GetScriptContentAsync(appIdentifiers);
             p.Header.Controls.AddAt(++idx, mhCfgScript);
 
         }
@@ -49,9 +49,9 @@ namespace MapHive.Server.Core
         /// <param name="appIdentifier">identifier of an application being launched - used to extract appropriate localisation for current request</param>
         /// <param name="langCode">language code to extract the localisation for</param>
         /// <returns></returns>
-        private static async Task<string> GetScriptContent(string appIdentifier = null, string langCode = null)
+        private static async Task<string> GetScriptContentAsync(string appIdentifier = null, string langCode = null)
         {
-            var cfg = await WebClientConfiguration.Prepare(appIdentifier);
+            var cfg = await WebClientConfiguration.PrepareAsync(appIdentifier);
 
 
             //Note:

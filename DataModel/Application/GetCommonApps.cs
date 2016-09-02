@@ -14,7 +14,7 @@ namespace MapHive.Server.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Application>> GetCommonApps(DbContext dbCtx)
+        public static async Task<IEnumerable<Application>> GetCommonAppsAsync(DbContext dbCtx)
         {
             return await dbCtx.Set<Application>().Where(a => a.IsCommon).ToListAsync();
         }

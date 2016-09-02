@@ -26,18 +26,18 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="userAccountService"></param>
         /// <returns></returns>
-        public static async Task<T> Create<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService)
+        public static async Task<T> CreateAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
-            return await obj.Create<T, TAccount>(dbCtx, userAccountService);
+            return await obj.CreateAsync<T, TAccount>(dbCtx, userAccountService);
         }
 
-        public static async Task<T> Create<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount, IEmailTemplate emailTemplate)
+        public static async Task<T> CreateAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount, IEmailTemplate emailTemplate)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
-            return await obj.Create<T, TAccount>(dbCtx, userAccountService, emailAccount, emailTemplate);
+            return await obj.CreateAsync<T, TAccount>(dbCtx, userAccountService, emailAccount, emailTemplate);
         }
     }
 
@@ -58,7 +58,7 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="T"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        protected internal override Task<T> Create<T>(DbContext dbCtx)
+        protected internal override Task<T> CreateAsync<T>(DbContext dbCtx)
         {
             throw new InvalidOperationException(WrongCrudMethodErrorInfo);
         }
@@ -74,14 +74,14 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="emailAccount"></param>
         /// <param name="emailTemplate"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Create<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount = null, IEmailTemplate emailTemplate = null)
+        protected internal virtual async Task<T> CreateAsync<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, IEmailAccount emailAccount = null, IEmailTemplate emailTemplate = null)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
             T output;
 
             //need to validate the model first
-            this.Validate();
+            this.ValidateAsync();
 
             //make sure the email is ALWAYS lower case
             Email = Email.ToLower();
@@ -130,7 +130,7 @@ namespace MapHive.Server.Core.DataModel
                 this.Uuid = newMbrAccount.ID;
 
                 //mbr work done, so can create the user within the mh metadata db
-                output = await base.Create<T>(dbCtx);
+                output = await base.CreateAsync<T>(dbCtx);
 
                 //looks like we're good to go, so can commit
                 mbrTrans.Commit();

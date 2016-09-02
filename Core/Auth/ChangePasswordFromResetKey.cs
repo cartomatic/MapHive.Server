@@ -17,7 +17,7 @@ namespace MapHive.Server.Core
             public string FailureReason { get; set; }
         }
 
-        public static async Task<ChangePasswordFromResetKeyOutput> ChangePasswordFromResetKey<TAccount>(
+        public static async Task<ChangePasswordFromResetKeyOutput> ChangePasswordFromResetKeyAsync<TAccount>(
             UserAccountService<TAccount> userAccountService, string newPass, string verificationKey)
             where TAccount : RelationalUserAccount
         {

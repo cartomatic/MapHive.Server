@@ -26,10 +26,10 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="TDbCtx"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<Lang> GetDefaultLang<TDbCtx>(TDbCtx dbCtx)
+        public static async Task<Lang> GetDefaultLangAsync<TDbCtx>(TDbCtx dbCtx)
             where TDbCtx : DbContext, ILocalised
         {
-            return await GetDefaultLang(dbCtx as DbContext);
+            return await GetDefaultLangAsync(dbCtx as DbContext);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        private static async Task<Lang> GetDefaultLang(DbContext dbCtx)
+        private static async Task<Lang> GetDefaultLangAsync(DbContext dbCtx)
         {
             var langDbCtx = dbCtx as ILocalised;
             return DefaultLang ?? (DefaultLang = await langDbCtx?.Langs.FirstOrDefaultAsync(l => l.IsDefault)) ?? (DefaultLang = await langDbCtx?.Langs.FirstOrDefaultAsync(l => l.LangCode == DefaultLangCode));
@@ -49,15 +49,15 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="T"></typeparam>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        private async Task ResetCurrentDefaultLang(DbContext dbCtx)
+        private async Task ResetCurrentDefaultLangAsync(DbContext dbCtx)
         {
             if (IsDefault)
             {
-                var currentDefault = await GetDefaultLang(dbCtx);
+                var currentDefault = await GetDefaultLangAsync(dbCtx);
                 if (currentDefault != null && currentDefault.Uuid != Uuid)
                 {
                     currentDefault.IsDefault = false;
-                    await currentDefault.Update(dbCtx, currentDefault.Uuid);
+                    await currentDefault.UpdateAsync(dbCtx, currentDefault.Uuid);
 
                     //finally update the current lang cache
                     DefaultLang = this;

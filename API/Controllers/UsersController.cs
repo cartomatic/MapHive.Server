@@ -19,7 +19,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("users")]
-    public class UsersController : BaseApiController<User, MapHiveDbContext>
+    public class UsersController : BaseApiCrudController<User, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public UsersController()
@@ -34,7 +34,7 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.Get(sort, filter, start, limit);
+            return await base.GetAsync(sort, filter, start, limit);
         }
 
         // GET: /users/5
@@ -43,7 +43,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.Get(uuid);
+            return await base.GetAsync(uuid);
         }
 
         // PUT: /users/5
@@ -54,7 +54,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                var entity = await obj.Update<User, CustomUserAccount>(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
+                var entity = await obj.UpdateAsync<User, CustomUserAccount>(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
 
                 if (entity != null)
                     return Ok(entity);
@@ -82,12 +82,12 @@ namespace MapHive.Server.API.Controllers
 
             try
             {
-                var emailStuff = await GetEmailStuff("user_createdx", _dbCtx as ILocalised);
+                var emailStuff = await GetEmailStuffAsync("user_createdx", _dbCtx as ILocalised);
 
                 //TODO - some email customisation. logon url and such. or maybe should obtain login url from a referrer or an xtra param??????
 
 
-                var entity = await obj.Create(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), emailStuff?.Item1, emailStuff?.Item2);
+                var entity = await obj.CreateAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), emailStuff?.Item1, emailStuff?.Item2);
 
                 if (entity != null)
                     return Ok(entity);
@@ -111,7 +111,7 @@ namespace MapHive.Server.API.Controllers
 
             try
             {
-                obj = await obj.Destroy(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
+                obj = await obj.DestroyAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
 
                 if (obj != null)
                 {

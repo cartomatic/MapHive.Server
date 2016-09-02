@@ -15,7 +15,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("langs")]
-    public class LangsController : BaseApiController<Lang, MapHiveDbContext>
+    public class LangsController : BaseApiCrudController<Lang, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public LangsController()
@@ -30,7 +30,7 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.Get(sort, filter, start, limit);
+            return await base.GetAsync(sort, filter, start, limit);
         }
 
         // GET: /langs/5
@@ -39,7 +39,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.Get(uuid);
+            return await base.GetAsync(uuid);
         }
 
         // PUT: /langs/5
@@ -48,7 +48,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Put(Lang obj, Guid uuid)
         {
-            return await base.Put(obj, uuid);
+            return await base.PutAsync(obj, uuid);
         }
 
         // POST: /langs
@@ -57,7 +57,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Post(Lang obj)
         {
-            return await base.Post(obj);
+            return await base.PostAsync(obj);
         }
 
         // DELETE: /langs/5
@@ -66,7 +66,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.Delete(uuid);
+            return await base.DeleteAsync(uuid);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Lang.GetDefaultLang(_dbCtx as MapHiveDbContext));
+                return Ok(await Lang.GetDefaultLangAsync(_dbCtx as MapHiveDbContext));
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok((await Lang.GetDefaultLang(_dbCtx as MapHiveDbContext))?.LangCode);
+                return Ok((await Lang.GetDefaultLangAsync(_dbCtx as MapHiveDbContext))?.LangCode);
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Lang.GetSupportedLangs(_dbCtx as MapHiveDbContext));
+                return Ok(await Lang.GetSupportedLangsAsync(_dbCtx as MapHiveDbContext));
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok((await Lang.GetSupportedLangs(_dbCtx as MapHiveDbContext)).Select(l => l.LangCode));
+                return Ok((await Lang.GetSupportedLangsAsync(_dbCtx as MapHiveDbContext)).Select(l => l.LangCode));
             }
             catch (Exception ex)
             {

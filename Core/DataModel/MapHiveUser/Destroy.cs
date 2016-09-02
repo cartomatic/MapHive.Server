@@ -23,11 +23,11 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="userAccountService"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public static async Task<T> Destroy<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
+        public static async Task<T> DestroyAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
-            return await obj.Destroy<T, TAccount>(dbCtx, userAccountService, uuid);
+            return await obj.DestroyAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
 
     }
@@ -41,7 +41,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        protected internal override Task<T> Destroy<T>(DbContext dbCtx, Guid uuid)
+        protected internal override Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid)
         {
             throw new InvalidOperationException(WrongCrudMethodErrorInfo);
         }
@@ -55,13 +55,13 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="userAccountService"></param>
         /// <returns></returns>
-        protected internal virtual async Task<T> Destroy<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
+        protected internal virtual async Task<T> DestroyAsync<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
             where T : MapHiveUser
             where TAccount : RelationalUserAccount
         {
 
             //get a user
-            var user = await Read<T>(dbCtx, uuid);
+            var user = await ReadAsync<T>(dbCtx, uuid);
 
             //and make sure user exists and has not been 'closed' before!
             if (user == null || user.IsAccountClosed)
@@ -72,7 +72,7 @@ namespace MapHive.Server.Core.DataModel
             user.IsAccountClosed = true;
 
             //and simply update it
-            return await user.Update<T, TAccount>(dbCtx, userAccountService, uuid);
+            return await user.UpdateAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
     }
 }

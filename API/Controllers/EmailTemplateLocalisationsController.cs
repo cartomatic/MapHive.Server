@@ -15,7 +15,7 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("emailtemplatelocalisations")]
-    public class EmailTemplateLocalisationsController : BaseApiController<EmailTemplateLocalisation, MapHiveDbContext>
+    public class EmailTemplateLocalisationsController : BaseApiCrudController<EmailTemplateLocalisation, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public EmailTemplateLocalisationsController()
@@ -30,7 +30,7 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.Get(sort, filter, start, limit);
+            return await base.GetAsync(sort, filter, start, limit);
         }
 
         // GET: /emailtemplatelocalisations/5
@@ -39,7 +39,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.Get(uuid);
+            return await base.GetAsync(uuid);
         }
 
         // PUT: /emailtemplatelocalisations/5
@@ -48,7 +48,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Put(EmailTemplateLocalisation obj, Guid uuid)
         {
-            return await base.Put(obj, uuid);
+            return await base.PutAsync(obj, uuid);
         }
 
         // POST: /emailtemplatelocalisations
@@ -57,7 +57,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Post(EmailTemplateLocalisation obj)
         {
-            return await base.Post(obj);
+            return await base.PostAsync(obj);
         }
 
         // DELETE: /emailtemplatelocalisations/5
@@ -66,7 +66,7 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.Delete(uuid);
+            return await base.DeleteAsync(uuid);
         }
     }
 }

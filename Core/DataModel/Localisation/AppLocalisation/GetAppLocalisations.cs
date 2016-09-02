@@ -64,10 +64,10 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="langCode"></param>
         /// <param name="appNames"></param>
         /// <returns></returns>
-        public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisations<TDbCtx>(TDbCtx dbCtx, string langCode, params string[] appNames)
+        public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisationsAsync<TDbCtx>(TDbCtx dbCtx, string langCode, params string[] appNames)
             where TDbCtx : DbContext, ILocalised
         {
-            return await GetAppLocalisations(dbCtx, new[] {langCode}, appNames);
+            return await GetAppLocalisationsAsync(dbCtx, new[] {langCode}, appNames);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="langCodes"></param>
         /// <param name="appNames"></param>
         /// <returns></returns>
-        public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisations<TDbCtx>(TDbCtx dbCtx, IEnumerable<string> langCodes, IEnumerable<string> appNames)
+        public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisationsAsync<TDbCtx>(TDbCtx dbCtx, IEnumerable<string> langCodes, IEnumerable<string> appNames)
             where TDbCtx : DbContext, ILocalised
         {
             var ret = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
@@ -86,7 +86,7 @@ namespace MapHive.Server.Core.DataModel
             if (langCodes == null || !langCodes.Any() || appNames == null || !appNames.Any())
                 return ret;
 
-            var defaultLang = await Lang.GetDefaultLang(dbCtx);
+            var defaultLang = await Lang.GetDefaultLangAsync(dbCtx);
 
 
             //see if there is cache for the current combination already
