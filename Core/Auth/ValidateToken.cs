@@ -29,7 +29,7 @@ namespace MapHive.Server.Core
 
                 //Note: accesstokenvalidation returns expiration in seconds since epoch.
                 //Code below should give time in UTC 
-                AccessTOkenExpirationTimeUtc = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc).AddSeconds(long.Parse(response.Data["exp"]))
+                AccessTOkenExpirationTimeUtc = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc).AddSeconds(response.Data.ContainsKey("exp") ? long.Parse(response.Data["exp"]) : 0)
             };
         }
     }

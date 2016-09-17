@@ -302,7 +302,9 @@ namespace MapHive.Server.Core.DataModel
 
                 // Get child object link if exist
                 var child = sameTypeChildren.FirstOrDefault(x => x.ChildUuid == link.ChildUuid) ??
-                            iLinksDb.Links.Local.FirstOrDefault(x => x.ChildUuid == link.ChildUuid);
+                            //when digging out a link from local context, make sure to also include parent uuid in the search, otherwise, when one object is being added
+                            //as a ling to many parents, we can have problems overwriting wring links here
+                            iLinksDb.Links.Local.FirstOrDefault(x => x.ChildUuid == link.ChildUuid && x.ParentUuid == link.ParentUuid);
 
                 link.ParentTypeUuid = obj.TypeUuid;
                 link.ParentUuid = obj.Uuid;
