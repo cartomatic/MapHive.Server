@@ -19,9 +19,9 @@ namespace MapHive.Server.Core.DataModel
         public Guid Uuid { get; set; }
         public Guid? CreatedBy { get; set; }
         public Guid? LastModifiedBy { get; set; }
-        public DateTime? CreateDate { get; set; }
-        public DateTime? ModifyDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime? CreateDateUtc { get; set; }
+        public DateTime? ModifyDateUtc { get; set; }
+        public DateTime? EndDateUtc { get; set; }
 
         //hide links behind explicit implementation
         ILinksDiff IBase.Links { get; set; }

@@ -46,8 +46,8 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="npgsql, Version=3.1.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Trajan\Trajan.CountingApp.Server\packages\npgsql.3.1.5\lib\net451\npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.1.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.7\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,9 +67,9 @@
     <Compile Include="Application\_DataModel.cs" />
     <Compile Include="Application\_Blank.cs" />
     <Compile Include="Application\_Ctor.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607111510262_InitialCreate.cs" />
-    <Compile Include="_DAL\Migrations\MetadataConfiguration\201607111510262_InitialCreate.Designer.cs">
-      <DependentUpon>201607111510262_InitialCreate.cs</DependentUpon>
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201609211348064_InitialCreate.cs" />
+    <Compile Include="_DAL\Migrations\MetadataConfiguration\201609211348064_InitialCreate.Designer.cs">
+      <DependentUpon>201609211348064_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="_DAL\Migrations\MetadataConfiguration\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,8 +96,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201607111510262_InitialCreate.resx">
-      <DependentUpon>201607111510262_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="_DAL\Migrations\MetadataConfiguration\201609211348064_InitialCreate.resx">
+      <DependentUpon>201609211348064_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

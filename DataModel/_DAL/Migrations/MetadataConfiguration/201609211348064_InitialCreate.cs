@@ -22,13 +22,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         is_default = c.Boolean(nullable: false),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
                 .Index(t => t.short_name, unique: true, name: "uq_short_name")
-                .Index(t => t.create_date, name: "idx_create_date_application");
+                .Index(t => t.create_date_utc, name: "idx_create_date_application");
             
             CreateTable(
                 "mh_meta.localisation_app_translations",
@@ -41,13 +41,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         translations = c.String(),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
                 .Index(t => new { t.application_name, t.class_name, t.translation_key }, unique: true, name: "uq_app_name_class_name_translation_key")
-                .Index(t => t.create_date, name: "idx_create_date_applocalisation");
+                .Index(t => t.create_date_utc, name: "idx_create_date_applocalisation");
             
             CreateTable(
                 "mh_meta.localisation_email_templates",
@@ -62,13 +62,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         translations = c.String(),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
                 .Index(t => new { t.application_name, t.identifier }, unique: true, name: "uq_app_name_and_identifier")
-                .Index(t => t.create_date, name: "idx_create_date_lang");
+                .Index(t => t.create_date_utc, name: "idx_create_date_lang");
             
             CreateTable(
                 "mh_meta.localisation_langs",
@@ -81,12 +81,12 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         is_default = c.Boolean(nullable: false),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
-                .Index(t => t.create_date, name: "idx_create_date_lang");
+                .Index(t => t.create_date_utc, name: "idx_create_date_lang");
             
             CreateTable(
                 "mh_meta.links",
@@ -118,13 +118,13 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         is_account_verified = c.Boolean(nullable: false),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
                 .Index(t => t.email, unique: true, name: "uq_email")
-                .Index(t => t.create_date, name: "idx_create_date_user");
+                .Index(t => t.create_date_utc, name: "idx_create_date_user");
             
             CreateTable(
                 "mh_meta.xwindow_origins",
@@ -136,12 +136,12 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                         custom = c.Boolean(nullable: false),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
-                        create_date = c.DateTime(),
-                        modify_date = c.DateTime(),
-                        end_date = c.DateTime(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
                     })
                 .PrimaryKey(t => t.uuid)
-                .Index(t => t.create_date, name: "idx_create_date_xwindoworigin");
+                .Index(t => t.create_date_utc, name: "idx_create_date_xwindoworigin");
             
         }
         

@@ -26,14 +26,14 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             entity.Property(en => en.Uuid).HasColumnName("uuid");
             entity.Property(en => en.CreatedBy).HasColumnName("created_by");
             entity.Property(en => en.LastModifiedBy).HasColumnName("last_modified_by");
-            entity.Property(en => en.CreateDate).HasColumnName("create_date");
-            entity.Property(en => en.ModifyDate).HasColumnName("modify_date");
-            entity.Property(en => en.EndDate).HasColumnName("end_date");
+            entity.Property(en => en.CreateDateUtc).HasColumnName("create_date_utc");
+            entity.Property(en => en.ModifyDateUtc).HasColumnName("modify_date_utc");
+            entity.Property(en => en.EndDateUtc).HasColumnName("end_date_utc");
 
             entity.Ignore(p => p.TypeUuid);
             entity.Ignore(p => p.Links);
 
-            entity.Property(en => en.CreateDate)
+            entity.Property(en => en.CreateDateUtc)
                 .HasColumnAnnotation(
                     "Index",
                     new IndexAnnotation(new IndexAttribute($"idx_create_date_{entityName.ToLower()}")));

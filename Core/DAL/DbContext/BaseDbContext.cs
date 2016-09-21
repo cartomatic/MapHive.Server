@@ -48,16 +48,16 @@ namespace MapHive.Server.Core.DAL.DbContext
             {
                 if (entry.State == EntityState.Added)
                 {
-                    entry.Entity.CreateDate = DateTime.UtcNow;
+                    entry.Entity.CreateDateUtc = DateTime.UtcNow;
                     entry.Entity.CreatedBy = guid;
                 }
                 else
                 {
-                    entry.Property(x => x.CreateDate).IsModified = false;
+                    entry.Property(x => x.CreateDateUtc).IsModified = false;
                     entry.Property(x => x.CreatedBy).IsModified = false;
                 }
 
-                entry.Entity.ModifyDate = DateTime.UtcNow;
+                entry.Entity.ModifyDateUtc = DateTime.UtcNow;
                 entry.Entity.LastModifiedBy = guid;
             }
         }

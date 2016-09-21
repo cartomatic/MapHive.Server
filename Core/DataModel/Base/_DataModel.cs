@@ -31,17 +31,17 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Create date - updated automatically
         /// </summary>
-        public DateTime? CreateDate { get; set; }
+        public DateTime? CreateDateUtc { get; set; }
 
         /// <summary>
         /// Modify date - updated automatically
         /// </summary>
-        public DateTime? ModifyDate { get; set; }
+        public DateTime? ModifyDateUtc { get; set; }
 
         /// <summary>
         /// End date - updated automatically
         /// </summary>
-        public DateTime? EndDate { get; set; }
+        public DateTime? EndDateUtc { get; set; }
 
         /// <summary>
         /// Object relations defined as set of links; this object is ignored when object is saved and is used only to provide a DIFF of links that should be applied to the db representation
