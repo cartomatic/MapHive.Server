@@ -8,12 +8,12 @@ using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public partial class AppLocalisation
+    public static partial class AppLocalisation
     {
         /// <summary>
         /// App localisations records cache. invalidated on app localisation create, update, destroy
         /// </summary>
-        private static Dictionary<string, IEnumerable<AppLocalisation>> AppLocalisationsCache { get; set; } = new Dictionary<string, IEnumerable<AppLocalisation>>();
+        private static Dictionary<string, IEnumerable<LocalisationClass>> AppLocalisationsCache { get; set; } = new Dictionary<string, IEnumerable<LocalisationClass>>();
 
 
         /// <summary>

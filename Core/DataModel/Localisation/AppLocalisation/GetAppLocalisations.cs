@@ -8,7 +8,7 @@ using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public partial class AppLocalisation
+    public static partial class AppLocalisation
     {
         /// <summary>
         /// Gets translations for the specified apps
@@ -68,16 +68,16 @@ namespace MapHive.Server.Core.DataModel
                         dbCtx.TranslationKeys.Where(
                             tk => localisationClassesIdentifiers.Contains(tk.LocalisationClassUuid)).ToListAsync();
 
-                    AppLocalisationsCache[appName] = localisationClasses.Join(
+                    AppLocalisationsCache[appName] = localisationClasses.GroupJoin(
                         translationKeys,
                         lc => lc.Uuid,
                         tk => tk.LocalisationClassUuid,
-                        (lc, tk) => new AppLocalisation()
+                        (lc, tk) => new LocalisationClass()
                         {
                             ApplicationName = lc.ApplicationName,
                             ClassName = lc.ClassName,
-                            TranslationKey = tk.Key,
-                            Translations = tk.Translations
+                            InheritedClassName = lc.InheritedClassName,
+                            TranslationKeys = tk
                         }
                     );
                 }
@@ -91,15 +91,20 @@ namespace MapHive.Server.Core.DataModel
                     {
                         ret[key] = new Dictionary<string, Dictionary<string, string>>();
                     }
-
                     var classTranslations = ret[key];
-                    if (!classTranslations.ContainsKey(appL.TranslationKey))
+
+
+                    foreach (var tk in appL.TranslationKeys)
                     {
-                        classTranslations[appL.TranslationKey] = new Dictionary<string, string>();
-                    }
-                    foreach (var translation in appL.Translations.Where(t => t.Key == defaultLang.LangCode || langCodes.Contains(t.Key)))
-                    {
-                        classTranslations[appL.TranslationKey].Add(translation.Key, translation.Value);
+                        if (!classTranslations.ContainsKey(tk.Key))
+                        {
+                            classTranslations[tk.Key] = new Dictionary<string, string>();
+                        }
+
+                        foreach (var translation in tk.Translations.Where(t => t.Key == defaultLang.LangCode || langCodes.Contains(t.Key)))
+                        {
+                            classTranslations[tk.Key].Add(translation.Key, translation.Value);
+                        }
                     }
                 }
             }

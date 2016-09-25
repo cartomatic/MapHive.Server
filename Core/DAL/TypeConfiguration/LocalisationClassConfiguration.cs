@@ -24,6 +24,8 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.ClassName).HasColumnName("class_name");
             Property(en => en.InheritedClassName).HasColumnName("inherited_class_name");
 
+            Ignore(p => p.TranslationKeys);
+
             //indexes
             Property(en => en.ApplicationName)
                 .HasColumnAnnotation(

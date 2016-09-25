@@ -25,6 +25,11 @@ namespace MapHive.Server.Core.DataModel
         /// Specifies localisation class this very class inherits from
         /// </summary>
         public string InheritedClassName { get; set; }
+
+        /// <summary>
+        /// Temp list of translation keys that belong to this class
+        /// </summary>
+        public virtual IEnumerable<TranslationKey> TranslationKeys { get; set; } 
     }
     
 }

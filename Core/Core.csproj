@@ -154,7 +154,7 @@
     <Compile Include="DataModel\Links\Link.cs" />
     <Compile Include="DataModel\Links\LinkData.cs" />
     <Compile Include="DataModel\Links\LinksDiff.cs" />
-    <Compile Include="DataModel\Localisation\AppLocalisation\_DataModel.cs" />
+    <Compile Include="DataModel\Localisation\AppLocalisation\SaveAppLocalisations.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\GetAppLocalisations.cs" />
     <Compile Include="DataModel\Localisation\AppLocalisation\LocalisationCache.cs" />
     <Compile Include="DataModel\Localisation\LocalisationClass\Create.cs" />
