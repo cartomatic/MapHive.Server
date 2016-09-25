@@ -1,10 +1,12 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel.Interface;
+using MapHive.Server.Core.DAL.Interface;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using static MapHive.Server.Core.DataModel.AppLocalisation;
@@ -23,7 +25,15 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected internal override async Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid)
         {
-            InvalidateAppLocalisationsCache(ApplicationName);
+            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, uuid));
+
+            //need to destroy all the translation keys too...
+            var localisedDbCtx = (ILocalised) dbCtx;
+            localisedDbCtx.TranslationKeys.RemoveRange(
+                localisedDbCtx.TranslationKeys.Where(tk => tk.LocalisationClassUuid == uuid));
+
+            await dbCtx.SaveChangesAsync();
+
             return await base.DestroyAsync<T>(dbCtx, uuid);    
         }
     }

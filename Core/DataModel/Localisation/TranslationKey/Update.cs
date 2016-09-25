@@ -23,7 +23,7 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected internal override async Task<T> UpdateAsync<T>(DbContext dbCtx, Guid uuid)
         {
-            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, uuid));
+            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, LocalisationClassUuid));
             return await base.UpdateAsync<T>(dbCtx, uuid);
         }
     }

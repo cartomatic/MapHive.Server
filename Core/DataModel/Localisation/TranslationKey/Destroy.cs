@@ -25,7 +25,9 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected internal override async Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid)
         {
-            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, uuid));
+            //need to read self first
+            var translationKey = await (dbCtx as ILocalised).TranslationKeys.FirstOrDefaultAsync(tk => tk.Uuid == uuid);
+            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, translationKey.LocalisationClassUuid));
             return await base.DestroyAsync<T>(dbCtx, uuid);    
         }
     }

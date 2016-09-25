@@ -80,7 +80,8 @@ namespace MapHive.Server.Core.DataModel
                     .ClassName;
 
             //cache the output
-            LocalisationClassNamesCache[localisationClassIdentifier] = className;
+            if(!string.IsNullOrEmpty(className))
+                LocalisationClassNamesCache[localisationClassIdentifier] = className;
 
             return className;
         }
