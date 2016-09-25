@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel.Interface;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using static MapHive.Server.Core.DataModel.AppLocalisation;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public partial class AppLocalisation
+    public partial class TranslationKey
     {
         /// <summary>
         /// Creates an object; returns a created object or null if it was not possible to create it due to the fact a uuid is already reserved
@@ -21,8 +22,9 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected internal override async Task<T> CreateAsync<T>(DbContext dbCtx)
         {
-            InvalidateAppLocalisationsCache(ApplicationName);
-            return await base.CreateAsync<T>(dbCtx);
+            var obj = await base.CreateAsync<T>(dbCtx);
+            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, Uuid));
+            return obj;
         }
     }
 }

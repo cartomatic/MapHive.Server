@@ -11,36 +11,32 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
-    public class AppLocalisationConfiguration : EntityTypeConfiguration<AppLocalisation> 
+    public class TranslationKeyConfiguration : EntityTypeConfiguration<TranslationKey> 
         //Note:
         //Deriving from ILocalisationConfiguration<DataModel.AppLocalisation> does not work. EF needs a concrete type nd throws otherwise
     {
-        public AppLocalisationConfiguration()
+        public TranslationKeyConfiguration()
         {
-            ToTable("localisation_app_translations", "mh_meta");
+            ToTable("translation_keys", "mh_localisation");
             this.ApplyIBaseConfiguration(nameof(AppLocalisation));
 
-            Property(en => en.ApplicationName).HasColumnName("application_name");
-            Property(en => en.ClassName).HasColumnName("class_name");
-            Property(en => en.TranslationKey).HasColumnName("translation_key");
+            Property(en => en.LocalisationClassUuid).HasColumnName("localisation_class_uuid");
+            Property(en => en.Key).HasColumnName("key");
 
             //Stuff below would be true if the class derived from ILocalisationConfiguration; this does not seem to work though...
+            //and need to set the mapping explicitly. Looks like EF is not always happy with the interfaces.
             //Note: Translations dobe via ILocalisationConfiguration
             Property(p => p.Translations.Serialised).HasColumnName("translations");
 
             //indexes
-            Property(en => en.ApplicationName)
+            Property(en => en.LocalisationClassUuid)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("uq_app_name_class_name_translation_key") { IsUnique = true, Order = 1 }));
-            Property(en => en.ClassName)
+                    new IndexAnnotation(new IndexAttribute("uq_localisation_class_translation_key") { IsUnique = true, Order = 1 }));
+            Property(en => en.Key)
                 .HasColumnAnnotation(
                     "Index",
-                    new IndexAnnotation(new IndexAttribute("uq_app_name_class_name_translation_key") { IsUnique = true, Order = 2 }));
-            Property(en => en.TranslationKey)
-                .HasColumnAnnotation(
-                    "Index",
-                    new IndexAnnotation(new IndexAttribute("uq_app_name_class_name_translation_key") { IsUnique = true, Order = 3 }));
+                    new IndexAnnotation(new IndexAttribute("uq_localisation_class_translation_key") { IsUnique = true, Order = 2 }));
         }
         
     }

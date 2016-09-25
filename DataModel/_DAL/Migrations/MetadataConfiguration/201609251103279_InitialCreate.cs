@@ -31,26 +31,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.create_date_utc, name: "idx_create_date_application");
             
             CreateTable(
-                "mh_meta.localisation_app_translations",
-                c => new
-                    {
-                        uuid = c.Guid(nullable: false),
-                        application_name = c.String(),
-                        class_name = c.String(),
-                        translation_key = c.String(),
-                        translations = c.String(),
-                        created_by = c.Guid(),
-                        last_modified_by = c.Guid(),
-                        create_date_utc = c.DateTime(),
-                        modify_date_utc = c.DateTime(),
-                        end_date_utc = c.DateTime(),
-                    })
-                .PrimaryKey(t => t.uuid)
-                .Index(t => new { t.application_name, t.class_name, t.translation_key }, unique: true, name: "uq_app_name_class_name_translation_key")
-                .Index(t => t.create_date_utc, name: "idx_create_date_applocalisation");
-            
-            CreateTable(
-                "mh_meta.localisation_email_templates",
+                "mh_localisation.email_templates",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -71,7 +52,7 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.create_date_utc, name: "idx_create_date_lang");
             
             CreateTable(
-                "mh_meta.localisation_langs",
+                "mh_localisation.langs",
                 c => new
                     {
                         uuid = c.Guid(nullable: false),
@@ -105,6 +86,42 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
                 .Index(t => t.child_uuid, name: "idx_child_uuid")
                 .Index(t => t.parent_type_uuid, name: "idx_parent_type_uuid")
                 .Index(t => t.child_type_uuid, name: "idx_child_type_uuid");
+            
+            CreateTable(
+                "mh_localisation.localisation_classes",
+                c => new
+                    {
+                        uuid = c.Guid(nullable: false),
+                        application_name = c.String(),
+                        class_name = c.String(),
+                        inherited_class_name = c.String(),
+                        created_by = c.Guid(),
+                        last_modified_by = c.Guid(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.uuid)
+                .Index(t => new { t.application_name, t.class_name }, unique: true, name: "uq_app_name_class_name")
+                .Index(t => t.create_date_utc, name: "idx_create_date_localisationclass");
+            
+            CreateTable(
+                "mh_localisation.translation_keys",
+                c => new
+                    {
+                        uuid = c.Guid(nullable: false),
+                        localisation_class_uuid = c.Guid(nullable: false),
+                        key = c.String(),
+                        translations = c.String(),
+                        created_by = c.Guid(),
+                        last_modified_by = c.Guid(),
+                        create_date_utc = c.DateTime(),
+                        modify_date_utc = c.DateTime(),
+                        end_date_utc = c.DateTime(),
+                    })
+                .PrimaryKey(t => t.uuid)
+                .Index(t => new { t.localisation_class_uuid, t.key }, unique: true, name: "uq_localisation_class_translation_key")
+                .Index(t => t.create_date_utc, name: "idx_create_date_applocalisation");
             
             CreateTable(
                 "mh_meta.users",
@@ -150,23 +167,26 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
             DropIndex("mh_meta.xwindow_origins", "idx_create_date_xwindoworigin");
             DropIndex("mh_meta.users", "idx_create_date_user");
             DropIndex("mh_meta.users", "uq_email");
+            DropIndex("mh_localisation.translation_keys", "idx_create_date_applocalisation");
+            DropIndex("mh_localisation.translation_keys", "uq_localisation_class_translation_key");
+            DropIndex("mh_localisation.localisation_classes", "idx_create_date_localisationclass");
+            DropIndex("mh_localisation.localisation_classes", "uq_app_name_class_name");
             DropIndex("mh_meta.links", "idx_child_type_uuid");
             DropIndex("mh_meta.links", "idx_parent_type_uuid");
             DropIndex("mh_meta.links", "idx_child_uuid");
             DropIndex("mh_meta.links", "idx_parent_uuid");
-            DropIndex("mh_meta.localisation_langs", "idx_create_date_lang");
-            DropIndex("mh_meta.localisation_email_templates", "idx_create_date_lang");
-            DropIndex("mh_meta.localisation_email_templates", "uq_app_name_and_identifier");
-            DropIndex("mh_meta.localisation_app_translations", "idx_create_date_applocalisation");
-            DropIndex("mh_meta.localisation_app_translations", "uq_app_name_class_name_translation_key");
+            DropIndex("mh_localisation.langs", "idx_create_date_lang");
+            DropIndex("mh_localisation.email_templates", "idx_create_date_lang");
+            DropIndex("mh_localisation.email_templates", "uq_app_name_and_identifier");
             DropIndex("mh_meta.applications", "idx_create_date_application");
             DropIndex("mh_meta.applications", "uq_short_name");
             DropTable("mh_meta.xwindow_origins");
             DropTable("mh_meta.users");
+            DropTable("mh_localisation.translation_keys");
+            DropTable("mh_localisation.localisation_classes");
             DropTable("mh_meta.links");
-            DropTable("mh_meta.localisation_langs");
-            DropTable("mh_meta.localisation_email_templates");
-            DropTable("mh_meta.localisation_app_translations");
+            DropTable("mh_localisation.langs");
+            DropTable("mh_localisation.email_templates");
             DropTable("mh_meta.applications");
         }
     }

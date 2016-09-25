@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MapHive.Server.Core.DataModel.Interface;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public partial class AppLocalisation
+    public partial class LocalisationClass : Base
     {
         /// <summary>
         /// Application name a translation applies to; Fully qualified namespaces is achieved by combining it with the ClassName 
@@ -19,13 +22,9 @@ namespace MapHive.Server.Core.DataModel
         public string ClassName { get; set; }
 
         /// <summary>
-        /// A key that identifies the translation string within a translations class
+        /// Specifies localisation class this very class inherits from
         /// </summary>
-        public string TranslationKey { get; set; }
-
-        /// <summary>
-        /// Set of translations for a particular key
-        /// </summary>
-        public Translations Translations { get; set; }
+        public string InheritedClassName { get; set; }
     }
+    
 }

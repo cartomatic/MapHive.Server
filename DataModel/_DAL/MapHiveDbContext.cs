@@ -33,7 +33,8 @@ namespace MapHive.Server.DataModel.DAL
         public DbSet<Link> Links { get; set; }
 
         //ILocalised
-        public DbSet<AppLocalisation> AppLocalisations { get; set; }
+        public DbSet<LocalisationClass> LocalisationClasses { get; set; }
+        public DbSet<TranslationKey> TranslationKeys { get; set; }
         public DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
         public DbSet<Lang> Langs { get; set; }
 
@@ -41,17 +42,17 @@ namespace MapHive.Server.DataModel.DAL
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("metadata");
-
             //type configs
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
 
             modelBuilder.Configurations.Add(new LinkConfiguration());
 
-            modelBuilder.Configurations.Add(new AppLocalisationConfiguration());
+            //Ilocalised type configs
+            modelBuilder.Configurations.Add(new LocalisationClassConfiguration());
             modelBuilder.Configurations.Add(new EmailTemplateLocalisationConfiguration());
             modelBuilder.Configurations.Add(new LangConfiguration());
+            modelBuilder.Configurations.Add(new TranslationKeyConfiguration());
 
             modelBuilder.Configurations.Add(new XWindowOriginConfiguration());
         }

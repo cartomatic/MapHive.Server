@@ -9,10 +9,10 @@ using Newtonsoft.Json.Serialization;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public partial class AppLocalisation
+    public partial class TranslationKey : Base, ILocalisation
     {
-        
+        public TranslationKey() : base(Guid.Parse("987ce604-4125-44e6-bd6d-8db0857756a4"))
+        {
+        }
     }
-
-    
 }

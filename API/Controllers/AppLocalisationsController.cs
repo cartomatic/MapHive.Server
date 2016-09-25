@@ -16,60 +16,8 @@ using MapHive.Server.DataModel.DAL;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("applocalisations")]
-    public class AppLocalisationController : BaseApiCrudController<AppLocalisation, MapHiveDbContext>
+    public class AppLocalisationController : BaseApiController
     {
-        //this customises the connection string the db context gets instantiated with
-        public AppLocalisationController()
-            : base("MapHiveMeta")
-        {
-        }
-
-        // GET: /applocalisations
-        [HttpGet]
-        [Route("")]
-        [ResponseType(typeof(IEnumerable<AppLocalisation>))]
-        public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
-            int limit = 25)
-        {
-            return await base.GetAsync(sort, filter, start, limit);
-        }
-
-        // GET: /applocalisations/5
-        [HttpGet]
-        [ResponseType(typeof(AppLocalisation))]
-        [Route("{uuid}")]
-        public async Task<IHttpActionResult> Get(Guid uuid)
-        {
-            return await base.GetAsync(uuid);
-        }
-
-        // PUT: /applocalisations/5
-        [HttpPut]
-        [Route("{uuid}")]
-        [ResponseType(typeof(AppLocalisation))]
-        public async Task<IHttpActionResult> Put(AppLocalisation obj, Guid uuid)
-        {
-            return await base.PutAsync(obj, uuid);
-        }
-
-        // POST: /applocalisations
-        [HttpPost]
-        [Route("")]
-        [ResponseType(typeof(AppLocalisation))]
-        public async Task<IHttpActionResult> Post(AppLocalisation obj)
-        {
-            return await base.PostAsync(obj);
-        }
-
-        // DELETE: /applocalisations/5
-        [HttpDelete]
-        [Route("{uuid}")]
-        [ResponseType(typeof(AppLocalisation))]
-        public async Task<IHttpActionResult> Delete(Guid uuid)
-        {
-            return await base.DeleteAsync(uuid);
-        }
-
         /// <summary>
         /// Gets an app localisation - all the translations retrieved from a db, for a given app.
         /// </summary>
@@ -88,7 +36,7 @@ namespace MapHive.Server.API.Controllers
                 return
                     Ok(
                         await
-                            AppLocalisation.GetAppLocalisationsAsync(_dbCtx as MapHiveDbContext, langCode,
+                            AppLocalisation.GetAppLocalisationsAsync(new MapHiveDbContext("MapHiveMeta"), langCode,
                                 string.IsNullOrWhiteSpace(appNames) ? new string[0] : appNames.Split(',')));
             }
             catch (Exception ex)
@@ -113,7 +61,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await AppLocalisation.GetAppLocalisationsAsync(_dbCtx as MapHiveDbContext, (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
+                return Ok(await AppLocalisation.GetAppLocalisationsAsync(new MapHiveDbContext("MapHiveMeta"), (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
             }
             catch (Exception ex)
             {

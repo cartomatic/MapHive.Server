@@ -13,7 +13,8 @@ namespace MapHive.Server.Core.DAL.Interface
     /// </summary>
     public interface ILocalised
     {
-        DbSet<AppLocalisation> AppLocalisations { get; set; }
+        DbSet<LocalisationClass> LocalisationClasses { get; set; }
+        DbSet<TranslationKey> TranslationKeys { get; set; }
         DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
         DbSet<Lang> Langs { get; set; }
     }

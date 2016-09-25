@@ -4,58 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DAL.Interface;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace MapHive.Server.Core.DataModel
 {
     public partial class AppLocalisation
     {
-        /// <summary>
-        /// App localisations records cache. invalidated on app localisation create, update, destroy
-        /// </summary>
-        private static Dictionary<string, IEnumerable<AppLocalisation>> AppLocalisationsCache { get; set; } = new Dictionary<string, IEnumerable<AppLocalisation>>();
-
-
-        /// <summary>
-        /// Client localisations cache - cahce of the localisations prepared for the client output
-        /// </summary>
-        private static Dictionary<string, object> ClientLocalisationsCache { get; set; } = new Dictionary<string, object>();
-        //Q: how will this behave? Will the static live in app domain, so will be shared even when there are multiple worker processes?
-
-
-        /// <summary>
-        /// Ivalidates app localisations cache
-        /// </summary>
-        /// <param name="appName"></param>
-        private static void InvalidateAppLocalisationsCache(string appName)
-        {
-            if (AppLocalisationsCache.ContainsKey(appName))
-            {
-                AppLocalisationsCache.Remove(appName);
-            }
-
-            //clients cache too...
-            var keysToInvalidate = ClientLocalisationsCache.Keys.Where(k => k.IndexOf(appName) > -1).ToList();
-            foreach (var key in keysToInvalidate)
-            {
-                ClientLocalisationsCache.Remove(key);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cache key for the client localisations
-        /// </summary>
-        /// <param name="langCodes"></param>
-        /// <param name="appNames"></param>
-        /// <returns></returns>
-        private static string GetClientLocalisationsCacheKey(IEnumerable<string> langCodes, IEnumerable<string> appNames)
-        {
-            return $"{string.Join("_", appNames.OrderBy(s => s))}___{string.Join("_", langCodes.OrderBy(s => s))}";
-        }
-
         /// <summary>
         /// Gets translations for the specified apps
         /// </summary>
@@ -67,7 +21,7 @@ namespace MapHive.Server.Core.DataModel
         public static async Task<Dictionary<string, Dictionary<string, Dictionary<string, string>>>> GetAppLocalisationsAsync<TDbCtx>(TDbCtx dbCtx, string langCode, params string[] appNames)
             where TDbCtx : DbContext, ILocalised
         {
-            return await GetAppLocalisationsAsync(dbCtx, new[] {langCode}, appNames);
+            return await GetAppLocalisationsAsync(dbCtx, new[] { langCode }, appNames);
         }
 
         /// <summary>
@@ -101,8 +55,31 @@ namespace MapHive.Server.Core.DataModel
             {
                 if (!AppLocalisationsCache.ContainsKey(appName) || AppLocalisationsCache[appName] == null)
                 {
-                    AppLocalisationsCache[appName] =
-                        await dbCtx.AppLocalisations.Where(al => al.ApplicationName == appName).ToListAsync();
+                    //read all the Localisation classes for the given AppName
+                    var localisationClasses = await
+                        dbCtx.LocalisationClasses.Where(lc => lc.ApplicationName == appName).ToListAsync();
+
+                    //now grab the identifiers - need them in order to request translation keys. when using IQueryable, the range MUST BE static, simple types
+                    //so even though compiler will not complain if a range is passes as localisationClasses.Select(lc => lc.Uuid) it will fail in the runtime
+                    //saving this to a variable solves the issue!
+                    var localisationClassesIdentifiers = localisationClasses.Select(lc => lc.Uuid);
+
+                    var translationKeys = await
+                        dbCtx.TranslationKeys.Where(
+                            tk => localisationClassesIdentifiers.Contains(tk.LocalisationClassUuid)).ToListAsync();
+
+                    AppLocalisationsCache[appName] = localisationClasses.Join(
+                        translationKeys,
+                        lc => lc.Uuid,
+                        tk => tk.LocalisationClassUuid,
+                        (lc, tk) => new AppLocalisation()
+                        {
+                            ApplicationName = lc.ApplicationName,
+                            ClassName = lc.ClassName,
+                            TranslationKey = tk.Key,
+                            Translations = tk.Translations
+                        }
+                    );
                 }
 
                 var appLocalisations = AppLocalisationsCache[appName];

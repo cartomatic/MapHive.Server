@@ -33,64 +33,11 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
 
             LangsSeed(context);
 
-            AppLocalisationsSeed(context);
             EmailLocalisationsSeed(context);
 
             XWindowOriginsSeed(context);
         }
-
-        private void AppLocalisationsSeed(MapHiveDbContext context)
-        {
-
-            context.AppLocalisations.AddOrUpdate(
-                new AppLocalisation
-                {
-                    Uuid = Guid.Parse("17dd0189-ed1b-404f-b39c-b1e3f4718d40"),
-                    ApplicationName = "mh",
-                    ClassName = "some.class.Name",
-                    TranslationKey = "someTranslationKey",
-                    Translations = new Translations
-                    {
-                        { "en", "Some EN property" },
-                        { "pl", "Some PL property" }
-                    }
-                },
-                new AppLocalisation
-                {
-                    Uuid = Guid.Parse("7dbb4b9a-e192-4d00-941e-c90069604e4f"),
-                    ApplicationName = "SomeApp",
-                    ClassName = "some.class.Name",
-                    TranslationKey = "someTranslationKey",
-                    Translations = new Translations
-                    {
-                        { "en", "Some EN property" },
-                        { "pl", "Some PL property" }
-                    }
-                },
-                new AppLocalisation
-                {
-                    Uuid = Guid.Parse("cc58679a-ac75-43c6-8b1c-94d3238b95d6"),
-                    ApplicationName = "mh",
-                    ClassName = "module.data.DataViewBase",
-                    TranslationKey = "btnCreate",
-                    Translations = new Translations
-                    {
-                        { "en", "NEW WHOAA!!!" }
-                    }
-                },
-                new AppLocalisation
-                {
-                    Uuid = Guid.Parse("b77cdffe-4da6-4327-a087-41ee45018ead"),
-                    ApplicationName = "MasterOfPuppets",
-                    ClassName = "view.applications.Applications",
-                    TranslationKey = "btnCreate",
-                    Translations = new Translations
-                    {
-                        { "en", "XXX" }
-                    }
-                }
-            );
-        }
+        
 
         private void EmailLocalisationsSeed(MapHiveDbContext context)
         {
