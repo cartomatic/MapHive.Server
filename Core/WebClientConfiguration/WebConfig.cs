@@ -10,13 +10,19 @@ namespace MapHive.Server.Core
 {
     public partial class WebClientConfiguration
     {
+        private static Dictionary<string, string> GetApiEndpoints()
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(
+                ConfigurationManager.AppSettings["ApiEndPoints"]);
+        }
+
         /// <summary>
         /// Returns a map hive api endpoint as defined in web.config
         /// </summary>
         /// <returns></returns>
         private static string GetApiEndpoint()
         {
-            return ConfigurationManager.AppSettings["ApiEndpoint"];
+            return GetApiEndpoints()["mhApi"];
         }
 
         /// <summary>

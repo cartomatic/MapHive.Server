@@ -30,7 +30,7 @@ namespace MapHive.Server.Core
 
 
             //API endpoint - where the MapHive services are
-            cfg["ApiEndPoint"] = ConfigurationManager.AppSettings["ApiEndPoint"];
+            cfg["ApiEndPoints"] = GetApiEndpoints();
 
             //Allowed origins for the xwindow post message communication
             cfg["AllowedXWindowMsgBusOrigins"] = await GetAllowedXWindowOriginsAsync();
