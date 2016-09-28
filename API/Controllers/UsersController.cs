@@ -82,10 +82,20 @@ namespace MapHive.Server.API.Controllers
 
             try
             {
-                var emailStuff = await GetEmailStuffAsync("user_createdx", _dbCtx as ILocalised);
+                var emailStuff = await GetEmailStuffAsync("user_created", _dbCtx as ILocalised);
 
-                //TODO - some email customisation. logon url and such. or maybe should obtain login url from a referrer or an xtra param??????
+                //initial email template customisation:
+                //{UserName}
+                //{Email}
+                //{RedirectUrl}
+                var replacementData = new Dictionary<string, object>
+                {
+                    {"UserName", $"{obj.GetFullUserName()} ({obj.Email})"},
+                    {"Email", obj.Email},
+                    {"RedirectUrl", GetRequestSource().Split('#')[0]}
+                };
 
+                emailStuff?.Item2.Prepare(replacementData);
 
                 var entity = await obj.CreateAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), emailStuff?.Item1, emailStuff?.Item2);
 

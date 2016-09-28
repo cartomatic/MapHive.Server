@@ -169,6 +169,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\EmailTemplateLocalisationsController.cs" />
+    <Compile Include="Controllers\LocalisationClassesController.cs" />
+    <Compile Include="Controllers\TranslationKeysController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\XWindowOriginsController.cs" />

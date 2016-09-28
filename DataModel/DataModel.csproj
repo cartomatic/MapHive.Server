@@ -67,6 +67,7 @@
     <Compile Include="Application\_DataModel.cs" />
     <Compile Include="Application\_Blank.cs" />
     <Compile Include="Application\_Ctor.cs" />
+    <Compile Include="User\UserExtensions.cs" />
     <Compile Include="_DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.cs" />
     <Compile Include="_DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.Designer.cs">
       <DependentUpon>201609251103279_InitialCreate.cs</DependentUpon>
