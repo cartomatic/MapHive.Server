@@ -145,7 +145,7 @@ namespace MapHive.Server
             var script =
                 $"var __mhcfg__={JsonConvert.SerializeObject(cfg, Formatting.None, new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver() })}" +
                 Environment.NewLine +
-                $"var __mhlocalisaton__={JsonConvert.SerializeObject(localisation, Formatting.None)};";
+                $"var __mhlocalisation__={JsonConvert.SerializeObject(localisation, Formatting.None)};";
 
             //finally ready to generate the script and write it to the response
             context.Response?.Write(script);

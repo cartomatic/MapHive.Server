@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <returns></returns>
         public static async Task<IEnumerable<string>> GetAllowedXWindowOriginsAsync<TDbCtx>(TDbCtx dbCtx)
-            where TDbCtx : DbContext, IXWindow
+            where TDbCtx : IXWindow
         {
             //TODO - plug in user based tests! via user registered apps, and such
             return await dbCtx.XWindowOrigins.Where(xw => !xw.Custom).Select(xw => xw.Origin).ToListAsync();

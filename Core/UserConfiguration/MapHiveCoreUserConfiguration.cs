@@ -14,14 +14,6 @@ namespace MapHive.Server.Core.UserConfiguration
         where TDbCtx : IMapHiveUsers<T>, new()
         where T: MapHiveUserBase
     {
-        private IEnumerable<string> AppShortNames { get; set; }
-
-        /// <summary>
-        /// Reads basic user configuration at the MapHiveMeta level
-        /// </summary>
-        public MapHiveBasicUserConfiguration()
-        {
-        }
 
         public async Task<IDictionary<string, object>> Read()
         {

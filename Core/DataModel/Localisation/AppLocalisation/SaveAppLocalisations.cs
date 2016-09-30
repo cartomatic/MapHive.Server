@@ -16,9 +16,15 @@ namespace MapHive.Server.Core.DataModel
         {
 
             var localisedDbCtx = (ILocalised) dbCtx;
+            var appNames = new List<string>();
 
             foreach (var incomingLc in localisations)
             {
+                if (!appNames.Contains(incomingLc.ApplicationName))
+                {
+                    appNames.Add(incomingLc.ApplicationName);
+                }
+
                 var lc =
                         await localisedDbCtx.LocalisationClasses.FirstOrDefaultAsync(
                             x => x.ApplicationName == incomingLc.ApplicationName && x.ClassName == incomingLc.ClassName);
@@ -119,6 +125,12 @@ namespace MapHive.Server.Core.DataModel
                         await tk.UpdateAsync(dbCtx, tk.Uuid);
                     }
                 }
+            }
+
+            //need to wipe out cache too...
+            foreach (var appName in appNames)
+            {
+                InvalidateAppLocalisationsCache(appName);
             }
         }
     }

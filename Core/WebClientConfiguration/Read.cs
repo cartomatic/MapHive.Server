@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.DbContext;
+using MapHive.Server.Core.DAL.Interface;
 using Newtonsoft.Json;
 
 namespace MapHive.Server.Core
@@ -18,7 +20,8 @@ namespace MapHive.Server.Core
         /// <param name="dbCtx"></param>
         /// <remarks>See the comments on the locallisation property serialisation issues and reason the localisation is returned as JSON string</remarks>
         /// <returns></returns>
-        public static async Task<Dictionary<string, object>> ReadAsync(MapHiveDbContext dbCtx)
+        public static async Task<Dictionary<string, object>> ReadAsync<T>(T dbCtx)
+            where T: DbContext, ILocalised
         {
             var cfg = new Dictionary<string, object>();
 
@@ -31,7 +34,12 @@ namespace MapHive.Server.Core
             cfg["AuthRequiredAppIdentifiers"] = await Application.GetIdentifiersForAppsRequiringAuthAsync(dbCtx);
 
             //Allowed origins for the xwindow post message communication
-            cfg["AllowedXWindowMsgBusOrigins"] = await XWindowOrigin.GetAllowedXWindowOriginsAsync(dbCtx);
+            var xWinDbctx = dbCtx as IXWindow;
+            if (xWinDbctx != null)
+            {
+                cfg["AllowedXWindowMsgBusOrigins"] = await XWindowOrigin.GetAllowedXWindowOriginsAsync(xWinDbctx);
+            }
+            
             
             cfg["SupportedLangCodes"] = (await Lang.GetSupportedLangsAsync(dbCtx)).Select(l => l.LangCode);
             var defaultLangCode = (await Lang.GetDefaultLangAsync(dbCtx))?.LangCode;
