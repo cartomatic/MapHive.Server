@@ -29,7 +29,7 @@ namespace MapHive.Server.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("user")]
-        [ResponseType(typeof(Auth.AuthOutput))]
+        [ResponseType(typeof(IDictionary<string, object>))]
         public async Task<IHttpActionResult> GetUserConfiguration()
         {
             try
@@ -45,5 +45,22 @@ namespace MapHive.Server.API.Controllers
                 return HandleException(ex);
             }
         }
+
+        [HttpGet]
+        [Route("webclient")]
+        [AllowAnonymous]
+        [ResponseType(typeof(IDictionary<string, object>))]
+        public async Task<IHttpActionResult> GetWebClientConfiguration()
+        {
+            try
+            {
+                return Ok(await WebClientConfiguration.ReadAsync(new MapHiveDbContext("MapHiveMeta")));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
     }
 }

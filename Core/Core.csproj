@@ -119,6 +119,10 @@
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
     <Compile Include="DAL\Interface\IMapHiveUsers.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.Designer.cs">
+      <DependentUpon>201609301511578_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedLangs.cs" />
@@ -248,15 +252,7 @@
     <Compile Include="UserConfiguration\UserConfigurationReader.cs" />
     <Compile Include="Utils\Identity.cs" />
     <Compile Include="Utils\Reflection.cs" />
-    <Compile Include="WebClientConfiguration\WebConfig.cs" />
-    <Compile Include="WebClientConfiguration\Localisation.cs" />
-    <Compile Include="WebClientConfiguration\RestSharpSerialisers\JsonNetSerialiser.cs" />
-    <Compile Include="WebClientConfiguration\ClientConfiguration.cs" />
-    <Compile Include="WebClientConfiguration\WebClientConfigurationExtensions.cs" />
-    <Compile Include="WebClientConfiguration\Prepare.cs" />
-    <Compile Include="WebClientConfiguration\AppsWithAuthRequired.cs" />
-    <Compile Include="WebClientConfiguration\Lang.cs" />
-    <Compile Include="WebClientConfiguration\GetAllowedXWindowOrigins.cs" />
+    <Compile Include="WebClientConfiguration\Read.cs" />
     <Compile Include="WebClientConfiguration\_Ctor.cs" />
     <Compile Include="WebClientConfiguration\_Blank.cs" />
   </ItemGroup>
@@ -283,7 +279,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\EfCmd\cmd.txt" />
+    <Content Include="DAL\_EfCmd\cmd.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.resx">
+      <DependentUpon>201609301511578_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

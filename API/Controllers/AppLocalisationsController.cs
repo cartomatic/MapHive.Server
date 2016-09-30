@@ -15,20 +15,20 @@ using MapHive.Server.Core.DAL.Interface;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("applocalisations")]
-    public class AppLocalisationController : BaseApiController
+    public class AppLocalisationsController : BaseApiController
     {
         /// <summary>
         /// Gets an app localisation - all the translations retrieved from a db, for a given app.
         /// </summary>
         /// <param name="langCode"></param>
-        /// <param name="appNames"></param>
+        /// <param name="appIdentifiers"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(Dictionary<string, Dictionary<string, Dictionary<string, string>>>))]
         [Route("localiseit")]
         [AllowAnonymous]
         [UnmodifiedDictKeyCasingOutputMethod]
-        public async Task<IHttpActionResult> GetAppLocalisation(string langCode, string appNames)
+        public async Task<IHttpActionResult> GetAppLocalisation(string langCode, string appIdentifiers)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace MapHive.Server.API.Controllers
                     Ok(
                         await
                             AppLocalisation.GetAppLocalisationsAsync(new MapHiveDbContext("MapHiveMeta"), langCode,
-                                string.IsNullOrWhiteSpace(appNames) ? new string[0] : appNames.Split(',')));
+                                string.IsNullOrWhiteSpace(appIdentifiers) ? new string[0] : appIdentifiers.Split(',')));
             }
             catch (Exception ex)
             {
@@ -49,18 +49,44 @@ namespace MapHive.Server.API.Controllers
         /// Gets an app localisation - all the translations retrieved from a db, for a given app.
         /// </summary>
         /// <param name="langCodes"></param>
-        /// <param name="appNames"></param>
+        /// <param name="appIdentifiers"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(Dictionary<string, Dictionary<string, Dictionary<string, string>>>))]
         [Route("localiseit")]
         [AllowAnonymous]
         [UnmodifiedDictKeyCasingOutputMethod]
-        public async Task<IHttpActionResult> GetAppLocalisations(string langCodes, string appNames)
+        public async Task<IHttpActionResult> GetAppLocalisations(string langCodes, string appIdentifiers)
         {
             try
             {
-                return Ok(await AppLocalisation.GetAppLocalisationsAsync(new MapHiveDbContext("MapHiveMeta"), (langCodes ?? string.Empty).Split(','), (appNames ?? string.Empty).Split(',')));
+                return Ok(await AppLocalisation.GetAppLocalisationsAsync(new MapHiveDbContext("MapHiveMeta"), (langCodes ?? string.Empty).Split(','), (appIdentifiers ?? string.Empty).Split(',')));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        public class BulkSaveInput
+        {
+            public bool? Overwrite { get; set; }
+            public string[] LangsToImport { get; set; }
+            public LocalisationClass[] AppLocalisations { get; set; }
+        }
+
+        [HttpPost]
+        [Route("bulksave")]
+        [UnmodifiedDictKeyCasingOutputMethod]
+        public async Task<IHttpActionResult> BulkSaveAppLocalisations(BulkSaveInput data)
+        {
+            try
+            {
+                await
+                    AppLocalisation.SaveLocalisations(new MapHiveDbContext("MapHiveMeta"), data.AppLocalisations,
+                        data.Overwrite, data.LangsToImport);
+
+                return Ok();
             }
             catch (Exception ex)
             {

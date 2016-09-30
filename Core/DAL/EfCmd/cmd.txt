@@ -1,3 +1,0 @@
-﻿add-migration -ConnectionString "server=localhost;user id=postgres;password=postgres;database=maphive_meta;port=5434" -project Core -ConnectionProviderName "Npgsql" -ConfigurationTypeName MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration
-
-update-database -ConnectionString "server=localhost;user id=postgres;password=postgres;database=maphive_meta;port=5434" -project Core -ConnectionProviderName "Npgsql" -ConfigurationTypeName MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration

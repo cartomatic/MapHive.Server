@@ -37,10 +37,23 @@ namespace MapHive.Server.Core.DataModel
         {
             var ret = new Dictionary<string, Dictionary<string, Dictionary<string, string>>>();
 
-            if (langCodes == null || !langCodes.Any() || appNames == null || !appNames.Any())
+            if (appNames == null || !appNames.Any())
                 return ret;
 
+            //grab the default lng
             var defaultLang = await Lang.GetDefaultLangAsync(dbCtx);
+
+            if (langCodes == null || !langCodes.Any())
+            {
+                if (defaultLang == null)
+                {
+                    return ret;
+                }
+
+                //no langs provided, so the calling client may not be aware of the lang yet.
+                //in this scenario just lookup the default lang and get the localisation fot the default lng
+                langCodes = new[] {defaultLang.LangCode};
+            }
 
 
             //see if there is cache for the current combination already
