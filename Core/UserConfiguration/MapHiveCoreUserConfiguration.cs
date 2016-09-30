@@ -10,8 +10,9 @@ using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.UserConfiguration
 {
-    public class MapHiveBasicUserConfiguration<TDbCtx> : IUserConfiguration
-        where TDbCtx : IMapHiveUser<MapHiveUserBase>, new()
+    public class MapHiveBasicUserConfiguration<TDbCtx, T> : IUserConfiguration
+        where TDbCtx : IMapHiveUsers<T>, new()
+        where T: MapHiveUserBase
     {
         private IEnumerable<string> AppShortNames { get; set; }
 
@@ -39,6 +40,7 @@ namespace MapHive.Server.Core.UserConfiguration
             output.Add("user", user);
 
             //TODO - when roles, orgs, maybe modules, data sources, etc. are implemented will need them too!
+            //Perhaps will need some more dbctx interfaces for this too: something like IMapHiveRoles, IMapHiveOrganisations and so on
 
             return output;
         }

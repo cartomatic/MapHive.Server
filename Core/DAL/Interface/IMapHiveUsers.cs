@@ -9,10 +9,10 @@ using MapHive.Server.Core.DataModel;
 namespace MapHive.Server.Core.DAL.Interface
 {
     /// <summary>
-    /// Whether or not a dbctx has access to users property
+    /// Whether or not a dbctx has access to the maphive users set
     /// </summary>
-    public interface IMapHiveUser<T>
-        where T : MapHiveUserBase
+    public interface IMapHiveUsers <T>
+        where T: MapHiveUserBase
     { 
         DbSet<T> Users { get; set; } 
     }

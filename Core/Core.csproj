@@ -117,7 +117,7 @@
     <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
-    <Compile Include="DAL\Interface\IMapHiveUser.cs" />
+    <Compile Include="DAL\Interface\IMapHiveUsers.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
     <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.cs" />
     <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.Designer.cs">

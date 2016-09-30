@@ -13,10 +13,10 @@ using MapHive.Server.Core.DAL.TypeConfiguration;
 
 namespace MapHive.Server.Core.DAL.DbContext
 {
-    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised, IXWindow, IMapHiveUser<MapHiveUser>
+    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised, IXWindow, IMapHiveUsers<MapHiveUser>
     {
         public MapHiveDbContext()
-            : base() 
+            : this("MapHiveMeta") //use a default conn str name; useful when passing ctx as a generic param that is then instantiated 
         {
         }
 
@@ -28,6 +28,7 @@ namespace MapHive.Server.Core.DAL.DbContext
         public DbSet<Application> Applications { get; set; }
         public DbSet<MapHiveUser> Users { get; set; }
 
+        
         //ILinksDbContext
         public DbSet<Link> Links { get; set; }
 
@@ -41,6 +42,8 @@ namespace MapHive.Server.Core.DAL.DbContext
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("mh_meta");
+
             //type configs
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
             modelBuilder.Configurations.Add(new MapHiveUserConfiguration());

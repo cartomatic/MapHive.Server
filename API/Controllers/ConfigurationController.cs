@@ -27,23 +27,23 @@ namespace MapHive.Server.API.Controllers
         /// <param name="email"></param>
         /// <param name="pass"></param>
         /// <returns></returns>
-        //[HttpGet]
-        //[Route("user")]
-        //[ResponseType(typeof (Auth.AuthOutput))]
-        //public async Task<IHttpActionResult> GetUserConfiguration()
-        //{
-        //    try
-        //    {
-        //        return Ok(
-        //            UserConfigurationReader.Read(
-        //                    new MapHiveBasicUserConfiguration<MapHiveDbContext>()
-        //                )
-        //            );
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return HandleException(ex);
-        //    }
-        //}
+        [HttpGet]
+        [Route("user")]
+        [ResponseType(typeof(Auth.AuthOutput))]
+        public async Task<IHttpActionResult> GetUserConfiguration()
+        {
+            try
+            {
+                return Ok(
+                    UserConfigurationReader.Read(
+                            new MapHiveBasicUserConfiguration<MapHiveDbContext, MapHiveUser>()
+                        )
+                    );
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }
