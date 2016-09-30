@@ -7,7 +7,8 @@ using Cartomatic.CmdPrompt.Core;
 using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Events;
-using MapHive.Server.DataModel.DAL;
+using MapHive.Server.Core.DAL;
+using MapHive.Server.Core.DAL.DbContext;
 
 namespace MapHive.Server.Cmd.Core
 {
@@ -43,7 +44,7 @@ namespace MapHive.Server.Cmd.Core
             //need a valid user to create a Core.Base object
             Server.Core.Utils.Identity.ImpersonateGhostUser();
 
-            var user = new DataModel.User
+            var user = new MapHiveUser
             {
                 Email = email
             };
@@ -54,7 +55,7 @@ namespace MapHive.Server.Cmd.Core
             try
             {
                 //destroy a previous account if any
-                await DestroyUser<DataModel.User>(email, new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
+                await DestroyUser<MapHiveUser>(email, new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
 
                 IDictionary<string, object> op = null;
                 user.UserCreated += (sender, eventArgs) =>

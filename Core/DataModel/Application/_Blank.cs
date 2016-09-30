@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapHive.Server.DataModel
+namespace MapHive.Server.Core.DataModel
 {
     public partial class Application
     {

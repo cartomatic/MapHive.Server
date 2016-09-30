@@ -8,8 +8,7 @@ using Cartomatic.CmdPrompt.Core;
 using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Events;
-using MapHive.Server.DataModel;
-using MapHive.Server.DataModel.DAL;
+using MapHive.Server.Core.DAL.DbContext;
 
 namespace MapHive.Server.Cmd.Core
 {
@@ -52,7 +51,7 @@ namespace MapHive.Server.Cmd.Core
 
             
             //Note: db context uses a connection defined in app cfg. 
-            await DestroyUser<User>(email, new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
+            await DestroyUser<MapHiveUser>(email, new MapHiveDbContext("MapHiveMeta"), CustomUserAccountService.GetInstance("MapHiveMbr"));
             Console.WriteLine();
         }
 
@@ -63,7 +62,7 @@ namespace MapHive.Server.Cmd.Core
         /// <param name="users"></param>
         /// <param name="mbrUserAccountService"></param>
         protected virtual async Task DestroyUser<T>(string email, DbContext dbCtx, CustomUserAccountService mbrUserAccountService)
-            where T : MapHiveUser
+            where T : MapHiveUserBase
         {
             try
             {

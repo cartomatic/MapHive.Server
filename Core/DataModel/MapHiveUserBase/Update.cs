@@ -26,14 +26,14 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         /// <returns></returns>
         public static async Task<T> UpdateAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
-            where T : MapHiveUser
+            where T : MapHiveUserBase
             where TAccount : RelationalUserAccount
         {
             return await obj.UpdateAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
     }
 
-    public abstract partial class MapHiveUser
+    public abstract partial class MapHiveUserBase
     {
         /// <summary>
         /// Overrides the default Update method of Base and throws an exception. The default method cannot be used for a MapHive user object
@@ -57,7 +57,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         /// <returns></returns>
         protected internal virtual async Task<T> UpdateAsync<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
-            where T : MapHiveUser
+            where T : MapHiveUserBase
             where TAccount : RelationalUserAccount
         {
             T output;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MapHive.Server.DataModel
+namespace MapHive.Server.Core.DataModel
 {
     public partial class Application
     {
@@ -49,5 +49,14 @@ namespace MapHive.Server.DataModel
         /// Whether or not an app is default; when flagged as default, the app will be automatically loaded if there were no other means of enforcing the current app.
         /// </summary>
         public bool IsDefault { get; set; }
+
+        //TODO
+        //provider
+        //comments
+        //tags
+        //price
+        //trial periods
+        //etc
+
     }
 }

@@ -4,30 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
-using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DataModel.Validation;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public abstract partial class MapHiveUser
+    public partial class Application
     {
         public override IValidator GetValidator()
         {
             if (Validator == null)
             {
-                Validator = new UserValidator();
+                Validator = new ApplicationValidator();
             }
             return base.GetValidator();
         }
 
         /// <summary>
-        /// Configuration for validation
+        /// Application validator
         /// </summary>
-        public class UserValidator : AbstractValidator<MapHiveUser>
+        public class ApplicationValidator : AbstractValidator<Application>
         {
-            public UserValidator()
+
+            public ApplicationValidator()
             {
-                RuleFor(x => x.Email).WithValueRequired().WithValidEmailAddress();
+                RuleFor(x => x.Name).WithValueRequired().WithLength(1, 254);
+
+                RuleFor(x => x.ShortName).WithLength(1, 10);
+
+                RuleFor(x => x.Url).WithValueRequired().WithLength(1, 254);
             }
         }
     }

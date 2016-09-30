@@ -11,7 +11,7 @@ using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public abstract partial class MapHiveUser
+    public abstract partial class MapHiveUserBase
     {
         /// <summary>
         /// Extracts a db context off the MembershipReboot's UserAccountService;

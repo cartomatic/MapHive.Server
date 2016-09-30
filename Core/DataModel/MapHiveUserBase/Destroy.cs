@@ -24,7 +24,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         /// <returns></returns>
         public static async Task<T> DestroyAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
-            where T : MapHiveUser
+            where T : MapHiveUserBase
             where TAccount : RelationalUserAccount
         {
             return await obj.DestroyAsync<T, TAccount>(dbCtx, userAccountService, uuid);
@@ -32,7 +32,7 @@ namespace MapHive.Server.Core.DataModel
 
     }
 
-    public abstract partial class MapHiveUser
+    public abstract partial class MapHiveUserBase
     {
         /// <summary>
         /// Overrides the default Destroy method of Base and throws an exception. The default method cannot be used for a MapHive user object
@@ -56,7 +56,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="userAccountService"></param>
         /// <returns></returns>
         protected internal virtual async Task<T> DestroyAsync<T, TAccount>(DbContext dbCtx, UserAccountService<TAccount> userAccountService, Guid uuid)
-            where T : MapHiveUser
+            where T : MapHiveUserBase
             where TAccount : RelationalUserAccount
         {
 

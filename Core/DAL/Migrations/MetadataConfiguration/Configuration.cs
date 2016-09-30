@@ -1,10 +1,11 @@
 ﻿using System.CodeDom;
 using System.Collections.Generic;
 using MapHive.Server.Core.DataModel;
+using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.Core.Utils;
 
-namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
+namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
 {
     using System;
     using System.Data.Entity;
@@ -16,8 +17,8 @@ namespace MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "MapHive.Server.DataModel.DAL.MapHiveDbContext";
-            MigrationsDirectory = @"_DAL\Migrations\MetadataConfiguration";
+            ContextKey = "MapHive.Server.Core.DAL.DbContext.MapHiveDbContext";
+            MigrationsDirectory = @"DAL\Migrations\MetadataConfiguration";
         }
 
         protected override void Seed(MapHiveDbContext context)

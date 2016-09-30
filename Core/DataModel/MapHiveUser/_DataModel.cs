@@ -1,31 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using BrockAllen.MembershipReboot;
-using BrockAllen.MembershipReboot.Relational;
-using MapHive.Server.Core.DataModel.Interface;
-using MapHive.Server.Core.DataModel.Validation;
+using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.DataModel
 {
-    public abstract partial class MapHiveUser
+    /// <summary>
+    /// Customised user
+    /// </summary>
+    public partial class MapHiveUser
     {
-        /// <summary>
-        /// User's email. Email must be unique in the system and is also a username
-        /// </summary>
-        public string Email { get; set; }
+        public string Forename { get; set; }
 
-        /// <summary>
-        /// MembershipReoot's equivalent of IsAccountClosed
-        /// </summary>
-        public bool IsAccountClosed { get; set; }
-
-        /// <summary>
-        /// MembershipReoot's equivalent of IsAccountVerified
-        /// </summary>
-        public bool IsAccountVerified { get; set; }
+        public string Surname { get; set; }
     }
 }

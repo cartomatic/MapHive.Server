@@ -10,11 +10,10 @@ using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DAL.TypeConfiguration;
-using MapHive.Server.DataModel.DAL.TypeConfiguration;
 
-namespace MapHive.Server.DataModel.DAL
+namespace MapHive.Server.Core.DAL.DbContext
 {
-    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised, IXWindow
+    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised, IXWindow, IMapHiveUser<MapHiveUser>
     {
         public MapHiveDbContext()
             : base() 
@@ -27,7 +26,7 @@ namespace MapHive.Server.DataModel.DAL
         }
 
         public DbSet<Application> Applications { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<MapHiveUser> Users { get; set; }
 
         //ILinksDbContext
         public DbSet<Link> Links { get; set; }
@@ -44,7 +43,7 @@ namespace MapHive.Server.DataModel.DAL
         {
             //type configs
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
-            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new MapHiveUserConfiguration());
 
             modelBuilder.Configurations.Add(new LinkConfiguration());
 

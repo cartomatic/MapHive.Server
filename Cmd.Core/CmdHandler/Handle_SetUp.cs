@@ -44,7 +44,7 @@ namespace MapHive.Server.Cmd.Core
 
             if (ExtractParam<bool>("meta", args))
             {
-                migrationConfigs[new MapHive.Server.DataModel.DAL.Migrations.MetadataConfiguration.Configuration()] = "maphive_meta";
+                migrationConfigs[new MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration()] = "maphive_meta";
             }
             if(ExtractParam<bool>("xmeta", args))
             {

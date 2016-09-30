@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using MapHive.Server.Core.API;
-using MapHive.Server.DataModel;
-using MapHive.Server.DataModel.DAL;
+using MapHive.Server.Core.DataModel;
+using MapHive.Server.Core.DAL.DbContext;
 
 namespace MapHive.Server.API.Controllers
 {

@@ -116,8 +116,17 @@
     <Compile Include="Auth\ChangePassword.cs" />
     <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
+    <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
+    <Compile Include="DAL\Interface\IMapHiveUser.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
+    <Compile Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.cs" />
+    <Compile Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.Designer.cs">
+      <DependentUpon>201609251103279_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Migrations\MetadataConfiguration\Configuration.cs" />
+    <Compile Include="DAL\TypeConfiguration\ApplicationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LocalisationClassConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\MapHiveUserConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\XWindowOriginConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LangConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
@@ -126,6 +135,12 @@
     <Compile Include="DAL\TypeConfiguration\EmailTemplateLocalisationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\ILocalisationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LinkConfiguration.cs" />
+    <Compile Include="DataModel\Application\GetCommonApps.cs" />
+    <Compile Include="DataModel\Application\GetIdentifiersForAppsRequiringAuth.cs" />
+    <Compile Include="DataModel\Application\Validation.cs" />
+    <Compile Include="DataModel\Application\_Blank.cs" />
+    <Compile Include="DataModel\Application\_Ctor.cs" />
+    <Compile Include="DataModel\Application\_DataModel.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Create.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Destroy.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Links.cs" />
@@ -180,14 +195,14 @@
     <Compile Include="DataModel\Localisation\Lang\_DataModel.cs" />
     <Compile Include="DataModel\Localisation\Lang\_Blank.cs" />
     <Compile Include="DataModel\Localisation\Lang\_Ctor.cs" />
-    <Compile Include="DataModel\MapHiveUser\Validation.cs" />
-    <Compile Include="DataModel\MapHiveUser\Create.cs" />
-    <Compile Include="DataModel\MapHiveUser\Update.cs" />
-    <Compile Include="DataModel\MapHiveUser\Destroy.cs" />
-    <Compile Include="DataModel\MapHiveUser\MembershipRebootDbCtxUtils.cs" />
-    <Compile Include="DataModel\MapHiveUser\_DataModel.cs" />
-    <Compile Include="DataModel\MapHiveUser\_Blank.cs" />
-    <Compile Include="DataModel\MapHiveUser\_Ctor.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\Validation.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\Create.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\Update.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\Destroy.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\MembershipRebootDbCtxUtils.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\_DataModel.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\_Blank.cs" />
+    <Compile Include="DataModel\MapHiveUserBase\_Ctor.cs" />
     <Compile Include="DataModel\ReadFilter\FromJson.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilter.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilterIQueryableExtensions.cs" />
@@ -196,6 +211,10 @@
     <Compile Include="DataModel\ReadSorter\ReadSorter.cs" />
     <Compile Include="DataModel\ReadSorter\ReadSorterIQueryableExtensions.cs" />
     <Compile Include="DataModel\ReadSorter\_Blank.cs" />
+    <Compile Include="DataModel\MapHiveUser\UserExtensions.cs" />
+    <Compile Include="DataModel\MapHiveUser\_Blank.cs" />
+    <Compile Include="DataModel\MapHiveUser\_Ctor.cs" />
+    <Compile Include="DataModel\MapHiveUser\_DataModel.cs" />
     <Compile Include="DataModel\Validation\Utils.cs" />
     <Compile Include="DataModel\Validation\ValidationError.cs" />
     <Compile Include="DataModel\Validation\ValidationErrors.cs" />
@@ -221,6 +240,9 @@
     <Compile Include="DataModel\Localisation\Translations\Translations.cs" />
     <Compile Include="DataModel\Localisation\Translations\TranslationsGeneric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserConfiguration\IUserConfiguration.cs" />
+    <Compile Include="UserConfiguration\MapHiveCoreUserConfiguration.cs" />
+    <Compile Include="UserConfiguration\UserConfigurationReader.cs" />
     <Compile Include="Utils\Identity.cs" />
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="WebClientConfiguration\WebConfig.cs" />
@@ -257,7 +279,14 @@
       <Name>Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DAL\EfCmd\cmd.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.resx">
+      <DependentUpon>201609251103279_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

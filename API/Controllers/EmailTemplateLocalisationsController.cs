@@ -8,9 +8,8 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MapHive.Server.Core.API;
 using MapHive.Server.Core.DataModel;
+using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
-using MapHive.Server.DataModel;
-using MapHive.Server.DataModel.DAL;
 
 namespace MapHive.Server.API.Controllers
 {

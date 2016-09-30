@@ -95,10 +95,6 @@
       <Project>{1C72B362-267B-4527-9012-7A7431FBBA3B}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataModel\DataModel.csproj">
-      <Project>{6467c396-fb96-42eb-b2e0-c7659fef5af4}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

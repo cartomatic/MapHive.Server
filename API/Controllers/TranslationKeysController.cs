@@ -12,10 +12,9 @@ using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.API;
 using MapHive.Server.Core.API.Serialisation;
 using MapHive.Server.Core.DataModel;
+using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.Core.Email;
-using MapHive.Server.DataModel;
-using MapHive.Server.DataModel.DAL;
 
 
 namespace MapHive.Server.API.Controllers

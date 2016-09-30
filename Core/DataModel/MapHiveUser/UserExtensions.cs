@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel;
 
-namespace MapHive.Server.DataModel
+namespace MapHive.Server.Core.DataModel
 {
     public static class UserExtensions
     {
@@ -14,7 +14,7 @@ namespace MapHive.Server.DataModel
         /// </summary>
         /// <param name="u"></param>
         /// <returns></returns>
-        public static string GetFullUserName(this User u)
+        public static string GetFullUserName(this MapHiveUser u)
         {
             return !string.IsNullOrEmpty(u.Forename) && !string.IsNullOrEmpty(u.Surname)
                 ? $"{u.Forename} {u.Surname}"

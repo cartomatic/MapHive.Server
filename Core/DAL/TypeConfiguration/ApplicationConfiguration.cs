@@ -6,9 +6,9 @@ using System.Data.Entity.Infrastructure.Annotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MapHive.Server.Core.DAL.TypeConfiguration;
+using MapHive.Server.Core.DataModel;
 
-namespace MapHive.Server.DataModel.DAL.TypeConfiguration
+namespace MapHive.Server.Core.DAL.TypeConfiguration
 {
     public class ApplicationConfiguration : EntityTypeConfiguration<Application>
     {
