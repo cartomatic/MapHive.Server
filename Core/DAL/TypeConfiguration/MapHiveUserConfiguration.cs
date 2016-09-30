@@ -20,11 +20,6 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
 
             Property(p => p.Forename).HasColumnName("forename");
             Property(p => p.Surname).HasColumnName("surname");
-
-            Property(t => t.Email)
-                .HasColumnAnnotation(
-                    "Index",
-                    new IndexAnnotation(new IndexAttribute("") { IsUnique = true }));
         }
     }
 }

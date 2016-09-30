@@ -57,8 +57,8 @@
       <HintPath>..\..\..\Trajan\Trajan.CountingApp.Server\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="npgsql, Version=3.1.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Trajan\Trajan.CountingApp.Server\packages\npgsql.3.1.5\lib\net451\npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.1.8.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.8\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -119,9 +119,9 @@
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
     <Compile Include="DAL\Interface\IMapHiveUser.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
-    <Compile Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.cs" />
-    <Compile Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.Designer.cs">
-      <DependentUpon>201609251103279_InitialCreate.cs</DependentUpon>
+    <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.cs" />
+    <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.Designer.cs">
+      <DependentUpon>201609301024113_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\Migrations\MetadataConfiguration\Configuration.cs" />
     <Compile Include="DAL\TypeConfiguration\ApplicationConfiguration.cs" />
@@ -283,8 +283,8 @@
     <Content Include="DAL\EfCmd\cmd.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\Migrations\MetadataConfiguration\201609251103279_InitialCreate.resx">
-      <DependentUpon>201609251103279_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.resx">
+      <DependentUpon>201609301024113_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,6 +14,7 @@ namespace MapHive.Server.Cmd.Core
             //register some xtra command aliases
             SetUpCommandMap(new Dictionary<string, string>
             {
+                {"s", "setup" },
                 { "conn", "dsc" },
                 { "addsuper", "addsuperuser" }, { "addmaster", "addsuperuser" },
                 { "xuser", "destroyuser" }

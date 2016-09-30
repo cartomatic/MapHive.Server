@@ -26,14 +26,17 @@ namespace MapHive.Server.Cmd.Core
             {
                 Console.WriteLine($"'{cmd}' : sets up the maphive environment - maphive_meta, maphive_idsrv, maphive_mr; uses the configured db credentials to connect to the db server.");
                 Console.WriteLine($"syntax: {cmd} space separated params: ");
-                Console.WriteLine("\t[meta:{bool}; whether or not maphive_meta should be created/ugraded]");
-                Console.WriteLine("\t[mr:{bool}; whether or not maphive_mr (MembershipReboot) should be created/ugraded]");
-                Console.WriteLine("\t[idsrv:{bool}; whether or not maphive_idsrv (IdentityServer) should be created/ugraded]");
-                Console.WriteLine("\t[xmeta:{bool}; whether or not maphive_meta should be dropped prior to being recreated]");
-                Console.WriteLine("\t[xmr:{bool}; whether or not maphive_mr (MembershipReboot) should be dropped prior to being recreated]");
-                Console.WriteLine("\t[xidsrv:{bool}; whether or not maphive_idsrv (IdentityServer) should be dropped prior to being recreated]");
+                Console.WriteLine("\t[full:{presence}; whether or not all the databases created/upgraded]");
+                Console.WriteLine("\t[m:{presence}; whether or not maphive_meta should be created/upgraded]");
+                Console.WriteLine("\t[mr:{presence}; whether or not maphive_mr (MembershipReboot) should be created/upgraded]");
+                Console.WriteLine("\t[idsrv:{presence}; whether or not maphive_idsrv (IdentityServer) should be created/upgraded]");
+                Console.WriteLine("\t[xfull:{presence}; whether or not all the databases should be dropped prior to being recreated]");
+                Console.WriteLine("\t[xm:{presence}; whether or not maphive_meta should be dropped prior to being recreated]");
+                Console.WriteLine("\t[xmr:{presence}; whether or not maphive_mr (MembershipReboot) should be dropped prior to being recreated]");
+                Console.WriteLine("\t[xidsrv:{presence}; whether or not maphive_idsrv (IdentityServer) should be dropped prior to being recreated]");
 
-                Console.WriteLine($"example: {cmd} meta:true mr:true: idsrv:true xmeta: true xmr:true xidsrv:true");
+                Console.WriteLine($"example: {cmd} m mr idsrv xm xmr xidsrv");
+                Console.WriteLine($"example: {cmd} full xfull");
                 Console.WriteLine();
 
                 return;
@@ -42,29 +45,29 @@ namespace MapHive.Server.Cmd.Core
             var dbsToDrop = new List<string>();
             var migrationConfigs = new Dictionary<DbMigrationsConfiguration, string>();
 
-            if (ExtractParam<bool>("meta", args))
+            if (ContainsParam("full", args) || ContainsParam("m", args))
             {
                 migrationConfigs[new MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration()] = "maphive_meta";
             }
-            if(ExtractParam<bool>("xmeta", args))
+            if(ContainsParam("xfull", args) || ContainsParam("xm", args))
             {
                 dbsToDrop.Add("maphive_meta");
             }
-            if (ExtractParam<bool>("mr", args))
+            if (ContainsParam("full", args) || ContainsParam("mr", args))
             {
                 migrationConfigs[new MapHive.Identity.MembershipReboot.Migrations.Configuration()] = "maphive_mr";
             }
-            if (ExtractParam<bool>("xmr", args))
+            if (ContainsParam("xfull", args) || ContainsParam("xmr", args))
             {
                 dbsToDrop.Add("maphive_mr");
             }
-            if (ExtractParam<bool>("idsrv", args))
+            if (ContainsParam("full", args) || ContainsParam("idsrv", args))
             {
                 migrationConfigs[new MapHive.Identity.IdentityServer.Migrations.ClientConfiguration.Configuration()] = "maphive_idsrv";
                 migrationConfigs[new MapHive.Identity.IdentityServer.Migrations.OperationalConfiguration.Configuration()] = "maphive_idsrv";
                 migrationConfigs[new MapHive.Identity.IdentityServer.Migrations.ScopeConfiguration.Configuration()] = "maphive_idsrv";
             }
-            if (ExtractParam<bool>("xidsrv", args))
+            if (ContainsParam("xfull", args) || ContainsParam("xidsrv", args))
             {
                 dbsToDrop.Add("maphive_idsrv");
             }
@@ -77,9 +80,7 @@ namespace MapHive.Server.Cmd.Core
                         $"You are about to drop the following databases {string.Join(", ", dbsToDrop)}. Are you sure you want to proceed?"))
                     return;
 
-                ConsoleEx.Write("Dropping dbs... ", ConsoleColor.DarkYellow);
                 DropDb(dbsToDrop.ToArray());
-                ConsoleEx.Write("Done!" + Environment.NewLine, ConsoleColor.DarkGreen);
             }
 
 
@@ -102,7 +103,7 @@ namespace MapHive.Server.Cmd.Core
 
                         try
                         {
-                            ConsoleEx.Write(migrationCfg.ToString(), ConsoleColor.DarkYellow);
+                            ConsoleEx.Write($"{migrationCfg.ToString()}... ", ConsoleColor.DarkYellow);
 
                             //TODO - make the provider name somewhat more dynamic...
                             migrationCfg.TargetDatabase = new DbConnectionInfo(dbc.GetConnectionString(), "Npgsql");
@@ -136,7 +137,6 @@ namespace MapHive.Server.Cmd.Core
                 ConsoleEx.WriteLine("Looks like i have nothing to do... Type 'setup help' for more details on how to use this command.", ConsoleColor.DarkYellow);
             }
 
-            ConsoleEx.WriteOk("Done!");
             Console.WriteLine();
         }
     }

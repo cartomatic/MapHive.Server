@@ -60,6 +60,8 @@ namespace MapHive.Server.Cmd.Core
             {
                 foreach (var dbName in dbNames)
                 {
+                    ConsoleEx.Write($"Dropping {dbName}... ", ConsoleColor.DarkYellow);
+
                     //first cut the connection to the db if any
                     using (var conn = new NpgsqlConnection(Dsc.GetConnectionString()))
                     {
@@ -88,6 +90,8 @@ namespace MapHive.Server.Cmd.Core
 
                         conn.CloseConnection();
                     }
+
+                    ConsoleEx.Write("Done!" + Environment.NewLine, ConsoleColor.DarkGreen);
                 }
                 
             }
