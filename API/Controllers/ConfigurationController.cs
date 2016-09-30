@@ -34,12 +34,10 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                var cfg = UserConfigurationReader.Read(
-                    new MapHiveBasicUserConfiguration<MapHiveDbContext, MapHiveUser>()
-                    );
-
                 return Ok(
-                    cfg
+                    await UserConfigurationReader.ReadAsync(
+                        new MapHiveBasicUserConfiguration<MapHiveDbContext, MapHiveUser>()
+                        )
                     );
             }
             catch (Exception ex)

@@ -8,7 +8,7 @@ namespace MapHive.Server.Core.UserConfiguration
 {
     public class UserConfigurationReader
     {
-        public static async Task<IDictionary<string, object>> Read(params IUserConfiguration[] configs)
+        public static async Task<IDictionary<string, object>> ReadAsync(params IUserConfiguration[] configs)
         {
             var output = new Dictionary<string, object>();
 
