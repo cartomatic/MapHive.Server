@@ -24,9 +24,11 @@ namespace MapHive.Server.Core.DataModel
         public string Description { get; set; }
 
         /// <summary>
-        /// The application's entry point
+        /// The application's entry point(s).
+        /// Usually there will only be one url, but during the dev or even in production, when there are multiple envs maintained, providing a pipe (|) separated list of urls,
+        /// simplifies the app setup. App urls listed here are required when an app requires authentication.
         /// </summary>
-        public string Url { get; set; }
+        public string Urls { get; set; }
 
         /// <summary>
         /// Whether or not own application's splashscreen should be used, or the host should use own load mask

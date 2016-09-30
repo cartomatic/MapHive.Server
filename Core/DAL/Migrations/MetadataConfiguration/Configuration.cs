@@ -138,7 +138,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     ShortName = "mhhgis",
                     Name = "HGIS v1",
                     Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
-                    Url = "https://hgis.maphive.local/",
+                    Urls = "https://hgis.maphive.local/",
                     IsCommon = true,
                     IsDefault = true
                 },
@@ -148,7 +148,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     ShortName = "mhmapapp",
                     Name = "MapHive MapApp",
                     Description = "MapHIve Map App",
-                    Url = "https://map.maphive.local/",
+                    Urls = "https://map.maphive.local/",
                     RequiresAuth = true,
                     IsCommon = true
                 },
@@ -158,7 +158,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     Name = "Admin",
                     ShortName = "mhadmin",
                     Description = "MapHive Admin",
-                    Url = "https://admin.maphive.local/",
+                    Urls = "https://admin.maphive.local/",
                     UseSplashscreen = true,
                     RequiresAuth = true,
                     IsCommon = true
@@ -169,7 +169,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive MapApp",
                     Description = "MapHive map app",
-                    Url = "https://maps.maphive.local/",
+                    Urls = "https://maps.maphive.local/",
                     RequiresAuth = false
                 },
                 new Application
@@ -178,7 +178,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive SiteAdmin",
                     Description = "MapHive platform Admin app",
-                    Url = "https://masterofpuppets.maphive.local/",
+                    Urls = "https://masterofpuppets.maphive.local/",
                     RequiresAuth = true
                 },
                 new Application
@@ -187,7 +187,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     ShortName = "tapp1",
                     Name = "TApp1",
                     Description = "A test HOST app that suppresses nested framed apps",
-                    Url = "https://test1.maphive.local/?suppressnested=true#some/hash/123/456",
+                    Urls = "https://test1.maphive.local/?suppressnested=true#some/hash/123/456",
                     IsCommon = true
                 },
                 new Application
@@ -196,7 +196,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     ShortName = "tapp2",
                     Name = "TApp2",
                     Description = "A test HOST app that suppresses nested framed apps",
-                    Url = "https://test2.maphive.local/?param=test param so can be sure paraterised app urls also work&suppressnested=true",
+                    Urls = "https://test2.maphive.local/?param=test param so can be sure paraterised app urls also work&suppressnested=true",
                     UseSplashscreen = true,
                     IsCommon = true
                 },
@@ -206,7 +206,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MetadataConfiguration
                     ShortName = "tapp3",
                     Name = "TApp3",
                     Description = "A test HOST app that suppresses nested framed apps",
-                    Url = "https://test3.maphive.local/",
+                    Urls = "https://test3.maphive.local/",
                     IsCommon = true
                 }
                 );

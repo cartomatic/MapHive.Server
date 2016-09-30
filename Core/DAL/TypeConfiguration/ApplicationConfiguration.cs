@@ -20,7 +20,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.ShortName).HasColumnName("short_name");
             Property(en => en.Name).HasColumnName("name");
             Property(en => en.Description).HasColumnName("description");
-            Property(en => en.Url).HasColumnName("url");
+            Property(en => en.Urls).HasColumnName("urls");
             Property(en => en.UseSplashscreen).HasColumnName("use_splashscreen");
             Property(en => en.RequiresAuth).HasColumnName("requires_auth");
             Property(en => en.IsCommon).HasColumnName("is_common");

@@ -31,7 +31,7 @@ namespace MapHive.Server.Core.DataModel
 
                 RuleFor(x => x.ShortName).WithLength(1, 10);
 
-                RuleFor(x => x.Url).WithValueRequired().WithLength(1, 254);
+                RuleFor(x => x.Urls).WithValueRequired().WithLength(1, 254);
             }
         }
     }

@@ -27,11 +27,11 @@ namespace MapHive.Server.Cmd.Core
                 Console.WriteLine($"'{cmd}' : sets up the maphive environment - maphive_meta, maphive_idsrv, maphive_mr; uses the configured db credentials to connect to the db server.");
                 Console.WriteLine($"syntax: {cmd} space separated params: ");
                 Console.WriteLine("\t[full:{presence}; whether or not all the databases created/upgraded]");
-                Console.WriteLine("\t[m:{presence}; whether or not maphive_meta should be created/upgraded]");
+                Console.WriteLine("\t[mh:{presence}; whether or not maphive_meta should be created/upgraded]");
                 Console.WriteLine("\t[mr:{presence}; whether or not maphive_mr (MembershipReboot) should be created/upgraded]");
                 Console.WriteLine("\t[idsrv:{presence}; whether or not maphive_idsrv (IdentityServer) should be created/upgraded]");
                 Console.WriteLine("\t[xfull:{presence}; whether or not all the databases should be dropped prior to being recreated]");
-                Console.WriteLine("\t[xm:{presence}; whether or not maphive_meta should be dropped prior to being recreated]");
+                Console.WriteLine("\t[xmh:{presence}; whether or not maphive_meta should be dropped prior to being recreated]");
                 Console.WriteLine("\t[xmr:{presence}; whether or not maphive_mr (MembershipReboot) should be dropped prior to being recreated]");
                 Console.WriteLine("\t[xidsrv:{presence}; whether or not maphive_idsrv (IdentityServer) should be dropped prior to being recreated]");
 
@@ -45,11 +45,11 @@ namespace MapHive.Server.Cmd.Core
             var dbsToDrop = new List<string>();
             var migrationConfigs = new Dictionary<DbMigrationsConfiguration, string>();
 
-            if (ContainsParam("full", args) || ContainsParam("m", args))
+            if (ContainsParam("full", args) || ContainsParam("mh", args))
             {
                 migrationConfigs[new MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration()] = "maphive_meta";
             }
-            if(ContainsParam("xfull", args) || ContainsParam("xm", args))
+            if(ContainsParam("xfull", args) || ContainsParam("xmh", args))
             {
                 dbsToDrop.Add("maphive_meta");
             }

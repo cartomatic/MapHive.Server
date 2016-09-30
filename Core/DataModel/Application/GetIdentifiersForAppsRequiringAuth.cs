@@ -31,7 +31,7 @@ namespace MapHive.Server.Core.DataModel
             {
                 AddIdentifier(output, app.Uuid.ToString());
                 AddIdentifier(output, app.ShortName);
-                AddIdentifier(output, app.Url);
+                AddIdentifier(output, app.Urls.Split('|'));
             }
 
             return output.Count > 0 ? output : null;
@@ -40,13 +40,16 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Adds an app identifier to a collection
         /// </summary>
+        /// <param name="outAppIdentifiers"></param>
         /// <param name="appIdentifiers"></param>
-        /// <param name="appIdentifier"></param>
-        private static void AddIdentifier(ICollection<string> appIdentifiers, string appIdentifier)
+        private static void AddIdentifier(ICollection<string> outAppIdentifiers, params string[] appIdentifiers)
         {
-            if (!string.IsNullOrEmpty(appIdentifier))
+            foreach (var appIdentifier in appIdentifiers)
             {
-                appIdentifiers.Add(appIdentifier);
+                if (!string.IsNullOrEmpty(appIdentifier))
+                {
+                    outAppIdentifiers.Add(appIdentifier);
+                }
             }
         }
     }
