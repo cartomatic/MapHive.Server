@@ -47,7 +47,7 @@ namespace MapHive.Server.Cmd.Core
 
             if (ContainsParam("full", args) || ContainsParam("mh", args))
             {
-                migrationConfigs[new MapHive.Server.Core.DAL.Migrations.MetadataConfiguration.Configuration()] = "maphive_meta";
+                migrationConfigs[new MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration.Configuration()] = "maphive_meta";
             }
             if(ContainsParam("xfull", args) || ContainsParam("xmh", args))
             {

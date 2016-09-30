@@ -119,11 +119,14 @@
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
     <Compile Include="DAL\Interface\IMapHiveUsers.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
-    <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.cs" />
-    <Compile Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.Designer.cs">
-      <DependentUpon>201609301024113_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\Migrations\MetadataConfiguration\Configuration.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedLangs.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedApplications.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedXWindowOrigins.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedTestLinks.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\_Blank.cs" />
+    <Compile Include="DAL\Seed\MapHiveMeta\SeedAll.cs" />
     <Compile Include="DAL\TypeConfiguration\ApplicationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LocalisationClassConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\MapHiveUserConfiguration.cs" />
@@ -281,11 +284,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DAL\EfCmd\cmd.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DAL\Migrations\MetadataConfiguration\201609301024113_InitialCreate.resx">
-      <DependentUpon>201609301024113_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
