@@ -99,16 +99,21 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                if (User.Identity.IsAuthenticated)
-                {
-                    //TODO - this will require testing for the actual read access based in a role
-                    return await base.GetAsync();
-                }
-                else
-                {
-                    //get just the common apps a user can see
-                    return Ok(await Application.GetCommonAppsAsync(_dbCtx));
-                }
+                return Ok(await Application.GetCommonAppsAsync(_dbCtx));
+
+
+                //TODO - decide what should be returned. need more thinking on the platform shape first though!
+
+                //if (User.Identity.IsAuthenticated)
+                //{
+                //    //TODO - this will require testing for the actual read access based in a role
+                //    return await base.GetAsync();
+                //}
+                //else
+                //{
+                //    //get just the common apps a user can see
+                //    return Ok(await Application.GetCommonAppsAsync(_dbCtx));
+                //}
             }
             catch (Exception ex)
             {

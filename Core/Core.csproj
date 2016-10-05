@@ -119,9 +119,9 @@
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
     <Compile Include="DAL\Interface\IMapHiveUsers.cs" />
     <Compile Include="DAL\Interface\IXWindow.cs" />
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.cs" />
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.Designer.cs">
-      <DependentUpon>201609301511578_InitialCreate.cs</DependentUpon>
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.Designer.cs">
+      <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
@@ -282,8 +282,8 @@
     <Content Include="DAL\_EfCmd\cmd.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201609301511578_InitialCreate.resx">
-      <DependentUpon>201609301511578_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.resx">
+      <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

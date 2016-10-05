@@ -20,6 +20,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
                         requires_auth = c.Boolean(nullable: false),
                         is_common = c.Boolean(nullable: false),
                         is_default = c.Boolean(nullable: false),
+                        is_hidden = c.Boolean(nullable: false),
                         created_by = c.Guid(),
                         last_modified_by = c.Guid(),
                         create_date_utc = c.DateTime(),

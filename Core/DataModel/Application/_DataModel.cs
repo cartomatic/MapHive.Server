@@ -52,6 +52,12 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         public bool IsDefault { get; set; }
 
+        /// <summary>
+        /// Whether or not the app is retrievable through the usual means
+        /// Note: this is an experimental property
+        /// </summary>
+        public bool IsHidden { get; set; }
+
         //TODO
         //provider
         //comments

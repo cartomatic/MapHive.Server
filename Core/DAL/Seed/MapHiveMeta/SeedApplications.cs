@@ -15,6 +15,25 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
         public static void SeedApplications(MapHiveDbContext context)
         {
             context.Applications.AddOrUpdate(
+                GetApps()
+                );
+        }
+
+        protected static Application[] GetApps()
+        {
+            return new Application[]
+            {
+                new Application
+                {
+                    Uuid = Guid.Parse("5f541902-4f42-4a58-8dee-523ea02cd1fd"),
+                    ShortName = "mhhive",
+                    Name = "Hive@MapHive",
+                    Description = "The Hive",
+                    Urls = "https://maphive.local/|https://maphive.net/",
+                    IsCommon = false,
+                    IsDefault = false,
+                    IsHidden=true
+                },
                 new Application
                 {
                     Uuid = Guid.Parse("30aca350-41a4-4906-be82-da1247537f19"),
@@ -46,15 +65,15 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     RequiresAuth = true,
                     IsCommon = true
                 },
-                new Application
-                {
-                    Uuid = Guid.Parse("cc6dbf2e-f2f0-462f-a4a3-e2c13aa21e49"),
-                    //no short name, so can test uuid in the url part!
-                    Name = "MapHive MapApp",
-                    Description = "MapHive map app",
-                    Urls = "https://maps.maphive.local/|https://maps.maphive.net/",
-                    RequiresAuth = false
-                },
+                //new Application
+                //{
+                //    Uuid = Guid.Parse("cc6dbf2e-f2f0-462f-a4a3-e2c13aa21e49"),
+                //    //no short name, so can test uuid in the url part!
+                //    Name = "MapHive MapApp",
+                //    Description = "MapHive map app",
+                //    Urls = "https://maps.maphive.local/|https://maps.maphive.net/",
+                //    RequiresAuth = false
+                //},
                 new Application
                 {
                     Uuid = Guid.Parse("1e025446-1a25-4639-a302-9ce0e2017a59"),
@@ -69,7 +88,7 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     Uuid = Guid.Parse("2781a6da-38f7-49a5-8837-05c825e776b6"),
                     ShortName = "tapp1",
                     Name = "TApp1",
-                    Description = "A test HOST app that suppresses nested framed apps",
+                    Description = "A test HOSTED app that suppresses nested framed apps",
                     Urls = "https://test1.maphive.local/?suppressnested=true#some/hash/123/456|https://test1.maphive.net/?suppressnested=true#some/hash/123/456",
                     IsCommon = true
                 },
@@ -78,7 +97,7 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     Uuid = Guid.Parse("bddb6bfb-b6a9-4478-a236-5e5ba5d8f8fc"),
                     ShortName = "tapp2",
                     Name = "TApp2",
-                    Description = "A test HOST app that suppresses nested framed apps",
+                    Description = "A test HOSTED app that suppresses nested framed apps",
                     Urls = "https://test2.maphive.local/?param=test param so can be sure paraterised app urls also work&suppressnested=true|https://test2.maphive.net/?param=test param so can be sure paraterised app urls also work&suppressnested=true",
                     UseSplashscreen = true,
                     IsCommon = true
@@ -88,11 +107,11 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     Uuid = Guid.Parse("748acb4b-ab56-46bb-a348-a669ebd19f6f"),
                     ShortName = "tapp3",
                     Name = "TApp3",
-                    Description = "A test HOST app that suppresses nested framed apps",
+                    Description = "A test HOSTED app that suppresses nested framed apps",
                     Urls = "https://test3.maphive.local/|https://test3.maphive.net/",
                     IsCommon = true
                 }
-                );
+            };
         }
     }
 }

@@ -17,7 +17,9 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
             //obtain the origins first
             var origins = new List<string>();
 
-            foreach (var app in context.Applications)
+            //Note: context may have not seeded the apps yet, so need to use a bit less dynamic resource here ;)
+            //foreach (var app in context.Applications)
+            foreach (var app in GetApps())
             {
                 var urls = app.Urls.Split('|');
 
