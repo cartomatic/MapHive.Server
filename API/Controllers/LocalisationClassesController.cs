@@ -20,7 +20,7 @@ using MapHive.Server.Core.Email;
 namespace MapHive.Server.API.Controllers
 {
     [RoutePrefix("localisationclasses")]
-    public class LocalisationClassesController : BaseApiCrudController<TranslationKey, MapHiveDbContext>
+    public class LocalisationClassesController : BaseApiCrudController<LocalisationClass, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
         public LocalisationClassesController()
