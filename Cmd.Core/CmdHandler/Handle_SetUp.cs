@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Cartomatic.CmdPrompt.Core;
 using Cartomatic.Utils.Data;
+using MapHive.Identity.MembershipReboot;
+using MapHive.Server.Core.DAL.DbContext;
 using Npgsql;
 
 namespace MapHive.Server.Cmd.Core
@@ -132,12 +134,56 @@ namespace MapHive.Server.Cmd.Core
 
             }
 
+
             if (dbsToDrop.Count == 0 && migrationConfigs.Count == 0)
             {
-                ConsoleEx.WriteLine("Looks like i have nothing to do... Type 'setup help' for more details on how to use this command.", ConsoleColor.DarkYellow);
+                ConsoleEx.WriteLine(
+                    "Looks like i have nothing to do... Type 'setup help' for more details on how to use this command.",
+                    ConsoleColor.DarkYellow);
+            }
+            else
+            {
+                EfConnectionsPoolCacheCleanup();
             }
 
             Console.WriteLine();
+        }
+
+
+        /// <summary>
+        /// Clears the EF connections pool cache
+        /// </summary>
+        protected void EfConnectionsPoolCacheCleanup()
+        {
+            ConsoleEx.Write("EF connections pool cache cleanup... ", ConsoleColor.DarkYellow);
+
+            //EF caches connections, so in some scenarios, when there was a conn to a db that is being dropped and recreated EF will fail to 
+            //reconnect to it.
+            //After such fail EF will reset the conns pool cache and open up new connections
+            //So basically here just force the EF conn failure so it can drop previously cachec connections that are not valid anymore
+
+            try
+            {
+                var ctx = new MapHiveDbContext();
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                ctx.Applications.FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
+
+            try
+            {
+                var userAccountService = CustomUserAccountService.GetInstance("MapHiveMbr");
+                userAccountService.GetByEmail("some@email.com");
+            }
+            catch (Exception)
+            {
+                //ignore
+            }
+
+            ConsoleEx.Write("Done!" + Environment.NewLine, ConsoleColor.DarkGreen);
         }
     }
 }
