@@ -51,6 +51,9 @@ namespace MapHive.Server.API
             //TODO - ??? Maybe move the WebAPI cfg to an external class / method as it is done in the actual WebAPI templates ???
 
             var config = new HttpConfiguration();
+
+            SwaggerConfig.Register(config);
+
             config.MapHttpAttributeRoutes();
 
             //newtosoft json formatting! so nicely indented json is returned
