@@ -129,7 +129,7 @@ namespace MapHive.Server
             };
 
             request.AddQueryParameter("appIdentifiers", ConfigurationManager.AppSettings["AppIdentifiers"]);
-            request.AddQueryParameter("langCode", lng);
+            request.AddQueryParameter("langCodes", lng);
 
 
             //applocalisations/localiseit

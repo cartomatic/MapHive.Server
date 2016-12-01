@@ -29,7 +29,18 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     ShortName = "mhhive",
                     Name = "Hive@MapHive",
                     Description = "The Hive",
-                    Urls = "https://maphive.local/|https://maphive.net/",
+                    Urls = "https://hive.maphive.local/|https://hive.maphive.net/",
+                    IsCommon = false,
+                    IsDefault = false,
+                    IsHidden=true
+                },
+                new Application
+                {
+                    Uuid = Guid.Parse("a2f1eaf8-491f-45ab-be64-e84ad74ce7d2"),
+                    ShortName = "mhtesthive",
+                    Name = "TestHive@MapHive",
+                    Description = "The Test Hive",
+                    Urls = "https://testhive.maphive.local/|https://testhive.maphive.net/",
                     IsCommon = false,
                     IsDefault = false,
                     IsHidden=true
@@ -40,7 +51,7 @@ namespace MapHive.Server.Core.DAL.Seed.MapHiveMeta
                     ShortName = "mhhgis",
                     Name = "HGIS v1",
                     Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
-                    Urls = "https://hgis.maphive.local/|https://hgis.maphive.net/",
+                    Urls = "https://hgisold.maphive.local/|https://hgisold.maphive.net/",
                     IsCommon = true,
                     IsDefault = true
                 },
