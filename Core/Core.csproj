@@ -54,7 +54,7 @@
       <HintPath>..\packages\IdentityModel.1.11.0\lib\net45\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Trajan\Trajan.CountingApp.Server\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Npgsql, Version=3.1.8.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
@@ -261,19 +261,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Utils\Crypto\Crypto.csproj">
+    <ProjectReference Include="..\..\Cartomatic.Utils\Crypto\Crypto.csproj">
       <Project>{57ec8856-7620-461a-863b-4eb3e478e295}</Project>
       <Name>Crypto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Data\Data.csproj">
+    <ProjectReference Include="..\..\Cartomatic.Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Number\Number.csproj">
+    <ProjectReference Include="..\..\Cartomatic.Utils\Number\Number.csproj">
       <Project>{398545d8-33cc-4b60-a7b5-91c77ead25b1}</Project>
       <Name>Number</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Web\Web.csproj">
+    <ProjectReference Include="..\..\Cartomatic.Utils\Web\Web.csproj">
       <Project>{45666acc-c047-4608-8213-f109504ee551}</Project>
       <Name>Web</Name>
     </ProjectReference>

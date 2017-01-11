@@ -79,11 +79,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CmdPrompt\CmdPrompt.Core\CmdPrompt.Core.csproj">
+    <ProjectReference Include="..\..\Cartomatic.CmdPrompt\CmdPrompt.Core\CmdPrompt.Core.csproj">
       <Project>{014923b2-0393-4e00-86e5-67f0aa222081}</Project>
       <Name>CmdPrompt.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Utils\Data\Data.csproj">
+    <ProjectReference Include="..\..\Cartomatic.Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>
