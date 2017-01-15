@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<string>> GetUserAppsUrls<T>(T dbCtx, Guid? userId)
+        public static async Task<IEnumerable<string>> GetUserAppsUrlsAsync<T>(T dbCtx, Guid? userId)
             where T: DbContext, IMapHiveApps
         {
             return (await GetUserAppsAsync(dbCtx, userId)).Aggregate(new List<string>(), (agg, app) =>

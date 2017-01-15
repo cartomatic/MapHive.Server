@@ -34,7 +34,7 @@ namespace MapHive.Server.Core
             cfg["AuthRequiredAppIdentifiers"] = await Application.GetIdentifiersForAppsRequiringAuthAsync(dbCtx);
 
             //Allowed origins for the xwindow post message communication
-            cfg["AllowedXWindowMsgBusOrigins"] = await Application.GetUserAppsUrls(dbCtx, null);
+            cfg["AllowedXWindowMsgBusOrigins"] = await Application.GetUserAppsUrlsAsync(dbCtx, null);
 
 
             cfg["SupportedLangCodes"] = (await Lang.GetSupportedLangsAsync(dbCtx)).Select(l => l.LangCode);

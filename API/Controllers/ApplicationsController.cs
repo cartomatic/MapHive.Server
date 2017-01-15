@@ -99,7 +99,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetUserAppsUrls(_dbCtx as MapHiveDbContext, MapHive.Server.Core.Utils.Identity.GetUserGuid()));
+                return Ok(await Application.GetUserAppsAsync(_dbCtx as MapHiveDbContext, MapHive.Server.Core.Utils.Identity.GetUserGuid()));
             }
             catch (Exception ex)
             {
@@ -118,7 +118,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetUserAppsUrls(_dbCtx as MapHiveDbContext, null));
+                return Ok(await Application.GetUserAppsUrlsAsync(_dbCtx as MapHiveDbContext, null));
             }
             catch (Exception ex)
             {
