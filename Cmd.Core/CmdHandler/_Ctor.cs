@@ -16,7 +16,6 @@ namespace MapHive.Server.Cmd.Core
             {
                 {"s", "setup" },
                 { "conn", "dsc" },
-                { "addsuper", "addsuperuser" }, { "addmaster", "addsuperuser" },
                 { "xuser", "destroyuser" }
             });
 

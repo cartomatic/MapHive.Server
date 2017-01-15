@@ -14,7 +14,7 @@ namespace MapHive.Server.Cmd.Core
 {
     public partial class CommandHandler
     {
-        protected virtual async Task Handle_AddSuperUser(Dictionary<string, string> args)
+        protected virtual async Task Handle_AddUser(Dictionary<string, string> args)
         {
             var cmd = GetCallerName();
 
@@ -25,7 +25,7 @@ namespace MapHive.Server.Cmd.Core
                 Console.WriteLine("\t[e:email]");
                 Console.WriteLine("\t[p:pass]");
                 Console.WriteLine();
-                Console.WriteLine($"example: {cmd} e:dev@maphive.net p:test");
+                Console.WriteLine($"example: {cmd} e:queen@maphive.net p:test");
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace MapHive.Server.Cmd.Core
             //use the default account if email and pass not provided
             if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(pass))
             {
-                email = "dev@maphive.net";
+                email = "queen@maphive.net";
                 pass = "test";
             }
 
