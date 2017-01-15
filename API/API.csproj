@@ -192,7 +192,6 @@
     <Compile Include="Controllers\TranslationKeysController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\XWindowOriginsController.cs" />
     <Compile Include="Controllers\LangsController.cs" />
     <Compile Include="Controllers\ApplicationsController.cs" />
     <Compile Include="Controllers\TestController.cs" />

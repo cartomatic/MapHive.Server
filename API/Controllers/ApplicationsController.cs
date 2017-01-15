@@ -99,21 +99,26 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetCommonAppsAsync(_dbCtx));
+                return Ok(await Application.GetUserAppsUrls(_dbCtx as MapHiveDbContext, MapHive.Server.Core.Utils.Identity.GetUserGuid()));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
 
-
-                //TODO - decide what should be returned. need more thinking on the platform shape first though!
-
-                //if (User.Identity.IsAuthenticated)
-                //{
-                //    //TODO - this will require testing for the actual read access based in a role
-                //    return await base.GetAsync();
-                //}
-                //else
-                //{
-                //    //get just the common apps a user can see
-                //    return Ok(await Application.GetCommonAppsAsync(_dbCtx));
-                //}
+        /// <summary>
+        /// Gets x window origins for the xwindow msg bus
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("xwindoworigins")]
+        [ResponseType(typeof(IEnumerable<string>))]
+        public async Task<IHttpActionResult> Get()
+        {
+            try
+            {
+                return Ok(await Application.GetUserAppsUrls(_dbCtx as MapHiveDbContext, null));
             }
             catch (Exception ex)
             {

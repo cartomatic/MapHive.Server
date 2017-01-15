@@ -8,8 +8,11 @@ using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.DAL.Interface
 {
-    public interface IXWindow
-    {
-        DbSet<XWindowOrigin> XWindowOrigins { get; set; }
+    /// <summary>
+    /// Whether or not a dbctx has access to the maphive Applications
+    /// </summary>
+    public interface IMapHiveApps
+    { 
+        DbSet<Application> Applications { get; set; } 
     }
 }

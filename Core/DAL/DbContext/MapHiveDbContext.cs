@@ -13,7 +13,7 @@ using MapHive.Server.Core.DAL.TypeConfiguration;
 
 namespace MapHive.Server.Core.DAL.DbContext
 {
-    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, ILocalised, IXWindow, IMapHiveUsers<MapHiveUser>
+    public class MapHiveDbContext : BaseDbContext, ILinksDbContext, IMapHiveApps, ILocalised, IMapHiveUsers<MapHiveUser>
     {
         public MapHiveDbContext()
             : this("MapHiveMeta") //use a default conn str name; useful when passing ctx as a generic param that is then instantiated 
@@ -38,8 +38,6 @@ namespace MapHive.Server.Core.DAL.DbContext
         public DbSet<EmailTemplateLocalisation> EmailTemplates { get; set; }
         public DbSet<Lang> Langs { get; set; }
 
-        public DbSet<XWindowOrigin> XWindowOrigins { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("mh_meta");
@@ -56,7 +54,6 @@ namespace MapHive.Server.Core.DAL.DbContext
             modelBuilder.Configurations.Add(new LangConfiguration());
             modelBuilder.Configurations.Add(new TranslationKeyConfiguration());
 
-            modelBuilder.Configurations.Add(new XWindowOriginConfiguration());
         }
     }
 

@@ -15,13 +15,13 @@ namespace MapHive.Server.Core
     public partial class WebClientConfiguration
     {
         /// <summary>
-        /// Reads web client confoguration - cookie names, header names, supported langs, app identifiers, xwindow origins and such
+        /// Reads web client configuration - cookie names, header names, supported langs, app identifiers, xwindow origins and such
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <remarks>See the comments on the locallisation property serialisation issues and reason the localisation is returned as JSON string</remarks>
         /// <returns></returns>
         public static async Task<Dictionary<string, object>> ReadAsync<T>(T dbCtx)
-            where T: DbContext, ILocalised
+            where T: DbContext, ILocalised, IMapHiveApps
         {
             var cfg = new Dictionary<string, object>();
 
@@ -34,13 +34,9 @@ namespace MapHive.Server.Core
             cfg["AuthRequiredAppIdentifiers"] = await Application.GetIdentifiersForAppsRequiringAuthAsync(dbCtx);
 
             //Allowed origins for the xwindow post message communication
-            var xWinDbctx = dbCtx as IXWindow;
-            if (xWinDbctx != null)
-            {
-                cfg["AllowedXWindowMsgBusOrigins"] = await XWindowOrigin.GetAllowedXWindowOriginsAsync(xWinDbctx);
-            }
-            
-            
+            cfg["AllowedXWindowMsgBusOrigins"] = await Application.GetUserAppsUrls(dbCtx, null);
+
+
             cfg["SupportedLangCodes"] = (await Lang.GetSupportedLangsAsync(dbCtx)).Select(l => l.LangCode);
             var defaultLangCode = (await Lang.GetDefaultLangAsync(dbCtx))?.LangCode;
             cfg["DefaultLangCode"] = defaultLangCode;
