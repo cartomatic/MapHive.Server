@@ -117,24 +117,26 @@
     <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />
+    <Compile Include="DAL\Interface\IMapHiveApps.cs" />
     <Compile Include="DAL\Interface\IMapHiveUsers.cs" />
-    <Compile Include="DAL\Interface\IXWindow.cs" />
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.cs" />
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.Designer.cs">
       <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.Designer.cs">
+      <DependentUpon>201701151317142_RemovedXWindowOrigins.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedLangs.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedApplications.cs" />
-    <Compile Include="DAL\Seed\MapHiveMeta\SeedXWindowOrigins.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedTestLinks.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\_Blank.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedAll.cs" />
     <Compile Include="DAL\TypeConfiguration\ApplicationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LocalisationClassConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\MapHiveUserConfiguration.cs" />
-    <Compile Include="DAL\TypeConfiguration\XWindowOriginConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LangConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
     <Compile Include="DAL\Interface\ILinksDbContext.cs" />
@@ -142,9 +144,10 @@
     <Compile Include="DAL\TypeConfiguration\EmailTemplateLocalisationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\ILocalisationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LinkConfiguration.cs" />
-    <Compile Include="DataModel\Application\GetCommonApps.cs" />
     <Compile Include="DataModel\Application\GetIdentifiersForAppsRequiringAuth.cs" />
     <Compile Include="DataModel\Application\Validation.cs" />
+    <Compile Include="DataModel\Application\GetUserApps.cs" />
+    <Compile Include="DataModel\Application\GetUserAppsUrls.cs" />
     <Compile Include="DataModel\Application\_Blank.cs" />
     <Compile Include="DataModel\Application\_Ctor.cs" />
     <Compile Include="DataModel\Application\_DataModel.cs" />
@@ -227,11 +230,6 @@
     <Compile Include="DataModel\Validation\ValidationErrors.cs" />
     <Compile Include="DataModel\Validation\ValidationFailedException.cs" />
     <Compile Include="DataModel\Validation\ValidationRules.cs" />
-    <Compile Include="DataModel\XWindowOrigin\Validation.cs" />
-    <Compile Include="DataModel\XWindowOrigin\GetAllowedXWindowOrigins.cs" />
-    <Compile Include="DataModel\XWindowOrigin\_DataModel.cs" />
-    <Compile Include="DataModel\XWindowOrigin\_Ctor.cs" />
-    <Compile Include="DataModel\XWindowOrigin\_Blank.cs" />
     <Compile Include="Email\EmailAccount.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\EmailTemplate.cs" />
@@ -284,6 +282,9 @@
   <ItemGroup>
     <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.resx">
       <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.resx">
+      <DependentUpon>201701151317142_RemovedXWindowOrigins.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

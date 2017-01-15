@@ -16,12 +16,18 @@ namespace MapHive.Server.Cmd.Core
             {
                 {"s", "setup" },
                 { "conn", "dsc" },
-                { "xuser", "destroyuser" }
+                { "xuser", "destroyuser" },
+                { "defaultapps", "adddefaultapps" },
+                { "dfltapps", "adddefaultapps" },
+                { "testapps", "addtestapps" }
             });
 
 
             //default db credentials
             SetDefaultDsc();
+
+            //'ghost' user
+            MapHive.Server.Core.Utils.Identity.ImpersonateGhostUser();
         }
 
         public CommandHandler()
