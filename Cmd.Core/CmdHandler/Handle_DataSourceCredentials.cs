@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cartomatic.CmdPrompt.Core;
 using Cartomatic.Utils.Data;
+using Newtonsoft.Json;
 
 namespace MapHive.Server.Cmd.Core
 {
@@ -17,15 +19,9 @@ namespace MapHive.Server.Cmd.Core
         /// </summary>
         protected virtual void SetDefaultDsc()
         {
-            Dsc = new DataSourceCredentials
-            {
-                DataSourceType = DataSourceType.PgSql,
-                ServerHost = "localhost",
-                ServerPort = 5434,
-                UserName = "postgres",
-                Pass = "postgres",
-                UseDefaultServiceDb = true
-            };
+            Dsc = JsonConvert.DeserializeObject<DataSourceCredentials>(
+                ConfigurationManager.AppSettings["DefaultDsc"]
+                );
         }
 
 
