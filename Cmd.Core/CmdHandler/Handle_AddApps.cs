@@ -79,9 +79,29 @@ namespace MapHive.Server.Cmd.Core
                     Name = "Hive@MapHive",
                     Description = "The Hive",
                     Urls = "https://maphive.local/|https://maphive.net/|https://hive.maphive.local/|https://hive.maphive.net/",
-                    IsCommon = false,
-                    IsDefault = false,
-                    IsHidden = true
+                    IsCommon = true,
+                    IsHive = true
+                },
+                //home app when there is no org context
+                new Application
+                {
+                    Uuid = Guid.Parse("eea081b5-6a3d-4a11-87e8-55dbe042322c"),
+                    ShortName = "home",
+                    Name = "Home",
+                    IsHome = true,
+                    IsCommon = true,
+                    Urls = "https://home.maphive.local/|https://home.maphive.net/"
+                },
+                //dashboard app when there is org context, but no app specified
+                new Application
+                {
+                    Uuid = Guid.Parse("fe6801c4-c9cb-4b86-9416-a143b355deab"),
+                    ShortName = "dashboard",
+                    Name = "Dashboard",
+                    IsDefault = true,
+                    IsCommon = true,
+                    Urls = "https://dashboard.maphive.local/|https://dashboard.maphive.net/",
+                    RequiresAuth = true
                 },
                 new Application
                 {
@@ -90,18 +110,17 @@ namespace MapHive.Server.Cmd.Core
                     Name = "HGIS v1",
                     Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
                     Urls = "https://hgisold.maphive.local/|https://hgisold.maphive.net/",
-                    IsCommon = true,
-                    IsDefault = true
+                    IsCommon = true
                 },
-                
                 new Application
                 {
                     Uuid = Guid.Parse("1e025446-1a25-4639-a302-9ce0e2017a59"),
                     //no short name, so can test uuid in the url part!
                     Name = "MapHive SiteAdmin",
+                    ShortName = "masterofpuppets",
 
-                    //TODO - make this app only available to the queen organization!
-
+                    //TODO - make this app only available to the queen organization! It should be linked to the org
+                    IsCommon = false,
                     Description = "MapHive platform Admin app",
                     Urls = "https://masterofpuppets.maphive.local/|https://masterofpuppets.maphive.net/",
                     RequiresAuth = true
@@ -125,8 +144,7 @@ namespace MapHive.Server.Cmd.Core
                     Description = "The Test Hive",
                     Urls = "https://testhive.maphive.local/|https://testhive.maphive.net/",
                     IsCommon = false,
-                    IsDefault = false,
-                    IsHidden=true
+                    IsDefault = false
                 },
                 new Application
                 {

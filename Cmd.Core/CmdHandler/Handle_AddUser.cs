@@ -20,23 +20,21 @@ namespace MapHive.Server.Cmd.Core
 
             if (GetHelp(args))
             {
-                Console.WriteLine($"'{cmd}' : adds a superuser to the system");
+                Console.WriteLine($"'{cmd}' : adds a user to the system");
                 Console.WriteLine($"syntax: {cmd} space separated params: ");
                 Console.WriteLine("\t[e:email]");
                 Console.WriteLine("\t[p:pass]");
                 Console.WriteLine();
-                Console.WriteLine($"example: {cmd} e:queen@maphive.net p:test");
+                Console.WriteLine($"example: {cmd} e:someone@maphive.net p:test");
                 return;
             }
 
             var email = ExtractParam("e", args);
             var pass = ExtractParam("p", args);
 
-            //use the default account if email and pass not provided
-            if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(pass))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
             {
-                email = "queen@maphive.net";
-                pass = "test";
+                ConsoleEx.WriteErr("User name and pass cannot be empty!");
             }
 
             ConsoleEx.WriteLine($"Creating user: '{email}' with the following pass: '{pass}'", ConsoleColor.DarkYellow);

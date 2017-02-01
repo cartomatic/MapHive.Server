@@ -25,7 +25,9 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(en => en.RequiresAuth).HasColumnName("requires_auth");
             Property(en => en.IsCommon).HasColumnName("is_common");
             Property(en => en.IsDefault).HasColumnName("is_default");
-            Property(en => en.IsHidden).HasColumnName("is_hidden");
+            Property(en => en.IsHome).HasColumnName("is_home");
+            Property(en => en.IsHive).HasColumnName("is_hive");
+            Property(en => en.ProviderId).HasColumnName("provider_id");
 
             Property(t => t.ShortName)
                 .HasColumnAnnotation(

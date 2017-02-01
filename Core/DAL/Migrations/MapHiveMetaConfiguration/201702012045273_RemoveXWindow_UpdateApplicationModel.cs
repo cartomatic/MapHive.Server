@@ -3,11 +3,15 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class RemovedXWindowOrigins : DbMigration
+    public partial class RemoveXWindow_UpdateApplicationModel : DbMigration
     {
         public override void Up()
         {
             DropIndex("mh_meta.xwindow_origins", "idx_create_date_xwindoworigin");
+            AddColumn("mh_meta.applications", "is_home", c => c.Boolean(nullable: false));
+            AddColumn("mh_meta.applications", "is_hive", c => c.Boolean(nullable: false));
+            AddColumn("mh_meta.applications", "provider_id", c => c.Guid());
+            DropColumn("mh_meta.applications", "is_hidden");
             DropTable("mh_meta.xwindow_origins");
         }
         
@@ -29,6 +33,10 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
                     })
                 .PrimaryKey(t => t.uuid);
             
+            AddColumn("mh_meta.applications", "is_hidden", c => c.Boolean(nullable: false));
+            DropColumn("mh_meta.applications", "provider_id");
+            DropColumn("mh_meta.applications", "is_hive");
+            DropColumn("mh_meta.applications", "is_home");
             CreateIndex("mh_meta.xwindow_origins", "create_date_utc", name: "idx_create_date_xwindoworigin");
         }
     }

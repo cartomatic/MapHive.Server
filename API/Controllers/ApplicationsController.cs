@@ -118,7 +118,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetUserAppsUrlsAsync(_dbCtx as MapHiveDbContext, null));
+                return Ok(await Application.GetAllowedXWindowMsgBusOrigins(_dbCtx as MapHiveDbContext, null));
             }
             catch (Exception ex)
             {

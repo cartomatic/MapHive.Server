@@ -74,10 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CmdHandler\HandleException.cs" />
+    <Compile Include="CmdHandler\Handle_AddMaster.cs" />
     <Compile Include="CmdHandler\Handle_DestroyUser.cs" />
     <Compile Include="CmdHandler\Handle_AddUser.cs" />
     <Compile Include="CmdHandler\Handle_DataSourceCredentials.cs" />
     <Compile Include="CmdHandler\Handle_DropDb.cs" />
+    <Compile Include="CmdHandler\Handle_SetUpDb.cs" />
     <Compile Include="CmdHandler\Handle_SetUp.cs" />
     <Compile Include="CmdHandler\Handle_AddApps.cs" />
     <Compile Include="CmdHandler\_Blank.cs" />

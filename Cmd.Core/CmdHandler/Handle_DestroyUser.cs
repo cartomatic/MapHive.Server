@@ -36,7 +36,7 @@ namespace MapHive.Server.Cmd.Core
             //use the default account if required
             if (dflt)
             {
-                email = "dev@maphive.net";
+                email = "queen@maphive.net";
             }
 
             if (string.IsNullOrEmpty(email))

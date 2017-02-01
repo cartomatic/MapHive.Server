@@ -123,9 +123,9 @@
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.Designer.cs">
       <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.cs" />
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.Designer.cs">
-      <DependentUpon>201701151317142_RemovedXWindowOrigins.cs</DependentUpon>
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702012045273_RemoveXWindow_UpdateApplicationModel.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702012045273_RemoveXWindow_UpdateApplicationModel.Designer.cs">
+      <DependentUpon>201702012045273_RemoveXWindow_UpdateApplicationModel.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
@@ -147,7 +147,9 @@
     <Compile Include="DataModel\Application\GetIdentifiersForAppsRequiringAuth.cs" />
     <Compile Include="DataModel\Application\Validation.cs" />
     <Compile Include="DataModel\Application\GetUserApps.cs" />
-    <Compile Include="DataModel\Application\GetUserAppsUrls.cs" />
+    <Compile Include="DataModel\Application\GetAllowedXWindowMsgBusOrigins.cs" />
+    <Compile Include="DataModel\Application\Create.cs" />
+    <Compile Include="DataModel\Application\Update.cs" />
     <Compile Include="DataModel\Application\_Blank.cs" />
     <Compile Include="DataModel\Application\_Ctor.cs" />
     <Compile Include="DataModel\Application\_DataModel.cs" />
@@ -210,6 +212,7 @@
     <Compile Include="DataModel\MapHiveUserBase\Update.cs" />
     <Compile Include="DataModel\MapHiveUserBase\Destroy.cs" />
     <Compile Include="DataModel\MapHiveUserBase\MembershipRebootDbCtxUtils.cs" />
+    <Compile Include="DataModel\Application\HandleFlags.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_DataModel.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Blank.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Ctor.cs" />
@@ -283,8 +286,8 @@
     <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201610051834260_InitialCreate.resx">
       <DependentUpon>201610051834260_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201701151317142_RemovedXWindowOrigins.resx">
-      <DependentUpon>201701151317142_RemovedXWindowOrigins.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201702012045273_RemoveXWindow_UpdateApplicationModel.resx">
+      <DependentUpon>201702012045273_RemoveXWindow_UpdateApplicationModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

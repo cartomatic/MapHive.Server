@@ -18,15 +18,10 @@ namespace MapHive.Server.Core.DataModel
         public static async Task<IEnumerable<Application>> GetUserAppsAsync(DbContext dbCtx, Guid? userId)
         {
             //TODO - the actual app filtering for a user
-            //TODO - perhaps org uuid should be taken in as well...
+            //TODO - perhaps org uuid should be taken in as well... so user gets the apps that are only available to an org he is currently scoped to.
 
-
-
-            //TODO - always add HIVE!
-
-            return await dbCtx.Set<Application>().ToListAsync();
-
-            //return await dbCtx.Set<Application>().Where(a => a.IsCommon && !a.IsHidden).ToListAsync();
+            //do not return hive apps! they should not be listed in user apps even though they will usually be common apps
+            return await dbCtx.Set<Application>().Where(a=>a.IsCommon && !a.IsHive).ToListAsync();
         }
     }
 }

@@ -7,13 +7,13 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RemovedXWindowOrigins : IMigrationMetadata
+    public sealed partial class RemoveXWindow_UpdateApplicationModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemovedXWindowOrigins));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveXWindow_UpdateApplicationModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "201701151317142_RemovedXWindowOrigins"; }
+            get { return "201702012045273_RemoveXWindow_UpdateApplicationModel"; }
         }
         
         string IMigrationMetadata.Source

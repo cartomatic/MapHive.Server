@@ -27,5 +27,11 @@ namespace MapHive.Server.Core.DataModel
             return await obj.UpdateAsync<T>(dbCtx, uuid);
         }
 
+        public static async Task<T> UpdateAsync<T>(this T obj, DbContext dbCtx)
+            where T : Base
+        {
+            return await obj.UpdateAsync<T>(dbCtx, obj.Uuid);
+        }
+
     }
 }

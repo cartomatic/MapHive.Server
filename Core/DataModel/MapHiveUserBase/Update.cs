@@ -31,6 +31,13 @@ namespace MapHive.Server.Core.DataModel
         {
             return await obj.UpdateAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
+
+        public static async Task<T> UpdateAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService)
+            where T : MapHiveUserBase
+            where TAccount : RelationalUserAccount
+        {
+            return await obj.UpdateAsync<T, TAccount>(dbCtx, userAccountService, obj.Uuid);
+        }
     }
 
     public abstract partial class MapHiveUserBase
