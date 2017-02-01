@@ -75,9 +75,9 @@ namespace MapHive.Server.Cmd.Core
                 new Application
                 {
                     Uuid = Guid.Parse("5f541902-4f42-4a58-8dee-523ea02cd1fd"),
-                    ShortName = "mhhive",
-                    Name = "Hive@MapHive",
-                    Description = "The Hive",
+                    ShortName = "hive",
+                    Name = "The Hive",
+                    Description = "Hive @ MapHive",
                     Urls = "https://maphive.local/|https://maphive.net/|https://hive.maphive.local/|https://hive.maphive.net/",
                     IsCommon = true,
                     IsHive = true
@@ -106,9 +106,9 @@ namespace MapHive.Server.Cmd.Core
                 new Application
                 {
                     Uuid = Guid.Parse("30aca350-41a4-4906-be82-da1247537f19"),
-                    ShortName = "mhhgis",
+                    ShortName = "hgis1",
                     Name = "HGIS v1",
-                    Description = "A dev test port of the Cartomatic\'s HGIS; a good example of an external and/or exisiting app inclusion into the system",
+                    Description = "Cartomatic\'s HGIS",
                     Urls = "https://hgisold.maphive.local/|https://hgisold.maphive.net/",
                     IsCommon = true
                 },
@@ -156,36 +156,6 @@ namespace MapHive.Server.Cmd.Core
                     IsCommon = true,
                     IsDefault = true
                 },
-                new Application
-                {
-                    Uuid = Guid.Parse("473cb87f-815f-4362-aaca-021d163b60b7"),
-                    ShortName = "mhmapapp",
-                    Name = "MapHive MapApp",
-                    Description = "MapHIve Map App",
-                    Urls = "https://map.maphive.local/|https://map.maphive.net/",
-                    RequiresAuth = true,
-                    IsCommon = true
-                },
-                new Application
-                {
-                    Uuid = Guid.Parse("744e10e2-ffd8-4857-8909-d8638c8eb6f5"),
-                    Name = "Admin",
-                    ShortName = "mhadmin",
-                    Description = "MapHive Admin - this will be the basic admin app users will use to control their accounts",
-                    Urls = "https://admin.maphive.local/|https://admin.maphive.net/",
-                    UseSplashscreen = true,
-                    RequiresAuth = true,
-                    IsCommon = true
-                },
-                //new Application
-                //{
-                //    Uuid = Guid.Parse("cc6dbf2e-f2f0-462f-a4a3-e2c13aa21e49"),
-                //    //no short name, so can test uuid in the url part!
-                //    Name = "MapHive MapApp",
-                //    Description = "MapHive map app",
-                //    Urls = "https://maps.maphive.local/|https://maps.maphive.net/",
-                //    RequiresAuth = false
-                //},
                 new Application
                 {
                     Uuid = Guid.Parse("1e025446-1a25-4639-a302-9ce0e2017a59"),
