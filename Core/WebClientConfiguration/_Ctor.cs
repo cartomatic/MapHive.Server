@@ -15,8 +15,9 @@ namespace MapHive.Server.Core
         /// </summary>
         public static Dictionary<string, string> AppHashProperties { get; set; } = new Dictionary<string, string>
             {
-                { "app", "a" },
-                { "route", "r" },
+                //not used anymore - app is now embedded in the url itself, route is always as the route of a child app
+                //{ "app", "a" },
+                //{ "route", "r" },
                 { "accessToken", "at" },
                 { "suppressAppToolbar", "suppress-app-toolbar" },
                 { "hosted", "hosted" },
