@@ -21,12 +21,6 @@ namespace MapHive.Server.API.Controllers
     [RoutePrefix("configuration")]
     public class ConfigurationController : BaseApiController
     {
-        /// <summary>
-        /// Authenticates user; output returned, if successful contains access and refresh tokens
-        /// </summary>
-        /// <param name="email"></param>
-        /// <param name="pass"></param>
-        /// <returns></returns>
         [HttpGet]
         [Route("user")]
         [ResponseType(typeof(IDictionary<string, object>))]

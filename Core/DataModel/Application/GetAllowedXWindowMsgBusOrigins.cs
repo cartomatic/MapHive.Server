@@ -18,7 +18,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<string>> GetAllowedXWindowMsgBusOrigins<T>(T dbCtx, Guid? userId)
+        public static async Task<IEnumerable<string>> GetAllowedXWindowMsgBusOriginsAsync<T>(T dbCtx, Guid? userId)
             where T: DbContext, IMapHiveApps
         {
             //first get hives an non-hives
