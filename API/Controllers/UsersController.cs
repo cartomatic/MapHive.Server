@@ -136,5 +136,34 @@ namespace MapHive.Server.API.Controllers
                 return this.HandleException(ex);
             }
         }
+
+        /// <summary>
+        /// Returns details of an authenticated user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ResponseType(typeof(MapHiveUser))]
+        [Route("owndetails")]
+        public async Task<IHttpActionResult> GetOwnDetails()
+        {
+            var uuid = MapHive.Server.Core.Utils.Identity.GetUserGuid();
+
+            //this should not happen really as otherwise the user would not be authenticated
+            if (!uuid.HasValue)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var user = await (_dbCtx).Set<MapHiveUser>().FirstOrDefaultAsync(u => u.Uuid == uuid.Value);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+
+        }
     }
 }
