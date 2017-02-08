@@ -20,6 +20,16 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
 
             Property(p => p.Forename).HasColumnName("forename");
             Property(p => p.Surname).HasColumnName("surname");
+            Property(p => p.Slug).HasColumnName("slug");
+            Property(p => p.Bio).HasColumnName("bio");
+            Property(p => p.Company).HasColumnName("company");
+            Property(p => p.Department).HasColumnName("department");
+            Property(p => p.Location).HasColumnName("location");
+            Property(p => p.GravatarEmail).HasColumnName("gravatar_email");
+            Ignore(p => p.ProfilePicture);
+            Property(p => p.ProfilePictureId).HasColumnName("profile_picture_id");
+            Property(p => p.IsOrgUser).HasColumnName("is_org_user");
+
         }
     }
 }

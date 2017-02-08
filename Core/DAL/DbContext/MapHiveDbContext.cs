@@ -28,6 +28,7 @@ namespace MapHive.Server.Core.DAL.DbContext
         public DbSet<Application> Applications { get; set; }
         public DbSet<MapHiveUser> Users { get; set; }
 
+        public DbSet<Organisation> Organisations { get; set; }
         
         //ILinksDbContext
         public DbSet<Link> Links { get; set; }
@@ -45,6 +46,7 @@ namespace MapHive.Server.Core.DAL.DbContext
             //type configs
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
             modelBuilder.Configurations.Add(new MapHiveUserConfiguration());
+            modelBuilder.Configurations.Add(new OrganisationConfiguration());
 
             modelBuilder.Configurations.Add(new LinkConfiguration());
 
