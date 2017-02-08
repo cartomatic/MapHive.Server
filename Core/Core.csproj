@@ -163,6 +163,7 @@
     <Compile Include="DataModel\Base\BaseCrudExtensions_Read.cs" />
     <Compile Include="DataModel\Base\BaseCrudExtensions_Update.cs" />
     <Compile Include="DataModel\Base\Create.cs" />
+    <Compile Include="DataModel\Base\BaseObjectTypeIdentifierExtensions.cs" />
     <Compile Include="DataModel\Base\_Ctor.cs" />
     <Compile Include="DataModel\Base\_DataModel.cs" />
     <Compile Include="DataModel\Base\Destroy.cs" />

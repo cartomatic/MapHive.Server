@@ -14,14 +14,24 @@ namespace MapHive.Server.Core.DataModel
         /// declared via class constructor.
         /// Important: when uuid is changed in code it will affect all the links in the database(s)
         /// </summary>
-        public Guid TypeUuid { get; private set; }
+        public virtual Guid TypeUuid {
+            get
+            {
+                try
+                {
+                    return this.GetTypeIdentifier();
+                }
+                catch
+                {
+                    return default(Guid);
+                }
+            }
+        }
 
-        protected Base(Guid typeGuid)
+        protected Base()
         {
-            if(typeGuid == default (Guid))
+            if(TypeUuid == default (Guid))
                 throw new Exception("When deriving from MapHive.Server.Data.Base make sure to provide a unique type identifier!");
-
-            TypeUuid = typeGuid;
         }
     }
 }
