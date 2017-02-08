@@ -30,14 +30,5 @@ namespace MapHive.Server.Core.DataModel
 
             return (T)(Base)org;
         }
-
-        private async Task<Role> CreateRoleAsync(DbContext dbCtx, string roleIdentifier, string roleName)
-        {
-            return await new Role
-            {
-                Identifier = roleIdentifier,
-                Name = roleName
-            }.CreateAsync(dbCtx);
-        }
     }
 }
