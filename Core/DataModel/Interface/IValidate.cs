@@ -14,10 +14,10 @@ namespace MapHive.Server.Core.DataModel.Interface
     public interface IValidate
     {
         /// <summary>
-        /// Gets the validator
+        /// Gets the validators
         /// </summary>
         /// <returns></returns>
-        IValidator GetValidator();
+        IEnumerable<IValidator> GetValidators();
 
         /// <summary>
         /// Validates data model. Should throw when model is not valid; expected to be async!

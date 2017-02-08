@@ -127,6 +127,10 @@
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702012045273_RemoveXWindow_UpdateApplicationModel.Designer.cs">
       <DependentUpon>201702012045273_RemoveXWindow_UpdateApplicationModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702081248058_NewModels_User_Org_Role_etc.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702081248058_NewModels_User_Org_Role_etc.Designer.cs">
+      <DependentUpon>201702081248058_NewModels_User_Org_Role_etc.cs</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedLangs.cs" />
@@ -224,6 +228,9 @@
     <Compile Include="DataModel\MapHiveUserBase\_DataModel.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Blank.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Ctor.cs" />
+    <Compile Include="DataModel\MapHiveUser\Validation.cs" />
+    <Compile Include="DataModel\Organisation\Create.cs" />
+    <Compile Include="DataModel\Organisation\Validation.cs" />
     <Compile Include="DataModel\Organisation\_Blank.cs" />
     <Compile Include="DataModel\Organisation\_Ctor.cs" />
     <Compile Include="DataModel\Organisation\_DataModel.cs" />
@@ -307,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201702012045273_RemoveXWindow_UpdateApplicationModel.resx">
       <DependentUpon>201702012045273_RemoveXWindow_UpdateApplicationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201702081248058_NewModels_User_Org_Role_etc.resx">
+      <DependentUpon>201702081248058_NewModels_User_Org_Role_etc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

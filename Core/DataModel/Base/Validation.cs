@@ -13,17 +13,12 @@ namespace MapHive.Server.Core.DataModel
     public abstract partial class Base
     {
         /// <summary>
-        /// Default null validator, so a class data model is valid by default
-        /// </summary>
-        protected IValidator Validator { get; set; } = null;
-
-        /// <summary>
         /// Returns a configured class validator
         /// </summary>
         /// <returns></returns>
-        public virtual IValidator GetValidator()
+        public virtual IEnumerable<IValidator> GetValidators()
         {
-            return Validator;
+            return null;
         }
 
         /// <summary>
@@ -33,42 +28,50 @@ namespace MapHive.Server.Core.DataModel
         public virtual async Task ValidateAsync(DbContext dbCtx = null)
         {
             // Get validator class with config (validation criteria)
-            var validator = GetValidator();
+            var validators = GetValidators();
 
             // If validator is not found then model is valid by default
-            if (validator == null)
+            if (validators == null)
                 return;
 
-            // Run fluend validation
-            var result = validator.Validate(this);
 
-            // If model is not valid then create exception response and throw generated exception 
-            if (!result.IsValid)
+            var validationFailedException = new ValidationFailedException();
+
+            foreach (var validator in validators)
             {
-                var validationFailedException = new ValidationFailedException();
+                // Run fluend validation
+                var result = validator.Validate(this);
 
-                foreach (var error in result.Errors)
+                // If model is not valid then create exception response and throw generated exception 
+                if (!result.IsValid)
                 {
-                    validationFailedException.ValidationErrors.Add(
-                        new ValidationError
-                        {
-                            Message = error.ErrorMessage,
-                            Code = error.ErrorCode,
-                            PropertyName = error.PropertyName,
-                            Info = error.FormattedMessagePlaceholderValues
-                        }
-                    );
 
+
+                    foreach (var error in result.Errors)
+                    {
+                        validationFailedException.ValidationErrors.Add(
+                            new ValidationError
+                            {
+                                Message = error.ErrorMessage,
+                                Code = error.ErrorCode,
+                                PropertyName = error.PropertyName,
+                                Info = error.FormattedMessagePlaceholderValues
+                            }
+                        );
+
+                    }
                 }
-
-                throw validationFailedException;
             }
+
+            if(validationFailedException.ValidationErrors.Count > 0)
+                throw validationFailedException;
 
             await ValidateAgainstDbAsync(dbCtx);
         }
 
         /// <summary>
-        /// Performs extra validation against database. An extenson point for performing validations that do depend on db state
+        /// Performs extra validation against database. An extenson point for performing validations that do depend on db state;
+        /// if not valid should throw ValidationFailedException with appropriate ValidationError list
         /// </summary>
         /// <param name="dbCtx"></param>
         protected virtual async Task ValidateAgainstDbAsync(DbContext dbCtx)

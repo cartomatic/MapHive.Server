@@ -10,13 +10,16 @@ namespace MapHive.Server.Core.DataModel
 {
     public partial class Application
     {
-        public override IValidator GetValidator()
+        public override IEnumerable<IValidator> GetValidators()
         {
-            if (Validator == null)
+            var validators = new List<IValidator>();
+            var baseValidators = base.GetValidators();
+            if (baseValidators != null)
             {
-                Validator = new ApplicationValidator();
+                validators.AddRange(baseValidators);
             }
-            return base.GetValidator();
+            validators.Add(new ApplicationValidator());
+            return validators;
         }
 
         /// <summary>
@@ -24,7 +27,6 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         public class ApplicationValidator : AbstractValidator<Application>
         {
-
             public ApplicationValidator()
             {
                 RuleFor(x => x.Name).WithValueRequired().WithLength(1, 254);
