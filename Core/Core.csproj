@@ -229,6 +229,11 @@
     <Compile Include="DataModel\MapHiveUserBase\_Blank.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Ctor.cs" />
     <Compile Include="DataModel\MapHiveUser\Validation.cs" />
+    <Compile Include="DataModel\MapHiveUser\Destroy.cs" />
+    <Compile Include="DataModel\MapHiveUser\Update.cs" />
+    <Compile Include="DataModel\MapHiveUser\Create.cs" />
+    <Compile Include="DataModel\MapHiveUser\Orgnisation.cs" />
+    <Compile Include="DataModel\MapHiveUser\Slug.cs" />
     <Compile Include="DataModel\Organisation\Create.cs" />
     <Compile Include="DataModel\Organisation\Validation.cs" />
     <Compile Include="DataModel\Organisation\Roles.cs" />

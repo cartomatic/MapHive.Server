@@ -24,6 +24,8 @@ namespace MapHive.Server.Cmd.Core
                 Console.WriteLine($"syntax: {cmd} space separated params: ");
                 Console.WriteLine("\t[e:email]");
                 Console.WriteLine("\t[p:pass]");
+                Console.WriteLine("\t[s:slug] user's slug");
+                Console.WriteLine("\t[o:{presence}] whether or not user is an org user");
                 Console.WriteLine();
                 Console.WriteLine($"example: {cmd} e:someone@maphive.net p:test");
                 return;
@@ -31,20 +33,24 @@ namespace MapHive.Server.Cmd.Core
 
             var email = ExtractParam("e", args);
             var pass = ExtractParam("p", args);
+            var slug = ExtractParam("s", args);
+            var isOrgUser = ContainsParam("o", args);
 
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
             {
                 ConsoleEx.WriteErr("User name and pass cannot be empty!");
             }
 
-            ConsoleEx.WriteLine($"Creating user: '{email}' with the following pass: '{pass}'", ConsoleColor.DarkYellow);
+            ConsoleEx.WriteLine($"Creating user: '{email}' with the following pass: '{pass}'; user is org user: {isOrgUser}; slug: {slug}", ConsoleColor.DarkYellow);
             
             //need a valid user to create a Core.Base object
             Server.Core.Utils.Identity.ImpersonateGhostUser();
 
             var user = new MapHiveUser
             {
-                Email = email
+                Email = email,
+                Slug = slug,
+                IsOrgUser = isOrgUser
             };
 
 

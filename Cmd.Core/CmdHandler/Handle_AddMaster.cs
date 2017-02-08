@@ -27,6 +27,8 @@ namespace MapHive.Server.Cmd.Core
                 Console.WriteLine($"syntax: {cmd} space separated params: ");
                 Console.WriteLine("\t[e:email]");
                 Console.WriteLine("\t[p:pass]");
+                Console.WriteLine("\t[s:slug] user's slug");
+                Console.WriteLine("\t[o:{presence}] whether or not user is an org user");
                 Console.WriteLine();
                 Console.WriteLine($"example: {cmd} e:queen@maphive.net p:test");
                 return;
@@ -34,6 +36,8 @@ namespace MapHive.Server.Cmd.Core
 
             var email = ExtractParam("e", args);
             var pass = ExtractParam("p", args);
+            var slug = ExtractParam("s", args);
+            var isOrgUser = ContainsParam("o", args);
 
             //use the default account if email and pass not provided
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
@@ -42,12 +46,21 @@ namespace MapHive.Server.Cmd.Core
                 pass = "test";
             }
 
+            if (!isOrgUser && string.IsNullOrEmpty(slug))
+                slug = email.Split('@')[0];
+
             //delegate user creation
-            await Handle_AddUser(new Dictionary<string, string>()
+            var prms = new Dictionary<string, string>()
             {
-                { "e", email }, {"p", pass }
-            });
-            
+                {"e", email},
+                {"p", pass},
+                {"s", slug}
+            };
+            if (isOrgUser)
+            {
+                prms.Add("o", null);
+            }
+            await Handle_AddUser(prms);
             
             try
             {
