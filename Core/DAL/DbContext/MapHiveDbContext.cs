@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,6 +23,11 @@ namespace MapHive.Server.Core.DAL.DbContext
 
         public MapHiveDbContext(string connStringName)
             : base (connStringName)
+        {
+        }
+
+        public MapHiveDbContext(DbConnection conn, bool contextOwnsConnection) 
+            : base (conn, contextOwnsConnection)
         {
         }
 

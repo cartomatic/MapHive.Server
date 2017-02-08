@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,8 @@ namespace MapHive.Server.Core.DAL.DbContext
         public BaseDbContext(string connStringName) : base(connStringName)
         {
         }
+
+        public BaseDbContext(DbConnection conn, bool contextOwnsConnection) : base (conn, contextOwnsConnection) { }
 
         /// <summary>
         /// Updates some custom IBase related properties
