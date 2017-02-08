@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +12,16 @@ namespace MapHive.Server.Core.DataModel
 {
     public abstract partial class MapHiveUserBase
     {
-        public override IValidator GetValidator()
+        public override IEnumerable<IValidator> GetValidators()
         {
-            if (Validator == null)
+            var validators = new List<IValidator>();
+            var baseValidators = base.GetValidators();
+            if (baseValidators != null)
             {
-                Validator = new UserValidator();
+                validators.AddRange(baseValidators);
             }
-            return base.GetValidator();
+            validators.Add(new UserValidator());
+            return validators;
         }
 
         /// <summary>

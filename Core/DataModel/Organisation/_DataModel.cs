@@ -17,14 +17,30 @@ namespace MapHive.Server.Core.DataModel
         public const string OrgRoleIdentifierOwner = "org_owner";
 
         /// <summary>
+        /// default en owner role name
+        /// </summary>
+        public const string OrgRoleNameOwner = "Owner";
+
+
+        /// <summary>
         /// org admin role identifier; used to mark admin roles
         /// </summary>
         public static string OrgRoleIdentifierAdmin = "org_admin";
 
         /// <summary>
+        /// default en admin role name
+        /// </summary>
+        public static string OrgRoleNameAdmin = "Admin";
+
+        /// <summary>
         /// org member role identifier; used to mark standard members of an org
         /// </summary>
         public const string OrgRoleIdentifierMember = "org_member";
+
+        /// <summary>
+        /// default en member role name
+        /// </summary>
+        public const string OrgRoleNameMember = "Member";
 
 
 
