@@ -29,7 +29,9 @@ namespace MapHive.Server.Core.DAL.DbContext
         public DbSet<MapHiveUser> Users { get; set; }
 
         public DbSet<Organisation> Organisations { get; set; }
-        
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Team> Teams { get; set; }
+
         //ILinksDbContext
         public DbSet<Link> Links { get; set; }
 
@@ -47,6 +49,8 @@ namespace MapHive.Server.Core.DAL.DbContext
             modelBuilder.Configurations.Add(new ApplicationConfiguration());
             modelBuilder.Configurations.Add(new MapHiveUserConfiguration());
             modelBuilder.Configurations.Add(new OrganisationConfiguration());
+            modelBuilder.Configurations.Add(new RoleConfiguration());
+            modelBuilder.Configurations.Add(new TeamConfiguration());
 
             modelBuilder.Configurations.Add(new LinkConfiguration());
 

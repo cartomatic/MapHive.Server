@@ -29,6 +29,11 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(p => p.BillingEmail).HasColumnName("billing_email");
             Property(p => p.BillingAddress).HasColumnName("billing_address");
             Property(p => p.BillingExtraInfo.Serialised).HasColumnName("billing_extra_info");
+
+            Property(en => en.Slug)
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute($"idx_slug_{nameof(Organisation).ToLower()}") { IsUnique = true }));
         }
     }
 }

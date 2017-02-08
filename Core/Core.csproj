@@ -135,10 +135,14 @@
     <Compile Include="DAL\Seed\MapHiveMeta\_Blank.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedAll.cs" />
     <Compile Include="DAL\TypeConfiguration\ApplicationConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\IBaseConfigurationExtensions.cs" />
     <Compile Include="DAL\TypeConfiguration\LocalisationClassConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\TeamConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\RoleConfiguration.cs" />
+    <Compile Include="DAL\TypeConfiguration\OrganisationConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\MapHiveUserConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\LangConfiguration.cs" />
-    <Compile Include="DAL\TypeConfiguration\EntityTypeConfigurationExtensions.cs" />
+    <Compile Include="DAL\TypeConfiguration\MapHiveUserBaseConfigurationExtensions.cs" />
     <Compile Include="DAL\Interface\ILinksDbContext.cs" />
     <Compile Include="DAL\TypeConfiguration\TranslationKeyConfiguration.cs" />
     <Compile Include="DAL\TypeConfiguration\EmailTemplateLocalisationConfiguration.cs" />
@@ -169,6 +173,9 @@
     <Compile Include="DataModel\Base\_Blank.cs" />
     <Compile Include="DataModel\Dto\Dto.cs" />
     <Compile Include="DataModel\Dto\DtoObjectExtensions.cs" />
+    <Compile Include="DataModel\Image\Update.cs" />
+    <Compile Include="DataModel\Image\_Blank.cs" />
+    <Compile Include="DataModel\Image\_Ctor.cs" />
     <Compile Include="DataModel\Interface\IBase.cs" />
     <Compile Include="DataModel\Interface\IDto.cs" />
     <Compile Include="DataModel\Interface\IJsonSerialisableType.cs" />
@@ -216,6 +223,9 @@
     <Compile Include="DataModel\MapHiveUserBase\_DataModel.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Blank.cs" />
     <Compile Include="DataModel\MapHiveUserBase\_Ctor.cs" />
+    <Compile Include="DataModel\Organisation\_Blank.cs" />
+    <Compile Include="DataModel\Organisation\_Ctor.cs" />
+    <Compile Include="DataModel\Organisation\_DataModel.cs" />
     <Compile Include="DataModel\ReadFilter\FromJson.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilter.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilterIQueryableExtensions.cs" />
@@ -228,6 +238,14 @@
     <Compile Include="DataModel\MapHiveUser\_Blank.cs" />
     <Compile Include="DataModel\MapHiveUser\_Ctor.cs" />
     <Compile Include="DataModel\MapHiveUser\_DataModel.cs" />
+    <Compile Include="DataModel\Role\_Blank.cs" />
+    <Compile Include="DataModel\Role\_Ctor.cs" />
+    <Compile Include="DataModel\Role\_DataModel.cs" />
+    <Compile Include="DataModel\SerialisableDict\ConcreteTypes.cs" />
+    <Compile Include="DataModel\SerialisableDict\SerialisableDictBase.cs" />
+    <Compile Include="DataModel\Team\_Blank.cs" />
+    <Compile Include="DataModel\Team\_Ctor.cs" />
+    <Compile Include="DataModel\Team\_DataModel.cs" />
     <Compile Include="DataModel\Validation\Utils.cs" />
     <Compile Include="DataModel\Validation\ValidationError.cs" />
     <Compile Include="DataModel\Validation\ValidationErrors.cs" />
@@ -290,6 +308,7 @@
       <DependentUpon>201702012045273_RemoveXWindow_UpdateApplicationModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

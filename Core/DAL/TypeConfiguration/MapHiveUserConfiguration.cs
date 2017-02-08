@@ -30,6 +30,11 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(p => p.ProfilePictureId).HasColumnName("profile_picture_id");
             Property(p => p.IsOrgUser).HasColumnName("is_org_user");
 
+            Property(en => en.Slug)
+                .HasColumnAnnotation(
+                    "Index",
+                    new IndexAnnotation(new IndexAttribute($"idx_slug_{nameof(MapHiveUser).ToLower()}") {IsUnique = true}));
+
         }
     }
 }
