@@ -18,6 +18,7 @@ namespace MapHive.Server.Cmd.Core
 
         /// <summary>
         /// Handles setting up the MapHive environment - maphive meta db, idsrv db and membership reboot db
+        /// Registers the default apps, creates a super user with the access to the master of puppets app
         /// </summary>
         /// <param name="args"></param>
         protected virtual async Task Handle_SetUp(Dictionary<string, string> args)
@@ -49,7 +50,6 @@ namespace MapHive.Server.Cmd.Core
                 Console.WriteLine();
                 await Handle_AddSuper(null);
             }
-
 
             Console.WriteLine();
         }

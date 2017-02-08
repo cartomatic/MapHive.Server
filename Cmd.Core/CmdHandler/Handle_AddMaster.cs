@@ -51,19 +51,42 @@ namespace MapHive.Server.Cmd.Core
             
             try
             {
-                ConsoleEx.Write("Enabling Puppeteer access... ", ConsoleColor.DarkYellow);
+                ConsoleEx.Write("Setting up super user access... ", ConsoleColor.DarkYellow);
 
                 var ctx = new MapHiveDbContext("MapHiveMeta");
 
+                //create the master org if not exists!
+                var org = await ctx.Organisations.FirstOrDefaultAsync(o => o.Slug == "thehive");
+                if (org == null)
+                {
+                    org = await new Organisation
+                    {
+                        Slug = "thehive",
+                        DisplayName = "The Hive"
+                    }.CreateAsync(ctx);
+
+                    //get the maphive admin app
+                    var masterofpuppets = await ctx.Applications.FirstOrDefaultAsync(a => a.ShortName == "masterofpuppets");
+
+                    org.AddLink(masterofpuppets);
+                    await org.UpdateAsync(ctx);
+                }
+                
                 //get user by email
                 var user = await ctx.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-                //get the maphive admin app
-                var masterofpuppets = await ctx.Applications.FirstOrDefaultAsync(a => a.ShortName == "masterofpuppets");
+                //assign user to the org, so user is visible 'within' an org
+                org.AddLink(user);
+                await org.UpdateAsync(ctx);
 
-                user.AddLink(masterofpuppets);
+                //assing the master org owner role to a user
+                var orgOwnerR = await org.GetRoleOwner(ctx);
+                user.AddLink(orgOwnerR);
+                
+
+                //finally save a user
                 await user.UpdateAsync(ctx, CustomUserAccountService.GetInstance("MapHiveMbr"));
-
+                
                 ConsoleEx.Write("Done!" + Environment.NewLine, ConsoleColor.DarkGreen);
                 Console.WriteLine();
             }
