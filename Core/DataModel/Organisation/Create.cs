@@ -8,7 +8,6 @@ using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.DataModel
 {
-    
     public partial class Organisation
     {
         protected internal override async Task<T> CreateAsync<T>(DbContext dbCtx)

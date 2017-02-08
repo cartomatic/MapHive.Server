@@ -7,9 +7,6 @@ using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.DataModel
 {
-    /// <summary>
-    /// Customised user
-    /// </summary>
     public partial class MapHiveUser
     {
     }

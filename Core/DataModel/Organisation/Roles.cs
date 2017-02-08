@@ -78,7 +78,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleOwner(DbContext dbCtx)
+        public async Task<Role> GetRoleOwnerAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r=>r.Identifier == OrgRoleIdentifierOwner);
         }
@@ -88,7 +88,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleAdmin(DbContext dbCtx)
+        public async Task<Role> GetRoleAdminAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r => r.Identifier == OrgRoleIdentifierAdmin);
         }
@@ -98,7 +98,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleMember(DbContext dbCtx)
+        public async Task<Role> GetRoleMemberAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r => r.Identifier == OrgRoleIdentifierMember);
         }
