@@ -76,7 +76,7 @@ namespace MapHive.Server.Core.DataModel
         public static Guid GetTypeIdentifier<T>(this T obj)
             where T: Base
         {
-            return GetTypeIdentifier(typeof(T));
+            return GetTypeIdentifier(obj.GetType());
         }
 
         /// <summary>

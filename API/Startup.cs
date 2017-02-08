@@ -76,6 +76,10 @@ namespace MapHive.Server.API
 
 
             app.UseWebApi(config);
+
+
+            //finally make sure to register maphivebase type uids for this runtime
+            MapHive.Server.Core.DataModel.BaseObjectTypeIdentifierExtensions.AutoRegisterBaseTypes();
         }
     }
 }

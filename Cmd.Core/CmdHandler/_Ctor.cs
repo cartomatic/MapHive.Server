@@ -28,6 +28,9 @@ namespace MapHive.Server.Cmd.Core
 
             //'ghost' user
             MapHive.Server.Core.Utils.Identity.ImpersonateGhostUser();
+
+            //and make sure to register the type identifiers
+            MapHive.Server.Core.DataModel.BaseObjectTypeIdentifierExtensions.AutoRegisterBaseTypes();
         }
 
         public CommandHandler()
