@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ using BrockAllen.MembershipReboot.Relational;
 using Cartomatic.Utils.Data;
 using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DataModel.Validation;
+using MapHive.Server.Core.DAL.Extensions;
 using MapHive.Server.Core.Email;
 using MapHive.Server.Core.Events;
 
@@ -81,7 +83,7 @@ namespace MapHive.Server.Core.DataModel
             T output;
 
             //need to validate the model first
-            this.ValidateAsync();
+            await ValidateAsync(dbCtx);
 
             //make sure the email is ALWAYS lower case
             Email = Email.ToLower();
@@ -101,18 +103,24 @@ namespace MapHive.Server.Core.DataModel
 
             System.Data.Common.DbTransaction mhTrans = null;
 
+
+            //since this method wraps the op on 2 dbs into transactions, it must handle connections manually and take care of closing it aftwerwards
+            //it is therefore required to clone contexts with independent conns so the base contexts can be reused
+            var clonedMhDbCtx = dbCtx.Clone(contextOwnsConnection: false);
+            var clonedMbrDbCtx = mbrDbCtx.Clone(false);
+
             try
             {
                 //open the connections as otherwise will not be able to begin transaction
-                await mbrDbCtx.Database.Connection.OpenAsync();
-                await dbCtx.Database.Connection.OpenAsync();
+                await clonedMbrDbCtx.Database.Connection.OpenAsync();
+                await clonedMhDbCtx.Database.Connection.OpenAsync();
 
                 //begin the transaction and set the transaction object back on the db context so it uses it
-                mbrTrans = mbrDbCtx.Database.Connection.BeginTransaction();
-                mbrDbCtx.Database.UseTransaction(mbrTrans);
+                mbrTrans = clonedMbrDbCtx.Database.Connection.BeginTransaction();
+                clonedMbrDbCtx.Database.UseTransaction(mbrTrans);
 
-                mhTrans = dbCtx.Database.Connection.BeginTransaction();
-                dbCtx.Database.UseTransaction(mhTrans);
+                mhTrans = clonedMhDbCtx.Database.Connection.BeginTransaction();
+                clonedMhDbCtx.Database.UseTransaction(mhTrans);
 
 
                 //first create a membership reboot account
@@ -130,7 +138,7 @@ namespace MapHive.Server.Core.DataModel
                 this.Uuid = newMbrAccount.ID;
 
                 //mbr work done, so can create the user within the mh metadata db
-                output = await base.CreateAsync<T>(dbCtx);
+                output = await base.CreateAsync<T>(clonedMhDbCtx);
 
                 //looks like we're good to go, so can commit
                 mbrTrans.Commit();
@@ -170,8 +178,8 @@ namespace MapHive.Server.Core.DataModel
             finally
             {
                 //try to close the connections as they were opened manually and therefore may not have been closed!
-                dbCtx.Database.Connection.CloseConnection(dispose: true);
-                mbrDbCtx.Database.Connection.CloseConnection(dispose: true);
+                clonedMhDbCtx.Database.Connection.CloseConnection(dispose: true);
+                clonedMbrDbCtx.Database.Connection.CloseConnection(dispose: true);
 
                 mbrTrans?.Dispose();
                 mhTrans?.Dispose();
