@@ -63,6 +63,9 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         public bool IsOrgUser { get; set; }
 
-        
+        /// <summary>
+        /// identifier of an organisation that is connected to user profile
+        /// </summary>
+        public Guid? UserOrgId { get; set; }
     }
 }

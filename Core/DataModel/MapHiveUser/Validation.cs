@@ -42,11 +42,30 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected override async Task ValidateAgainstDbAsync(DbContext dbCtx)
         {
-            var slugTaken = await dbCtx.Set<MapHiveUser>().FirstOrDefaultAsync(u => u.Uuid != Uuid && u.Slug == Slug);
+            var validationFailedException = new ValidationFailedException();
 
-            if (slugTaken != null)
+            if (await dbCtx.Set<MapHiveUser>().AnyAsync(u => u.Uuid != Uuid && u.Email == Email))
             {
-                var validationFailedException = new ValidationFailedException();
+                throw Validation.Utils.GenerateValidationFailedException(nameof(Email), ValidationErrors.EmailInUse);
+            }
+
+            Organisation org = null;
+            if (Uuid != default(Guid))
+            {
+                org = await GetUserOrganisationAsync(dbCtx);
+            }
+
+            var slugTaken = !string.IsNullOrEmpty(Slug) &&
+                //another user with given slug exists
+                await dbCtx.Set<MapHiveUser>().AnyAsync(u => u.Uuid != Uuid && u.Slug == Slug)
+                //user has an org but there is another org with given slug
+                || (org != null && await dbCtx.Set<Organisation>().AnyAsync(o => o.Uuid != org.Uuid && o.Slug == Slug))
+                //another org exists that has reserved the slug
+                || (org == null && await dbCtx.Set<Organisation>().AnyAsync(o => o.Slug == Slug));
+
+            if (slugTaken)
+            {
+                
                 validationFailedException.ValidationErrors.Add(new ValidationError
                 {
                     Message = "MapHiveUser slug already taken.",

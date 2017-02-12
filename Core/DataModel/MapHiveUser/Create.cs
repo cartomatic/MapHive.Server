@@ -25,8 +25,7 @@ namespace MapHive.Server.Core.DataModel
             //unless user is marked as an org user, create an org for him
             if (!user.IsOrgUser)
             {
-                await CreateUserOrganisationAsync(dbCtx);
-                await user.UpdateAsync(dbCtx, userAccountService);
+                await CreateUserOrganisationAsync(dbCtx, userAccountService);
             }
 
             return (T)(Base)user;

@@ -79,6 +79,18 @@ namespace MapHive.Server.Cmd.Core
                     await dbCtx.SaveChangesAsync();
                     ConsoleEx.Write("Done! \n", ConsoleColor.DarkGreen);
 
+                    var userOrgUuid = (mhUser as MapHiveUser)?.UserOrgId;
+                    if (userOrgUuid.HasValue)
+                    {
+                        var org = await dbCtx.Set<Organisation>().FirstOrDefaultAsync(o => o.Uuid == userOrgUuid);
+                        if (org != null)
+                        {
+                            ConsoleEx.Write("Found mh user organisation. Removing... ", ConsoleColor.DarkRed);
+                            await org.DestroyAsync(dbCtx);
+                            ConsoleEx.Write("Done! \n", ConsoleColor.DarkGreen);
+                        }
+                    }
+
                     destroyed = true;
                 }
 

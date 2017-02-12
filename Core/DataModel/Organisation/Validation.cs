@@ -42,9 +42,12 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected override async Task ValidateAgainstDbAsync(DbContext dbCtx)
         {
-            var slugTaken = await dbCtx.Set<Organisation>().FirstOrDefaultAsync(o => o.Uuid != Uuid && o.Slug == Slug);
+            var slugTaken = !string.IsNullOrEmpty(Slug) &&
+                await dbCtx.Set<Organisation>().AnyAsync(o => o.Uuid != Uuid && o.Slug == Slug)
+                || await dbCtx.Set<MapHiveUser>().AnyAsync(u => u.UserOrgId != Uuid && u.Slug == Slug);
 
-            if (slugTaken != null)
+
+            if (slugTaken)
             {
                 var validationFailedException = new ValidationFailedException();
                 validationFailedException.ValidationErrors.Add(new ValidationError
