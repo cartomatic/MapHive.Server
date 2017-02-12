@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.API;
+using MapHive.Server.Core.API.Filters;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
@@ -73,6 +74,30 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(MapHiveUser))]
         public async Task<IHttpActionResult> Post(MapHiveUser obj)
         {
+            return await HandleUserCreate(obj);
+        }
+
+        // POST: /users
+        [AllowAnonymous]
+        [ImpersonateGhostUser]
+        [HttpPost]
+        [Route("account")]
+        [ResponseType(typeof(MapHiveUser))]
+        public async Task<IHttpActionResult> CreateAccount(MapHiveUser obj)
+        {
+            //Note: this is the same as a default post. the difference is it must be accessible anonymously
+            //Ghost user is impersonated in the ImpersonateGhostUserAttribute
+            return await HandleUserCreate(obj);
+        }
+
+        /// <summary>
+        /// Handles user creation procedure
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private async Task<IHttpActionResult> HandleUserCreate(MapHiveUser obj)
+        {
+
             //Note: there are 2 options to send emails when creation a user account:
             //1. listen to UserCreated evt on the User object and then process email manually
             //2. grab the appropriate email template and email account, potentially adjust some email template tokens prior to creating a user and pass both sender account and email template to a user creation procedure
@@ -163,7 +188,6 @@ namespace MapHive.Server.API.Controllers
             {
                 return HandleException(ex);
             }
-
         }
     }
 }

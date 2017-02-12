@@ -124,6 +124,7 @@
     <Compile Include="API\BaseApiCrudController\HttpDelete.cs" />
     <Compile Include="API\BaseApiCrudController\IDtoUtils.cs" />
     <Compile Include="API\BaseApiCrudController\_Blank.cs" />
+    <Compile Include="API\Filters\ImpersonateGhostUserAttribute.cs" />
     <Compile Include="API\Serialisation\CamelCasedOutputControllerAttribute.cs" />
     <Compile Include="API\Serialisation\CamelCasedOutputMethodAttribute.cs" />
     <Compile Include="API\Serialisation\UnmodifiedDictKeyCasingOutputMethodAttribute.cs" />
