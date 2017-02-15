@@ -189,5 +189,39 @@ namespace MapHive.Server.API.Controllers
                 return HandleException(ex);
             }
         }
+
+        /// <summary>
+        /// Returns a list of organisations a user has an access to
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [ResponseType(typeof(Organisation))]
+        [Route("userorgs")]
+        public async Task<IHttpActionResult> GetUserOrgs()
+        {
+            var uuid = MapHive.Server.Core.Utils.Identity.GetUserGuid();
+
+            //this should not happen really as otherwise the user would not be authenticated
+            if (!uuid.HasValue)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                var orgs = await MapHiveUser.GetUserOrganisationsAsync(_dbCtx, uuid.Value);
+
+                if (!orgs.Any())
+                {
+                    return NotFound();
+                }
+
+                return Ok(orgs);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

@@ -79,5 +79,38 @@ namespace MapHive.Server.Core.DataModel
             }
             return await dbCtx.Set<Organisation>().FirstOrDefaultAsync(o => o.Uuid == UserOrgId.Value);
         }
+
+        /// <summary>
+        /// Gets organisations a user has an access to. If user has an own org, then it is returned at the begining
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Organisation>> GetUserOrganisationsAsync(DbContext dbCtx, Guid userId)
+        {
+            var user = await dbCtx.Set<MapHiveUser>().FirstOrDefaultAsync(u => u.Uuid == userId);
+
+            if (user == null)
+            {
+                throw new InvalidOperationException("Unknown user");
+            }
+
+            return await user.GetUserOrganisationsAsync(dbCtx);
+        }
+
+        /// <summary>
+        /// Gets organisations a user has an access to. If user has an own org, then it is returned at the begining
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Organisation>> GetUserOrganisationsAsync(DbContext dbCtx)
+        {
+            //users are assigned to orgs
+            //make sure the 'user' org is at the very begining
+
+            return (await this.GetParentsAsync<MapHiveUser, Organisation>(dbCtx)).OrderBy(o => o.Slug == Slug);
+
+            //todo: will need to also properly order orgs a user has an owner role, so they seem a bit more important than the other orgs
+        }
     }
 }
