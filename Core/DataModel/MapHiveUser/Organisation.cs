@@ -37,7 +37,7 @@ namespace MapHive.Server.Core.DataModel
 
             //tie the org to a user
             UserOrgId = org.Uuid;
-            this.AddLink(org);
+            org.AddLink(this);
             this.AddLink(await org.GetRoleOwnerAsync(dbCtx));
             await this.UpdateAsync(dbCtx, userAccountService);
 
@@ -107,8 +107,7 @@ namespace MapHive.Server.Core.DataModel
         {
             //users are assigned to orgs
             //make sure the 'user' org is at the very begining
-
-            return (await this.GetParentsAsync<MapHiveUser, Organisation>(dbCtx)).OrderBy(o => o.Slug == Slug);
+            return (await this.GetParentsAsync<MapHiveUser, Organisation>(dbCtx)).OrderByDescending(o => o.Slug == Slug);
 
             //todo: will need to also properly order orgs a user has an owner role, so they seem a bit more important than the other orgs
         }
