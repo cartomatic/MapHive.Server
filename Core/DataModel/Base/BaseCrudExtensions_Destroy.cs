@@ -38,7 +38,7 @@ namespace MapHive.Server.Core.DataModel
         public static async Task<T> DestroyAsync<T>(this T obj, DbContext dbCtx)
             where T : Base
         {
-            return await obj.DestroyAsync<T>(dbCtx, obj.TypeUuid);
+            return await obj.DestroyAsync<T>(dbCtx, obj.Uuid);
         }
     }
 }
