@@ -59,7 +59,7 @@ namespace MapHive.Server.Core.API
         protected string ExtractRequesToken(string tokenDelimiter)
         {
             var token = string.Empty;
-            foreach (var urlPart in GetRequestSource().Split('/'))
+            foreach (var urlPart in GetRequestSource().Split('#')[0].Split('/'))
             {
                 if (urlPart.StartsWith(tokenDelimiter))
                 {
