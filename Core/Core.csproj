@@ -267,6 +267,7 @@
     <Compile Include="DataModel\Organisation\Validation.cs" />
     <Compile Include="DataModel\Organisation\Roles.cs" />
     <Compile Include="DataModel\Organisation\User.cs" />
+    <Compile Include="DataModel\Organisation\Applications.cs" />
     <Compile Include="DataModel\Organisation\_Blank.cs" />
     <Compile Include="DataModel\Organisation\_Ctor.cs" />
     <Compile Include="DataModel\Organisation\_DataModel.cs" />
