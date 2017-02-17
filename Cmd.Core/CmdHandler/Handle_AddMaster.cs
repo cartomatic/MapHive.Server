@@ -81,6 +81,9 @@ namespace MapHive.Server.Cmd.Core
                     //get the maphive admin app
                     var masterofpuppets = await ctx.Applications.FirstOrDefaultAsync(a => a.ShortName == "masterofpuppets");
 
+                    //add a link to a non-public app!
+                    //users with access to this organisation will be able to access this app too
+                    //note: perhaps with some app access privs defined at some point
                     org.AddLink(masterofpuppets);
                     await org.UpdateAsync(ctx);
                 }

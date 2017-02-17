@@ -223,5 +223,25 @@ namespace MapHive.Server.API.Controllers
                 return HandleException(ex);
             }
         }
+
+        /// <summary>
+        /// Returns applications available to the current user; does not require auth, and for guests return a list of common apps.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("userapps")]
+        [ResponseType(typeof(IEnumerable<Application>))]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetUserApps()
+        {
+            try
+            {
+                return Ok(await MapHiveUser.GetUserAppsAsync(_dbCtx as MapHiveDbContext, MapHive.Server.Core.Utils.Identity.GetUserGuid(), GetRequestOrgIdentifier()));
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }

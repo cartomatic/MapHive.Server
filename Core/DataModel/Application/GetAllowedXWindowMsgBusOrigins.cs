@@ -23,7 +23,7 @@ namespace MapHive.Server.Core.DataModel
         {
             //first get hives an non-hives
             var hives = GetAppUrls(await dbCtx.Applications.Where(a => a.IsHive).ToListAsync());
-            var nonHives = GetAppUrls(await GetUserAppsAsync(dbCtx, userId));
+            var nonHives = GetAppUrls(await MapHiveUser.GetUserAppsAsync(dbCtx, userId));
 
             //and merge them together
             hives.AddRange(nonHives);

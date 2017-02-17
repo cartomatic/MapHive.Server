@@ -183,7 +183,7 @@
     <Compile Include="DAL\TypeConfiguration\LinkConfiguration.cs" />
     <Compile Include="DataModel\Application\GetIdentifiersForAppsRequiringAuth.cs" />
     <Compile Include="DataModel\Application\Validation.cs" />
-    <Compile Include="DataModel\Application\GetUserApps.cs" />
+    <Compile Include="DataModel\MapHiveUser\GetUserApps.cs" />
     <Compile Include="DataModel\Application\GetAllowedXWindowMsgBusOrigins.cs" />
     <Compile Include="DataModel\Application\Create.cs" />
     <Compile Include="DataModel\Application\Update.cs" />
