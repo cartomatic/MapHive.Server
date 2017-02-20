@@ -12,23 +12,18 @@ namespace MapHive.Server.Core.DataModel
     {
 
         /// <summary>
-        /// Gets urls of the apps visible for current user so the xwindow communication can be safely established;
-        /// returns urls of the apps that are visible to a user but also urls of the hive apps (HOST APPS)
+        /// Gets urls of the apps registerd in the system so potential xwindow communication between apps can be safely established;
+        /// returns urls of all the apps registered in the system
         /// </summary>
         /// <param name="dbCtx"></param>
-        /// <param name="userId"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<string>> GetAllowedXWindowMsgBusOriginsAsync<T>(T dbCtx, Guid? userId)
+        public static async Task<IEnumerable<string>> GetAllowedXWindowMsgBusOriginsAsync<T>(T dbCtx)
             where T: DbContext, IMapHiveApps
         {
-            //first get hives an non-hives
-            var hives = GetAppUrls(await dbCtx.Applications.Where(a => a.IsHive).ToListAsync());
-            var nonHives = GetAppUrls(await MapHiveUser.GetUserAppsAsync(dbCtx, userId));
-
-            //and merge them together
-            hives.AddRange(nonHives);
-
-            return hives;
+            //get all the urls.
+            //identifiers of apps requiring auth are returned always anyway, so revealing the other urls should not really cause too much trouble.
+            //the apps should verify whether or not it is ok to use them in given ctx, so...
+            return GetAppUrls(await dbCtx.Applications.ToListAsync());
         }
 
         /// <summary>

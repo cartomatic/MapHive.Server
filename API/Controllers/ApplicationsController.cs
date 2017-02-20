@@ -99,7 +99,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Application.GetAllowedXWindowMsgBusOriginsAsync(_dbCtx as MapHiveDbContext, null));
+                return Ok(await Application.GetAllowedXWindowMsgBusOriginsAsync(_dbCtx as MapHiveDbContext));
             }
             catch (Exception ex)
             {
