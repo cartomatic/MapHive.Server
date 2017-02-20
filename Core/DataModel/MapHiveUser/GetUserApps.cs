@@ -62,11 +62,10 @@ namespace MapHive.Server.Core.DataModel
             
             
 
-            //TODO - some app ordering perhaps so it is somewhat senshible.
+            //TODO - more ordering - stuff like special apps that are not public, but assigned to orgs directly, etc. Also, maybe some differentiation between freely accessible apps and the apps with auth.
+
             //stuff like home & dashboard always at the beginning and such...
-
-
-            return outApps;
+            return outApps.OrderByDescending(a => a.IsHome).ThenByDescending(a => a.IsDefault).ThenBy(a => a.Name); ;
         }
     }
 }
