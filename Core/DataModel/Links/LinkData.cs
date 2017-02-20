@@ -46,5 +46,21 @@ namespace MapHive.Server.Core.DataModel
                 }
             }
         }
+
+
+        /// <summary>
+        /// Returns an object by key, so it's not necessary to test for key presence
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public Dictionary<string, object> GetByKey(string key)
+        {
+            Dictionary<string, object> output = null;
+
+            if (this.ContainsKey(key))
+                output = this[key];
+
+            return output;
+        }
     }
 }

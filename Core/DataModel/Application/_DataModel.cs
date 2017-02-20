@@ -48,9 +48,9 @@ namespace MapHive.Server.Core.DataModel
         public bool IsCommon { get; set; }
 
         /// <summary>
-        /// Whether or not an app is default; when flagged as default, an app will be automatically loaded if there were no other means of enforcing a current app.
+        /// Whether or not an app;
         /// a default app is only meaningful in the context of an organisation. This means a default app should be an app that provides some dashboard like functionality
-        /// for an organisation. If there is no organisation context, an app that is flagged with IsHome should be loaded.
+        /// for a user.
         /// Only one appliation can be flagged as Default
         /// </summary>
         public bool IsDefault { get; set; }

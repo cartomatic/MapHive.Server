@@ -80,7 +80,7 @@ namespace MapHive.Server.API.Controllers
         {
             try
             {
-                return Ok(await Organisation.AllowsApplication(_dbCtx as MapHiveDbContext, orgId, appId));
+                return Ok(await Organisation.CanUseApp(_dbCtx as MapHiveDbContext, orgId, appId));
             }
             catch (Exception ex)
             {

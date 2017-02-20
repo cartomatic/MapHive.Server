@@ -30,9 +30,10 @@ namespace MapHive.Server.API.Controllers
             {
                 return Ok(
                     await UserConfigurationReader.ReadAsync(
+                        GetAppUrl(),
                         new MapHiveBasicUserConfiguration<MapHiveDbContext, MapHiveUser>()
-                        )
-                    );
+                    )
+                );
             }
             catch (Exception ex)
             {

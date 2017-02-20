@@ -69,5 +69,18 @@ namespace MapHive.Server.Core.API
             }
             return token;
         }
+
+        /// <summary>
+        /// Extracts an application Url from the Src header appended by the client
+        /// </summary>
+        /// <returns></returns>
+        public string GetAppUrl()
+        {
+            //app url is pretty much the full path but without the hash and params
+            //need to remove the app / org tokens too
+            var urlParts = GetRequestSource().Split('#')[0].Split('?')[0].Split('/');
+
+            return string.Join("/", urlParts.Where(str => !(str.StartsWith(UrlAppTokenDelimiter) || str.StartsWith(UrlOrgTokenDelimiter))));
+        }
     }
 }

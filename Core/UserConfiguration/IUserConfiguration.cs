@@ -13,6 +13,6 @@ namespace MapHive.Server.Core.UserConfiguration
         /// Reads configuration for a specified user; user info is obtained off the CurrentPrincipal
         /// </summary>
         /// <returns></returns>
-        Task<IDictionary<string, object>> Read();
+        Task<IDictionary<string, object>> Read(string appUrl);
     }
 }

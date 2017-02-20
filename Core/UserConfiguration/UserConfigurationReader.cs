@@ -8,7 +8,13 @@ namespace MapHive.Server.Core.UserConfiguration
 {
     public class UserConfigurationReader
     {
-        public static async Task<IDictionary<string, object>> ReadAsync(params IUserConfiguration[] configs)
+        /// <summary>
+        /// Reads user specific configuration for the calling application; app url is the url extracted from the MH-Src header set by the client
+        /// </summary>
+        /// <param name="appUrl"></param>
+        /// <param name="configs"></param>
+        /// <returns></returns>
+        public static async Task<IDictionary<string, object>> ReadAsync(string appUrl, params IUserConfiguration[] configs)
         {
             var output = new Dictionary<string, object>();
 
@@ -16,7 +22,7 @@ namespace MapHive.Server.Core.UserConfiguration
             {
                 try
                 {
-                    foreach (var cfg in await config.Read())
+                    foreach (var cfg in await config.Read(appUrl))
                     {
                         if (output.ContainsKey(cfg.Key))
                         {

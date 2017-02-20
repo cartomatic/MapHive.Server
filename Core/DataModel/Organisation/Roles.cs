@@ -11,6 +11,13 @@ namespace MapHive.Server.Core.DataModel
     
     public partial class Organisation
     {
+        public enum OrganisationRole
+        {
+            Owner,
+            Admin,
+            Member
+        }
+
         /// <summary>
         /// org owner role identifier. used to mark an owner role
         /// </summary>
@@ -41,6 +48,39 @@ namespace MapHive.Server.Core.DataModel
         /// default en member role name
         /// </summary>
         public const string OrgRoleNameMember = "Member";
+
+
+        /// <summary>
+        /// Creates an org role
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public async Task<Role> CreateRoleAsync(DbContext dbCtx, OrganisationRole role)
+        {
+            var roleName = string.Empty;
+            var roleIdentifier = string.Empty;
+
+            switch (role)
+            {
+                case OrganisationRole.Owner:
+                    roleIdentifier = OrgRoleIdentifierOwner;
+                    roleName = OrgRoleNameOwner;
+                    break;
+
+                    case OrganisationRole.Admin:
+                    roleIdentifier = OrgRoleIdentifierAdmin;
+                    roleName = OrgRoleNameAdmin;
+                    break;
+
+                default:
+                    roleIdentifier = OrgRoleIdentifierMember;
+                    roleName = OrgRoleNameMember;
+                    break;
+            }
+
+            return await CreateRoleAsync(dbCtx, roleIdentifier, roleName);
+        }
 
         /// <summary>
         /// Creates a role object for an organisation and links to an org; does not save org changes!
@@ -101,6 +141,39 @@ namespace MapHive.Server.Core.DataModel
         public async Task<Role> GetRoleMemberAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r => r.Identifier == OrgRoleIdentifierMember);
+        }
+
+        /// <summary>
+        /// Determines if a user is an org member (is assigned to an org)
+        /// </summary>
+        /// <param name="dbctx"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<bool> IsOrgMember(DbContext dbctx, MapHiveUser user)
+        {
+            return await this.HasChildLinkAsync(dbctx, user);
+        }
+
+        /// <summary>
+        /// Checks if user is an organisation owner (user has the org owner role assigned)
+        /// </summary>
+        /// <param name="dbctx"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<bool> IsOrgOwner(DbContext dbctx, MapHiveUser user)
+        {
+            return await user.HasChildLinkAsync(dbctx, await GetRoleOwnerAsync(dbctx));
+        }
+
+        /// <summary>
+        /// Checks if a user is an organisation admin (user has the org admin role assigned)
+        /// </summary>
+        /// <param name="dbctx"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<bool> IsOrgAdmin(DbContext dbctx, MapHiveUser user)
+        {
+            return await user.HasChildLinkAsync(dbctx, await GetRoleAdminAsync(dbctx));
         }
     }
 }

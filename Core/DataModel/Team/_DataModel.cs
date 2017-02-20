@@ -15,6 +15,17 @@ namespace MapHive.Server.Core.DataModel
     public partial class Team
     {
         /// <summary>
+        /// Name of the object saved on an App -> Team link that stores team's app access credentials
+        /// </summary>
+        public const string AppAccessCredentialsLinkDataObject = "AppAccessCredentials";
+
+        /// <summary>
+        /// name of the amm admin access key
+        /// </summary>
+
+        public const string AppAdminAccess = "AppAdminAccess";
+
+        /// <summary>
         /// Name of a team
         /// </summary>
         public string Name { get; set; }

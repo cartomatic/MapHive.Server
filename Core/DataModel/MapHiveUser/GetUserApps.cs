@@ -18,15 +18,13 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         public static async Task<IEnumerable<Application>> GetUserAppsAsync(DbContext dbCtx, Guid? userId, string orgIdentifier = null)
         {
-            var outApps = new List<Application>();
+            var appCollector = new List<Application>();
             
             //common apps
             //do not return hive apps! they should not be listed in user apps even though they will usually be common apps
             var commonApps = await dbCtx.Set<Application>().Where(a => a.IsCommon && !a.IsHive).ToListAsync();
-
-
-            outApps.AddRange(commonApps);
-
+            appCollector.AddRange(commonApps);
+            
 
             MapHiveUser user = null;
             if (userId.HasValue)
@@ -40,27 +38,32 @@ namespace MapHive.Server.Core.DataModel
                 org = await dbCtx.Set<Organisation>().FirstOrDefaultAsync(o => o.Slug == orgIdentifier);
             } 
             
-            //make sure user has an access to an org prior to reading org apps!
-            //TODO
-            
 
-            //get org apps
+            //get org apps - the apps that are not public, but assigned to orgs directly
             if (user != null && org != null)
             {
                 var orgApps = await org.GetChildrenAsync<Organisation, Application>(dbCtx);
 
-                //TODO - roles and such. perhaps not every single user will have access to each application... 
-
                 foreach (var app in orgApps)
                 {
-                    if (!outApps.Exists(a => a.Uuid == app.Uuid))
+                    if (!appCollector.Exists(a => a.Uuid == app.Uuid))
                     {
-                        outApps.Add(app);
+                        appCollector.Add(app);
                     }
                 }
             }
-            
-            
+
+            var outApps = new List<Application>();
+
+            foreach (var a in appCollector)
+            {
+                if (
+                    a.IsDefault || //always return the dashboard
+                    (a.IsCommon && !a.RequiresAuth) || //and the public apps with no auth
+                    (org != null && (await org.GetUserAppAccessCredentials(dbCtx, user, a)).CanUseApp)
+                )
+                    outApps.Add(a);
+            }
 
             //TODO - more ordering - stuff like special apps that are not public, but assigned to orgs directly, etc. Also, maybe some differentiation between freely accessible apps and the apps with auth.
 

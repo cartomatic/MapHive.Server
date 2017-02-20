@@ -527,5 +527,197 @@ namespace MapHive.Server.Core.DataModel
             return await (detached ? iLinksDb.Links.AsNoTracking() : iLinksDb.Links)
                 .AnyAsync(x => x.ChildTypeUuid == child.TypeUuid && x.ParentUuid == obj.Uuid);
         }
+
+
+        /// <summary>
+        /// Determines if an object has link to a specified child
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasChildLinkAsync<T, TChild>(this T obj, DbContext db, TChild child)
+            where T : Base
+            where TChild : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            return
+                await iLinksDb.Links.AnyAsync(
+                    l =>
+                        l.ParentUuid == obj.Uuid && l.ParentTypeUuid == obj.TypeUuid &&
+                        l.ChildTypeUuid == child.TypeUuid && l.ChildUuid == child.Uuid);
+
+        }
+
+        /// <summary>
+        /// determines if an object has a link to specified parent
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasParentLinkAsync<T, TChild>(this T obj, DbContext db, TChild parent)
+            where T : Base
+            where TChild : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            return
+                await iLinksDb.Links.AnyAsync(
+                    l =>
+                        l.ParentUuid == parent.Uuid && l.ParentTypeUuid == parent.TypeUuid &&
+                        l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid);
+
+        }
+
+        /// <summary>
+        /// Checks if an object has a parent with a specified identifier. because child type uuid and child uuid is tested,
+        /// likelines of hitting false positives due to checking only parent uuid is really low
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasParentLinkAsync<T>(this T obj, DbContext db, Guid parentId)
+            where T : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            return
+                await iLinksDb.Links.AnyAsync(
+                    l =>
+                        l.ParentUuid == parentId &&
+                        l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid);
+
+        }
+
+        /// <summary>
+        /// Checks if an object has a child with a specified identifier. because parent type uuid and parent uuid is tested, 
+        /// likelines of hitting false positives due to checking only child uuid is really low
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="db"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public static async Task<bool> HasChildLinkAsync<T>(this T obj, DbContext db, Guid childId)
+            where T : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(db);
+            if (iLinksDb == null) return false;
+
+            return
+                await iLinksDb.Links.AnyAsync(
+                    l =>
+                        l.ParentUuid == obj.Uuid && l.ParentTypeUuid == obj.TypeUuid &&
+                        l.ChildUuid == childId);
+
+        }
+
+        /// <summary>
+        /// Gets a collection of child links of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Link>> GetChildLinks<T, TChild>(this T obj, DbContext dbCtx)
+        where T : Base
+            where TChild : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return new Link[0];
+
+            var child = (TChild)Activator.CreateInstance(typeof(TChild));
+
+            return
+                await iLinksDb.Links.Where(
+                    l =>
+                        l.ParentTypeUuid == obj.TypeUuid && l.ParentUuid == obj.Uuid &&
+                        l.ChildTypeUuid == child.TypeUuid).ToListAsync();
+
+        }
+
+        /// <summary>
+        /// Gets a collection of parent links of given type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TParent"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<Link>> GetParentLinks<T, TParent>(this T obj, DbContext dbCtx)
+        where T : Base
+            where TParent : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return new Link[0];
+
+            var parent = (TParent)Activator.CreateInstance(typeof(TParent));
+
+            return
+                await iLinksDb.Links.Where(
+                    l =>
+                        l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid &&
+                        l.ParentTypeUuid == parent.TypeUuid).ToListAsync();
+
+        }
+
+        /// <summary>
+        /// Gets a child link for given object if any; this is so it is possible to review link data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        public static async Task<Link> GetChildLink<T, TChild>(this T obj, DbContext dbCtx, TChild child)
+        where T : Base
+            where TChild : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return null;
+
+            return
+                await iLinksDb.Links.FirstOrDefaultAsync(
+                    l =>
+                        l.ParentTypeUuid == obj.TypeUuid && l.ParentUuid == obj.Uuid &&
+                        l.ChildTypeUuid == child.TypeUuid && l.ChildUuid == child.Uuid);
+        }
+
+        /// <summary>
+        /// Gets a parent link for given object if any; this is so it is possible to review link data
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TParent"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <param name="parent"></param>
+        /// <returns></returns>
+        public static async Task<Link> GetParentLink<T, TParent>(this T obj, DbContext dbCtx, TParent parent)
+        where T : Base
+            where TParent : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return null;
+
+            return
+                await iLinksDb.Links.FirstOrDefaultAsync(
+                    l =>
+                        l.ParentTypeUuid == parent.TypeUuid && l.ParentUuid == parent.Uuid &&
+                        l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid);
+        }
+
     }
 }
