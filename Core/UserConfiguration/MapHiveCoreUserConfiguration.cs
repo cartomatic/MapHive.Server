@@ -68,8 +68,9 @@ namespace MapHive.Server.Core.UserConfiguration
 
             //finally reorder the org access credentials, so user's org is always first
             output.Add(
-                nameof(Organisation.OrgUserAppAccessCredentials),
-                credentials.OrderByDescending(c=>c.Organisation.Uuid == user.UserOrgId)
+                "AllowedOrgs",
+                credentials.OrderByDescending(c => c.Organisation.Uuid == user.UserOrgId)
+                    .ToDictionary(c => c.Organisation.Slug, c => new {c.CanUseApp, c.IsAppAdmin})
             );
 
             return output;
