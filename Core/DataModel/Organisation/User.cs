@@ -95,7 +95,7 @@ namespace MapHive.Server.Core.DataModel
                 foreach (var team in orgTeams)
                 {
                     //get team's app link
-                    var teamAppLink = await team.GetChildLink(dbCtx, app);
+                    var teamAppLink = await team.GetChildLinkAsync(dbCtx, app);
 
                     //make sure team grants access to an app
                     if (teamAppLink == null)
@@ -103,7 +103,7 @@ namespace MapHive.Server.Core.DataModel
 
 
                     //get team's user link
-                    var teamUserLink = await team.GetChildLink(dbCtx, user);
+                    var teamUserLink = await team.GetChildLinkAsync(dbCtx, user);
                     var userCanUseApp = teamUserLink != null;
 
                     //if a team grants an access to an app for a user we can test if it also test if it is admin access

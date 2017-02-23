@@ -656,7 +656,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Link>> GetParentLinks<T, TParent>(this T obj, DbContext dbCtx)
+        public static async Task<IEnumerable<Link>> GetParentLinksAsync<T, TParent>(this T obj, DbContext dbCtx)
         where T : Base
             where TParent : Base
         {
@@ -682,7 +682,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="child"></param>
         /// <returns></returns>
-        public static async Task<Link> GetChildLink<T, TChild>(this T obj, DbContext dbCtx, TChild child)
+        public static async Task<Link> GetChildLinkAsync<T, TChild>(this T obj, DbContext dbCtx, TChild child)
         where T : Base
             where TChild : Base
         {
@@ -705,7 +705,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="dbCtx"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        public static async Task<Link> GetParentLink<T, TParent>(this T obj, DbContext dbCtx, TParent parent)
+        public static async Task<Link> GetParentLinkAsync<T, TParent>(this T obj, DbContext dbCtx, TParent parent)
         where T : Base
             where TParent : Base
         {
