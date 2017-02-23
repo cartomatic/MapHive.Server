@@ -21,6 +21,16 @@ namespace MapHive.Server.Core.DataModel
             return await dbCtx.Set<MapHiveUser>().FirstOrDefaultAsync(u => u.UserOrgId == Uuid);
         }
 
+        /// <summary>
+        /// Returns a list of organisation user identifiers
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Guid>> GetOrganisationUserIdsAsync(DbContext dbCtx)
+        {
+            return (await this.GetChildLinksAsync<Organisation, MapHiveUser>(dbCtx)).Select(l=>l.ChildUuid);
+        }
+
 
         /// <summary>
         /// User application access credentials within an organisation

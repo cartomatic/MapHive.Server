@@ -631,7 +631,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="obj"></param>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Link>> GetChildLinks<T, TChild>(this T obj, DbContext dbCtx)
+        public static async Task<IEnumerable<Link>> GetChildLinksAsync<T, TChild>(this T obj, DbContext dbCtx)
         where T : Base
             where TChild : Base
         {
