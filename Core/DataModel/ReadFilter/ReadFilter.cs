@@ -21,5 +21,11 @@ namespace MapHive.Server.Core.DataModel
         /// (X AND / OR Y AND / OR Z) AND XX AND YY
         /// </summary>
         public bool ExactMatch { get; set; }
+
+
+        /// <summary>
+        /// Support for SINGLE param db function to be called when filtering the data. the name of the function should be as defined in the System.Data.Entity.DbFunctions
+        /// </summary>
+        public string DbFn { get; set; }
     }
 }
