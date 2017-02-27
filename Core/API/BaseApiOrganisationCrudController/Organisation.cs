@@ -40,8 +40,6 @@ namespace MapHive.Server.Core.API
         {
             get
             {
-                throw new NotImplementedException("Org ctx is not read by the org filter so far.");
-
                 var orgCtx = (Organisation) Request.Properties[OrganisationContextAttribute.OrgCtxPropertyName];
                 if (orgCtx == null)
                     throw new InvalidOperationException("Organisation context is not known for this request.");

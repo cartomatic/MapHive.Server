@@ -14,6 +14,36 @@ namespace MapHive.Server.Core.DataModel
     public abstract partial class Base
     {
         /// <summary>
+        /// A static equivalent of instance ReadAsync method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCtx"></param>
+        /// <param name="sorters"></param>
+        /// <param name="filters"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<T>> ReadObjAsync<T>(DbContext dbCtx, IEnumerable<ReadSorter> sorters,
+            IEnumerable<ReadFilter> filters, int start = 0, int limit = 25, bool detached = true) where T : Base
+        {
+            return await ((T)Activator.CreateInstance(typeof(T))).ReadAsync<T>(dbCtx, sorters, filters, start, limit, detached);
+        }
+
+        /// <summary>
+        /// A static equivalent of instance based ReadAsync method
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCtx"></param>
+        /// <param name="uuid"></param>
+        /// <param name="detached"></param>
+        /// <returns></returns>
+        public static async Task<T> ReadObjAsync<T>(DbContext dbCtx, Guid uuid, bool detached = true) where T : Base
+        {
+            return await ((T) Activator.CreateInstance(typeof(T))).ReadAsync<T>(dbCtx, uuid, detached);
+        }
+
+        /// <summary>
         /// Reads a collection of objects; note - the public read 
         /// </summary>
         /// <typeparam name="T"></typeparam>
