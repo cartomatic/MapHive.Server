@@ -26,7 +26,7 @@ namespace MapHive.Server.Core.API.Filters
         /// <returns></returns>
         public override async Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
-            var orgId = (Guid) actionContext.ActionArguments["organisationId"];
+            var orgId = (Guid) actionContext.ActionArguments[OrgIdPropertyName];
             actionContext.Request.Properties.Add(OrgIdPropertyName, orgId);
 
             using (var dbCtx = new MapHiveDbContext())

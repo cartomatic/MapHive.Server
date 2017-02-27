@@ -279,7 +279,7 @@
     <Compile Include="DataModel\ReadFilter\FromJson.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilter.cs" />
     <Compile Include="DataModel\ReadFilter\ReadFilterIQueryableExtensions.cs" />
-    <Compile Include="DataModel\ReadFilter\ReadFilterExtensions.cs" />
+    <Compile Include="DataModel\ReadFilter\ReadFilterValueExtensions.cs" />
     <Compile Include="DataModel\ReadFilter\_Blank.cs" />
     <Compile Include="DataModel\ReadSorter\FromJson.cs" />
     <Compile Include="DataModel\ReadSorter\ReadSorter.cs" />

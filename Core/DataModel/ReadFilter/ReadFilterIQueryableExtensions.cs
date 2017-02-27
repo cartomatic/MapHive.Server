@@ -229,19 +229,26 @@ namespace MapHive.Server.Core.DataModel
                         if (Expression.Property(paramExp, filter.Property).Type == typeof(Guid))
                         {
                             //property to string
-                            var toStr = Expression.Call(
+                            //var toStr = Expression.Call(
+                            //    GetFilteredProperty(filter, paramExp),
+                            //    typeof(Guid).GetMethod("ToString", Type.EmptyTypes)
+                            //);
+                            ////and then lowercase
+                            //var toLower = Expression.Call(typeof(string).GetMethod("ToString", Type.EmptyTypes));
+
+                            //inExpression = Expression.Call(toLower,
+                            //    typeof(string).GetMethod("Equals", new[] {typeof(string)}),
+                            //    Expression.Constant(item.ToString().ToLower())
+                            //);
+
+                            Guid guid;
+                            if (!Guid.TryParse((string)item, out guid))
+                                continue;
+
+                            inExpression = Expression.Equal(
                                 GetFilteredProperty(filter, paramExp),
-                                typeof(Guid).GetMethod("ToString", Type.EmptyTypes)
+                                GetFilteredValue(filter, paramExp, guid)
                             );
-                            //and then lowercase
-                            var toLower = Expression.Call(typeof(string).GetMethod("ToStirng", Type.EmptyTypes));
-
-                            inExpression = Expression.Call(toLower,
-                                typeof(string).GetMethod("Equals", new[] {typeof(string)}),
-                                Expression.Constant(item.ToString().ToLower())
-                            );
-
-                            //TODO - this should be achievable when just comparing guids as with "==" operator
                         }
                         else
                         {

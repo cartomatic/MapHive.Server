@@ -35,7 +35,7 @@ namespace MapHive.Server.API.Controllers
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<MapHiveUser>))]
-        public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
+        public async Task<IHttpActionResult> Get(Guid OrganisationId, string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
             return await GetOrganisationAssets<MapHiveUser>(sort, filter, start, limit);
@@ -45,7 +45,7 @@ namespace MapHive.Server.API.Controllers
         [HttpGet]
         [ResponseType(typeof(MapHiveUser))]
         [Route("{uuid}")]
-        public async Task<IHttpActionResult> Get(Guid uuid)
+        public async Task<IHttpActionResult> Get(Guid OrganisationId, Guid uuid)
         {
             return await GetOrganisationAsset<MapHiveUser>(uuid);
         }
