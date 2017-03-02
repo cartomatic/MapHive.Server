@@ -49,5 +49,54 @@ namespace MapHive.Server.API.Controllers
         {
             return await GetOrganisationAsset<MapHiveUser>(uuid);
         }
+
+
+        // POST: /users
+        [HttpPost]
+        [Route("")]
+        [ResponseType(typeof(MapHiveUser))]
+        public async Task<IHttpActionResult> Post(MapHiveUser obj)
+        {
+            return await HandleUserCreate(obj);
+        }
+
+        /// <summary>
+        /// Handles user creation procedure
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        private async Task<IHttpActionResult> HandleUserCreate(MapHiveUser user)
+        {
+            //this is an org user, so needs to be flagged as such!
+            user.IsOrgUser = true;
+
+            try
+            {
+                var createdUser = await Utils.User.CreateUser(_dbCtx, user,
+                    await GetEmailStuffAsync("user_created", _dbCtx as ILocalised), GetRequestSource().Split('#')[0]);
+
+                if (createdUser != null)
+                {
+                    //user has been created, so now need to add it to the org with an appropriate role
+                    var org = this.OrganisationContext;
+                    org.AddLink(user);
+                    await org.UpdateAsync(_dbCtx);
+
+                    //by default assign a member role to a user
+                    var memberRole = await org.GetRoleMemberAsync(_dbCtx);
+
+                    createdUser.AddLink(memberRole);
+                    await createdUser.UpdateAsync(_dbCtx);
+
+                    return Ok(createdUser);
+                }
+                    
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return this.HandleException(ex);
+            }
+        }
     }
 }

@@ -93,38 +93,17 @@ namespace MapHive.Server.API.Controllers
         /// <summary>
         /// Handles user creation procedure
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
-        private async Task<IHttpActionResult> HandleUserCreate(MapHiveUser obj)
+        private async Task<IHttpActionResult> HandleUserCreate(MapHiveUser user)
         {
-
-            //Note: there are 2 options to send emails when creation a user account:
-            //1. listen to UserCreated evt on the User object and then process email manually
-            //2. grab the appropriate email template and email account, potentially adjust some email template tokens prior to creating a user and pass both sender account and email template to a user creation procedure
-
-            //In this scenario a second approach is used
-
             try
             {
-                var emailStuff = await GetEmailStuffAsync("user_created", _dbCtx as ILocalised);
+                var createdUser = await Utils.User.CreateUser(_dbCtx, user,
+                    await GetEmailStuffAsync("user_created", _dbCtx as ILocalised), GetRequestSource().Split('#')[0]);
 
-                //initial email template customisation:
-                //{UserName}
-                //{Email}
-                //{RedirectUrl}
-                var replacementData = new Dictionary<string, object>
-                {
-                    {"UserName", $"{obj.GetFullUserName()} ({obj.Email})"},
-                    {"Email", obj.Email},
-                    {"RedirectUrl", GetRequestSource().Split('#')[0]}
-                };
-
-                emailStuff?.Item2.Prepare(replacementData);
-
-                var entity = await obj.CreateAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), emailStuff?.Item1, emailStuff?.Item2);
-
-                if (entity != null)
-                    return Ok(entity);
+                if (createdUser != null)
+                    return Ok(createdUser);
 
                 return NotFound();
             }
