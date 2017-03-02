@@ -118,7 +118,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleOwnerAsync(DbContext dbCtx)
+        public async Task<Role> GetOrgOwnerRoleAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r=>r.Identifier == OrgRoleIdentifierOwner);
         }
@@ -128,7 +128,7 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleAdminAsync(DbContext dbCtx)
+        public async Task<Role> GetOrgAdminRoleAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r => r.Identifier == OrgRoleIdentifierAdmin);
         }
@@ -138,9 +138,31 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <returns></returns>
-        public async Task<Role> GetRoleMemberAsync(DbContext dbCtx)
+        public async Task<Role> GetOrgMemberRoleAsync(DbContext dbCtx)
         {
             return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).FirstOrDefault(r => r.Identifier == OrgRoleIdentifierMember);
+        }
+
+        /// <summary>
+        /// Gets an organisation role
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public async Task<Role> GetOrgRoleAsync(DbContext dbCtx, OrganisationRole role)
+        {
+            switch (role)
+            {
+                case OrganisationRole.Admin:
+                    return await GetOrgAdminRoleAsync(dbCtx);
+
+                case OrganisationRole.Owner:
+                    return await GetOrgOwnerRoleAsync(dbCtx);
+
+                case OrganisationRole.Member:
+                default:
+                    return await GetOrgMemberRoleAsync(dbCtx);
+            }
         }
 
         /// <summary>
@@ -162,7 +184,7 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         public async Task<bool> IsOrgOwner(DbContext dbctx, MapHiveUser user)
         {
-            return await user.HasChildLinkAsync(dbctx, await GetRoleOwnerAsync(dbctx));
+            return await user.HasChildLinkAsync(dbctx, await GetOrgOwnerRoleAsync(dbctx));
         }
 
         /// <summary>
@@ -173,7 +195,7 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         public async Task<bool> IsOrgAdmin(DbContext dbctx, MapHiveUser user)
         {
-            return await user.HasChildLinkAsync(dbctx, await GetRoleAdminAsync(dbctx));
+            return await user.HasChildLinkAsync(dbctx, await GetOrgAdminRoleAsync(dbctx));
         }
     }
 }

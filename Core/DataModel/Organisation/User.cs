@@ -4,6 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BrockAllen.MembershipReboot;
+using BrockAllen.MembershipReboot.Relational;
 using MapHive.Server.Core.DataModel;
 
 namespace MapHive.Server.Core.DataModel
@@ -131,6 +133,61 @@ namespace MapHive.Server.Core.DataModel
             }
 
             return output;
+        }
+
+        /// <summary>
+        /// Adds a member to an organisation
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="user"></param>
+        /// <param name="userAccountService"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public async Task AddOrganisationUser<TAccount>(DbContext dbCtx, MapHiveUser user, UserAccountService<TAccount> userAccountService, OrganisationRole role = OrganisationRole.Member)
+            where TAccount : RelationalUserAccount
+        {
+            this.AddLink(user);
+            await this.UpdateAsync(dbCtx);
+
+            //by default assign a member role to a user
+            var memberRole = await this.GetOrgRoleAsync(dbCtx, role);
+
+            user.AddLink(memberRole);
+            await user.UpdateAsync(dbCtx, userAccountService);
+        }
+
+        /// <summary>
+        /// Changes a user role within the organisation
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="user"></param>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public async Task ChangeOrganisationUserRole(DbContext dbCtx, MapHiveUser user, OrganisationRole role)
+        {
+            //this basically needs to remove all the org roles for a user and add the specified one
+            var ownerRole = await GetOrgOwnerRoleAsync(dbCtx);
+            var adminRole = await GetOrgAdminRoleAsync(dbCtx);
+            var memberRole = await GetOrgMemberRoleAsync(dbCtx);
+
+            var addRole = memberRole;
+            switch (role)
+            {
+                case OrganisationRole.Admin:
+                    addRole = adminRole;
+                    break;
+                case OrganisationRole.Owner:
+                    addRole = ownerRole;
+                    break;
+            }
+
+            user.RemoveLink(ownerRole);
+            user.RemoveLink(adminRole);
+            user.RemoveLink(memberRole);
+
+            user.AddLink(addRole);
+
+            await user.UpdateAsync(dbCtx);
         }
     }
 }

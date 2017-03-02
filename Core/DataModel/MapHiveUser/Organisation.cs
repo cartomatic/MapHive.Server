@@ -38,7 +38,7 @@ namespace MapHive.Server.Core.DataModel
             //tie the org to a user
             UserOrgId = org.Uuid;
             org.AddLink(this);
-            this.AddLink(await org.GetRoleOwnerAsync(dbCtx));
+            this.AddLink(await org.GetOrgOwnerRoleAsync(dbCtx));
             await this.UpdateAsync(dbCtx, userAccountService);
 
             //step 2 - update org slug; now the validation should not complain

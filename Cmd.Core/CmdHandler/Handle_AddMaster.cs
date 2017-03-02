@@ -96,7 +96,7 @@ namespace MapHive.Server.Cmd.Core
                 await org.UpdateAsync(ctx);
 
                 //assing the master org owner role to a user
-                var orgOwnerR = await org.GetRoleOwnerAsync(ctx);
+                var orgOwnerR = await org.GetOrgOwnerRoleAsync(ctx);
                 user.AddLink(orgOwnerR);
                 
 

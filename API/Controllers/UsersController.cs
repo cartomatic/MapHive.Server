@@ -27,7 +27,14 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /users
+        /// <summary>
+        /// Gets a list of users
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<MapHiveUser>))]
@@ -37,7 +44,11 @@ namespace MapHive.Server.API.Controllers
             return await base.GetAsync(sort, filter, start, limit);
         }
 
-        // GET: /users/5
+        /// <summary>
+        /// Gets a user by id
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(MapHiveUser))]
         [Route("{uuid}")]
@@ -46,7 +57,12 @@ namespace MapHive.Server.API.Controllers
             return await base.GetAsync(uuid);
         }
 
-        // PUT: /users/5
+        /// <summary>
+        /// Updates a user
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(MapHiveUser))]
@@ -68,7 +84,11 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
-        // POST: /users
+        /// <summary>
+        /// Creates a user
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(MapHiveUser))]
@@ -77,7 +97,11 @@ namespace MapHive.Server.API.Controllers
             return await HandleUserCreate(obj);
         }
 
-        // POST: /users
+        /// <summary>
+        /// Creates a maphive account
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [ImpersonateGhostUser]
         [HttpPost]
@@ -113,7 +137,12 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
-        // DELETE: /users/5
+        /// <summary>
+        /// Deletes a maphive user. default behavior is to mark an account as not active. the deletion does not take place.
+        /// this may be adjusted in custom code of course.
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(MapHiveUser))]
