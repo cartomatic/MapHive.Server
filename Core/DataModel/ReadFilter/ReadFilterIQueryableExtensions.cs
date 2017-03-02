@@ -45,8 +45,7 @@ namespace MapHive.Server.Core.DataModel
             foreach (var filter in filters)
             {
                 var filterExpression = GetFilterExpression(filter, targetType, paramExp);
-
-                //Note: if a guid is being tested, then 
+                
 
                 //Note:
                 //filter expression now has to be joined with previous filters BUT ONLY IF filter is not flagged with the ExactMatch. In such case this such filter is supposed
@@ -90,6 +89,9 @@ namespace MapHive.Server.Core.DataModel
             //finally assemble the where body; this would translate to something like Where(p => Filtering expression for p value)
             var whereBody = Expression.Call(typeof(Queryable), "Where", new[] {targetType}, targetAsConstant,
                 containsLambda);
+
+            //debug
+            //var test = whereBody.ToString();
 
             // Return query with filter expressions
             return query.Provider.CreateQuery<T>(whereBody);
@@ -335,6 +337,20 @@ namespace MapHive.Server.Core.DataModel
             if (filterExpression == null)
                 throw new BadRequestException(
                     $"Filter operator: {filter.Operator} for type: {filter.Value.GetType()} is not implemented (property: {propertyToFilterBy.Name} should be {propertyToFilterBy.PropertyType})");
+
+
+            //check if there are nested filters and process them the same way as itself!
+            if (filter.NestedFilters?.Count > 0)
+            {
+                foreach (var nestedFilter in filter.NestedFilters)
+                {
+                    var nested = GetFilterExpression(nestedFilter, targetType, paramExp);
+                    filterExpression =
+                        filter.AndJoin
+                            ? Expression.AndAlso(filterExpression, nested)
+                            : Expression.OrElse(filterExpression, nested);
+                }
+            }
 
             return filterExpression;
         }

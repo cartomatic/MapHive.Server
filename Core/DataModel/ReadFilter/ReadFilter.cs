@@ -27,5 +27,17 @@ namespace MapHive.Server.Core.DataModel
         /// Support for SINGLE param db function to be called when filtering the data. the name of the function should be as defined in the System.Data.Entity.DbFunctions
         /// </summary>
         public string DbFn { get; set; }
+
+
+        /// <summary>
+        /// by default nested filters are joined using OR operator. When set to true this becomes AND
+        /// </summary>
+        public bool AndJoin { get; set; }
+
+        /// <summary>
+        /// nested filters that form one condtintion; because the default filter behavior is just joining all the filters in the greedy way (OR), using nested filters
+        /// makes sense when used with ExactMatch. this way it is possible to provide filters such as (some filter AND (some other filter OR another one) AND so on...) AND other filters
+        /// </summary>
+        public List<ReadFilter> NestedFilters { get; set; }
     }
 }
