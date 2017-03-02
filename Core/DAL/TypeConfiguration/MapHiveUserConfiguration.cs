@@ -30,6 +30,8 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
             Property(p => p.ProfilePictureId).HasColumnName("profile_picture_id");
             Property(p => p.IsOrgUser).HasColumnName("is_org_user");
             Property(p => p.UserOrgId).HasColumnName("user_org_id");
+            Property(p => p.VisibleInCatalogue).HasColumnName("visible_in_catalogue");
+            Property(p => p.ParentOrganisationId).HasColumnName("parent_org_id");
 
             Property(en => en.Slug)
                 .HasColumnAnnotation(

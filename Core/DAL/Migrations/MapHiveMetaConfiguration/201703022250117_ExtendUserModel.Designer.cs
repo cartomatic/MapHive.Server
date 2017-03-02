@@ -13,7 +13,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
         
         string IMigrationMetadata.Id
         {
-            get { return "201703021103488_ExtendUserModel"; }
+            get { return "201703022250117_ExtendUserModel"; }
         }
         
         string IMigrationMetadata.Source

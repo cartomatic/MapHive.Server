@@ -76,6 +76,7 @@ namespace MapHive.Server.API.Controllers
         {
             //this is an org user, so needs to be flagged as such!
             user.IsOrgUser = true;
+            user.ParentOrganisationId = OrganisationId;
 
             try
             {

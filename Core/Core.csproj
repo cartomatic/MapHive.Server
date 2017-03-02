@@ -165,9 +165,9 @@
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201702121531145_orgIdentifierAddedToUser.Designer.cs">
       <DependentUpon>201702121531145_orgIdentifierAddedToUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201703021103488_ExtendUserModel.cs" />
-    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201703021103488_ExtendUserModel.Designer.cs">
-      <DependentUpon>201703021103488_ExtendUserModel.cs</DependentUpon>
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201703022250117_ExtendUserModel.cs" />
+    <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\201703022250117_ExtendUserModel.Designer.cs">
+      <DependentUpon>201703022250117_ExtendUserModel.cs</DependentUpon>
     </Compile>
     <Compile Include="DAL\Migrations\MapHiveMetaConfiguration\Configuration.cs" />
     <Compile Include="DAL\Seed\MapHiveMeta\SeedEmailLocalisations.cs" />
@@ -368,8 +368,8 @@
     <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201702121531145_orgIdentifierAddedToUser.resx">
       <DependentUpon>201702121531145_orgIdentifierAddedToUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201703021103488_ExtendUserModel.resx">
-      <DependentUpon>201703021103488_ExtendUserModel.cs</DependentUpon>
+    <EmbeddedResource Include="DAL\Migrations\MapHiveMetaConfiguration\201703022250117_ExtendUserModel.resx">
+      <DependentUpon>201703022250117_ExtendUserModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

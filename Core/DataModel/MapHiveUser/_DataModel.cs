@@ -63,6 +63,10 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         public bool IsOrgUser { get; set; }
 
+        /// <summary>
+        /// If a user is an organisation user, this property contains an identifier of an organisation he was created under.
+        /// </summary>
+        public Guid? ParentOrganisationId { get; set; }
 
         /// <summary>
         /// Whether or not a user should be visible in the users catalogue; By default, when a user is an OrgUser ('belongs' to an organisation) he is not visible in the catalogue
