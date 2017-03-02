@@ -63,6 +63,14 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         public bool IsOrgUser { get; set; }
 
+
+        /// <summary>
+        /// Whether or not a user should be visible in the users catalogue; By default, when a user is an OrgUser ('belongs' to an organisation) he is not visible in the catalogue
+        /// setting this property to true will cause the user will become findable in the catalogue.
+        /// </summary>
+        public bool VisibleInCatalogue { get; set; }
+
+
         /// <summary>
         /// identifier of an organisation that is connected to user profile
         /// </summary>
