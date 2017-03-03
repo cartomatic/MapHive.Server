@@ -79,5 +79,11 @@ namespace MapHive.Server.Core.DataModel
         /// identifier of an organisation that is connected to user profile
         /// </summary>
         public Guid? UserOrgId { get; set; }
+
+
+        /// <summary>
+        /// a role within an organisation. this property is not db mapped as its content depends on the orgsanisation context
+        /// </summary>
+        public Organisation.OrganisationRole? OrganisationRole { get; set; }
     }
 }

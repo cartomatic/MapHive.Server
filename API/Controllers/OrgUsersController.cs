@@ -46,7 +46,27 @@ namespace MapHive.Server.API.Controllers
         public async Task<IHttpActionResult> Get(Guid OrganisationId, string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await GetOrganisationAssets<MapHiveUser>(sort, filter, start, limit);
+            try
+            {
+                var users = await OrganisationContext.GetOrganisationAssets<MapHiveUser>(_dbCtx, sort, filter, start, limit);
+                if (users == null)
+                    return NotFound();
+
+                var roles2users = await OrganisationContext.GetOrgRoles2UsersMap(_dbCtx);
+
+                foreach (var user in users.Item1)
+                {
+                    user.OrganisationRole = OrganisationContext.GetUserOrgRole(roles2users, user.Uuid);
+                }
+
+                AppendTotalHeader(users.Item2);
+                return Ok(users.Item1);
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+            
         }
 
         /// <summary>

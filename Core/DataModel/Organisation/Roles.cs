@@ -166,6 +166,16 @@ namespace MapHive.Server.Core.DataModel
         }
 
         /// <summary>
+        /// Gets OrgRoles
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Role>> GetOrgRolesAsync(DbContext dbCtx)
+        {
+            return (await this.GetChildrenAsync<Organisation, Role>(dbCtx)).Where(r => r.Identifier == OrgRoleIdentifierOwner || r.Identifier == OrgRoleIdentifierAdmin || r.Identifier == OrgRoleIdentifierMember);
+        }
+
+        /// <summary>
         /// Determines if a user is an org member (is assigned to an org)
         /// </summary>
         /// <param name="dbctx"></param>
@@ -196,6 +206,68 @@ namespace MapHive.Server.Core.DataModel
         public async Task<bool> IsOrgAdmin(DbContext dbctx, MapHiveUser user)
         {
             return await user.HasChildLinkAsync(dbctx, await GetOrgAdminRoleAsync(dbctx));
+        }
+
+        /// <summary>
+        /// Gets a type of OrgRole from role
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public OrganisationRole? GetOrgRoleFromRole(Role role)
+        {
+            if (role.Identifier == OrgRoleIdentifierMember)
+                return OrganisationRole.Member;
+            if (role.Identifier == OrgRoleIdentifierAdmin)
+                return OrganisationRole.Admin;
+            if (role.Identifier == OrgRoleIdentifierOwner)
+                return OrganisationRole.Owner;
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a mapping between org roles and users
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<OrganisationRole, IEnumerable<Link>>> GetOrgRoles2UsersMap(DbContext dbCtx)
+        {
+            //need to obtain a user role within an organisation!
+            //so need the orgroles first, and then user ids linked to them
+            var roles = await GetOrgRolesAsync(dbCtx);
+
+            var roles2users = new Dictionary<OrganisationRole, IEnumerable<Link>>();
+
+            foreach (var role in roles)
+            {
+                var orgRole = GetOrgRoleFromRole(role);
+                if (orgRole.HasValue)
+                {
+                    roles2users.Add(orgRole.Value, await role.GetParentLinksAsync<Role, MapHiveUser>(dbCtx));
+                }
+            }
+
+            return roles2users;
+        }
+
+
+        /// <summary>
+        /// Works out a user role within an organisation
+        /// </summary>
+        /// <param name="roles2users"></param>
+        /// <returns></returns>
+        public OrganisationRole? GetUserOrgRole(Dictionary<OrganisationRole, IEnumerable<Link>> roles2users, Guid userId)
+        {
+            //Note: roles are linked to users not the other way round; it is a user that has a role
+
+            //check owner firs
+            if(roles2users[OrganisationRole.Owner].Any(l => l.ParentUuid == userId))
+                return OrganisationRole.Owner;
+            if (roles2users[OrganisationRole.Admin].Any(l => l.ParentUuid == userId))
+                return OrganisationRole.Admin;
+            if (roles2users[OrganisationRole.Member].Any(l => l.ParentUuid == userId))
+                return OrganisationRole.Member;
+
+            return null;
         }
     }
 }

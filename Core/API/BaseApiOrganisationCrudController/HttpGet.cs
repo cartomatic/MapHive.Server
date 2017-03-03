@@ -18,28 +18,6 @@ namespace MapHive.Server.Core.API
         where TDbCtx : DbContext, new()
     {
         /// <summary>
-        /// Gets links expressing organisation objects
-        /// </summary>
-        /// <typeparam name="TChild"></typeparam>
-        /// <param name="dbCtx"></param>
-        /// <returns></returns>
-        protected async Task<IEnumerable<Link>> GetOrganisationLinksAsync<TChild>()
-            where TChild : Base
-        {
-            return await OrganisationContext.GetChildLinksAsync<Organisation, TChild>(_dbCtx);
-        }
-
-        /// <summary>
-        /// gets a list of organisations object ids
-        /// </summary>
-        /// <returns></returns>
-        protected async Task<IEnumerable<Guid>> GetOrganisationObjectIdsAsync<TChild>()
-            where TChild : Base
-        {
-            return (await GetOrganisationLinksAsync<TChild>()).Select(l => l.ChildUuid);
-        }
-
-        /// <summary>
         /// Peforms an equivalent of a standard crud Read controller but for organisation objects. such objects must be explicitly linked to an organisation object in order to be retrievable
         /// </summary>
         /// <typeparam name="TChild"></typeparam>
@@ -55,27 +33,12 @@ namespace MapHive.Server.Core.API
         {
             try
             {
-                //first need to get objects for an organisation, and then add an extra filter with object guids
-                var orgObjIds = await GetOrganisationObjectIdsAsync<TChild>();
-                var filters = filter.ExtJsJsonFiltersToReadFilters();
-
-                filters.Add(
-                    new ReadFilter
-                    {
-                        Property = "Uuid",
-                        Value = orgObjIds.AsReadFilterList(),
-                        Operator = "in",
-                        ExactMatch = true
-                    }
-                );
-
-                var obj = (T) Activator.CreateInstance(typeof(T));
-                var objects = await obj.ReadAsync(_dbCtx, sort.ExtJsJsonSortersToReadSorters(), filters, start, limit);
-
-                if (objects.Any())
+                var assets = await OrganisationContext.GetOrganisationAssets<TChild>(_dbCtx, sort, filter, start, limit);
+                
+                if (assets != null)
                 {
-                    AppendTotalHeader(await obj.ReadCountAsync(_dbCtx, filters));
-                    return Ok(objects);
+                    AppendTotalHeader(assets.Item2);
+                    return Ok(assets.Item1);
                 }
 
                 return NotFound();
@@ -97,11 +60,11 @@ namespace MapHive.Server.Core.API
         {
             try
             {
-                var orgObjIds = await GetOrganisationObjectIdsAsync<TChild>();
-                if (!orgObjIds.Contains(uuid))
-                    return BadRequest();
+                var asset = await OrganisationContext.GetOrganisationAsset<TChild>(_dbCtx, uuid);
+                if (asset == null)
+                    return NotFound();
 
-                return await base.GetAsync(uuid);
+                return Ok(asset);
             }
             catch (Exception ex)
             {
