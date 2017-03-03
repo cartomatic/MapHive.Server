@@ -179,24 +179,31 @@ namespace MapHive.Server.API.Controllers
         /// Links a user to an organisation
         /// </summary>
         /// <param name="organisationId"></param>
-        /// <param name="userId"></param>
+        /// <param name="uuid"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("link")]
+        [Route("link/{uuid}")]
         [ResponseType(typeof(MapHiveUser))]
-        public async Task<IHttpActionResult> UnLink(Guid organisationId, Guid userId)
+        public async Task<IHttpActionResult> UnLink(Guid organisationId, Guid uuid)
         {
             try
             {
                 //get a user an make sure he is not an org user!
-                var user = await new MapHiveUser().ReadAsync(_dbCtx, userId);
-                if (user == null || user.IsOrgUser && user.ParentOrganisationId == organisationId)
-                    return BadRequest();
+                var user = await new MapHiveUser().ReadAsync(_dbCtx, uuid);
+                if (
+                    user == null || (user.IsOrgUser && user.ParentOrganisationId == organisationId)
+                    || user.UserOrgId == organisationId //also avoid removing own org of a user!
+                )
+                    throw MapHive.Server.Core.DataModel.Validation.Utils.GenerateValidationFailedException(nameof(MapHiveUser), MapHive.Server.Core.DataModel.Validation.ValidationErrors.OrgOwnerDestroyError);
+                        
 
 
                 //not providing a user role will effectively wipe out user assignment
                 user.OrganisationRole = null;
                 await this.OrganisationContext.ChangeOrganisationUserRole(_dbCtx, user, CustomUserAccountService.GetInstance("MapHiveMbr"));
+
+                OrganisationContext.RemoveLink(user);
+                await OrganisationContext.UpdateAsync(_dbCtx);
 
                 return Ok();
             }

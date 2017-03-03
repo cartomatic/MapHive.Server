@@ -55,5 +55,10 @@ namespace MapHive.Server.Core.DataModel.Validation
             Message = "Unknown error."
         };
 
+        public static IValidationError OrgOwnerDestroyError { get; } = new ValidationError
+        {
+            Code = "org_owner_destroy",
+            Message = "This user is an organisation owner and cannot be destroyed this way. You need to perform the op by destroying the organisation."
+        };
     }
 }

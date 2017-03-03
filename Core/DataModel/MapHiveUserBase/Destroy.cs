@@ -30,6 +30,13 @@ namespace MapHive.Server.Core.DataModel
             return await obj.DestroyAsync<T, TAccount>(dbCtx, userAccountService, uuid);
         }
 
+        public static async Task<T> DestroyAsync<T, TAccount>(this T obj, DbContext dbCtx, UserAccountService<TAccount> userAccountService)
+            where T : MapHiveUserBase
+            where TAccount : RelationalUserAccount
+        {
+            return await obj.DestroyAsync<T, TAccount>(dbCtx, userAccountService, obj.Uuid);
+        }
+
     }
 
     public abstract partial class MapHiveUserBase

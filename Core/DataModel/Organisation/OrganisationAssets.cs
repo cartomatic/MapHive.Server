@@ -50,6 +50,11 @@ namespace MapHive.Server.Core.DataModel
         {
             //first need to get objects for an organisation, and then add an extra filter with object guids
             var orgObjIds = await GetOrganisationObjectIdsAsync<TChild>(dbCtx);
+
+            //do make sure there is something to read!
+            if (!orgObjIds.Any())
+                return null;
+
             var filters = filter.ExtJsJsonFiltersToReadFilters();
 
             filters.Add(

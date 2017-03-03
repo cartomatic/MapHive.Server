@@ -324,7 +324,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserConfiguration\IUserConfiguration.cs" />
     <Compile Include="UserConfiguration\MapHiveCoreUserConfiguration.cs" />
-    <Compile Include="UserConfiguration\UserConfigurationReader.cs" />
+    <Compile Include="Utils\UserConfigurationReader.cs" />
     <Compile Include="Utils\Identity.cs" />
     <Compile Include="Utils\Reflection.cs" />
     <Compile Include="WebClientConfiguration\Read.cs" />

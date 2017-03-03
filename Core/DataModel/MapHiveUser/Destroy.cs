@@ -25,7 +25,11 @@ namespace MapHive.Server.Core.DataModel
             if (!IsOrgUser)
             {
                 var org = await GetUserOrganisationAsync(dbCtx);
-                await org.DestroyAsync(dbCtx);
+                //assume there may be some orphans floating around. at east during the dev...
+                if (org != null)
+                {
+                    await org.DestroyAsync(dbCtx);
+                }
             }
 
             return await base.DestroyAsync<T, TAccount>(dbCtx, userAccountService, uuid);

@@ -148,15 +148,14 @@ namespace MapHive.Server.API.Controllers
         [ResponseType(typeof(MapHiveUser))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            //all stuff is instance based, so need to obtain one first
-            var obj = new MapHiveUser();
-
+            
             try
             {
-                obj = await obj.DestroyAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
-
-                if (obj != null)
+                var user = await (new MapHiveUser()).ReadAsync(_dbCtx, uuid);
+                
+                if (user != null)
                 {
+                    await user.DestroyAsync(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"));
                     return StatusCode(HttpStatusCode.NoContent);
                 }
                 else
