@@ -15,7 +15,8 @@ namespace MapHive.Server.Core.API.Filters
     {
         public const string OrgCtxPropertyName = "OrganisationContext";
 
-        public const string OrgIdPropertyName = "OrganisationId";
+        //lower case here, so method params do not get underlined by r#
+        public const string OrgIdPropertyName = "organisationId";
 
 
         /// <summary>
@@ -26,15 +27,20 @@ namespace MapHive.Server.Core.API.Filters
         /// <returns></returns>
         public override async Task OnActionExecutingAsync(HttpActionContext actionContext, CancellationToken cancellationToken)
         {
-            var orgId = (Guid) actionContext.ActionArguments[OrgIdPropertyName];
-            actionContext.Request.Properties.Add(OrgIdPropertyName, orgId);
-
-            using (var dbCtx = new MapHiveDbContext())
+            //extracting data only if key present in the action params will let controllers flagged with org ctx attribute to work without the org ctx if needed
+            //org ctx getters will trhow though if one tries to obtain the ctx in such scenario
+            if (actionContext.ActionArguments.ContainsKey(OrgIdPropertyName))
             {
-                actionContext.Request.Properties.Add(OrgCtxPropertyName, await dbCtx.Organisations.FirstOrDefaultAsync(o=>o.Uuid == orgId, cancellationToken));
-            }
+                var orgId = (Guid)actionContext.ActionArguments[OrgIdPropertyName];
+                actionContext.Request.Properties.Add(OrgIdPropertyName, orgId);
 
-            await base.OnActionExecutingAsync(actionContext, cancellationToken);
+                using (var dbCtx = new MapHiveDbContext())
+                {
+                    actionContext.Request.Properties.Add(OrgCtxPropertyName, await dbCtx.Organisations.FirstOrDefaultAsync(o => o.Uuid == orgId, cancellationToken));
+                }
+
+                await base.OnActionExecutingAsync(actionContext, cancellationToken);
+            }
         }
     }
 }

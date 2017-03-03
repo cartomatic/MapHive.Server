@@ -126,7 +126,7 @@ namespace MapHive.Server.Core.DataModel
             //no point in multiplying the removed uuids. even though it would work just fine
             if (obj.Links.Destroy.All(d => d != child.Uuid))
             {
-                obj.Links.Destroy.Add(obj.Uuid);
+                obj.Links.Destroy.Add(child.Uuid);
             }
 
             //also make sure to remove a link from Upsert collection if it exists there

@@ -161,9 +161,10 @@ namespace MapHive.Server.Core.DataModel
         /// </summary>
         /// <param name="dbCtx"></param>
         /// <param name="user"></param>
-        /// <param name="role"></param>
+        /// <param name="userAccountService"></param>
         /// <returns></returns>
-        public async Task ChangeOrganisationUserRole(DbContext dbCtx, MapHiveUser user, OrganisationRole role)
+        public async Task ChangeOrganisationUserRole<TAccount>(DbContext dbCtx, MapHiveUser user, UserAccountService<TAccount> userAccountService)
+            where TAccount : RelationalUserAccount
         {
             //this basically needs to remove all the org roles for a user and add the specified one
             var ownerRole = await GetOrgOwnerRoleAsync(dbCtx);
@@ -171,7 +172,7 @@ namespace MapHive.Server.Core.DataModel
             var memberRole = await GetOrgMemberRoleAsync(dbCtx);
 
             var addRole = memberRole;
-            switch (role)
+            switch (user.OrganisationRole)
             {
                 case OrganisationRole.Admin:
                     addRole = adminRole;
@@ -185,9 +186,12 @@ namespace MapHive.Server.Core.DataModel
             user.RemoveLink(adminRole);
             user.RemoveLink(memberRole);
 
-            user.AddLink(addRole);
+            if (user.OrganisationRole.HasValue)
+            {
+                user.AddLink(addRole);
+            }
 
-            await user.UpdateAsync(dbCtx);
+            await user.UpdateAsync(dbCtx, userAccountService);
         }
     }
 }

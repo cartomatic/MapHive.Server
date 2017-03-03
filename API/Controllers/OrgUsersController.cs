@@ -34,7 +34,7 @@ namespace MapHive.Server.API.Controllers
         /// <summary>
         /// returns a list of organisation users
         /// </summary>
-        /// <param name="OrganisationId"></param>
+        /// <param name="organisationId"></param>
         /// <param name="sort"></param>
         /// <param name="filter"></param>
         /// <param name="start"></param>
@@ -43,7 +43,7 @@ namespace MapHive.Server.API.Controllers
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<MapHiveUser>))]
-        public async Task<IHttpActionResult> Get(Guid OrganisationId, string sort = null, string filter = null, int start = 0,
+        public async Task<IHttpActionResult> Get(Guid organisationId, string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
             try
@@ -72,13 +72,13 @@ namespace MapHive.Server.API.Controllers
         /// <summary>
         /// gets a user by id
         /// </summary>
-        /// <param name="OrganisationId"></param>
+        /// <param name="organisationId"></param>
         /// <param name="uuid"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(MapHiveUser))]
         [Route("{uuid}")]
-        public async Task<IHttpActionResult> Get(Guid OrganisationId, Guid uuid)
+        public async Task<IHttpActionResult> Get(Guid organisationId, Guid uuid)
         {
             return await GetOrganisationAsset<MapHiveUser>(uuid);
         }
@@ -87,16 +87,17 @@ namespace MapHive.Server.API.Controllers
         /// <summary>
         /// Creates an OrgUser for the organisation. Links the user to the org with the default org member role
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="organisationId"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(MapHiveUser))]
-        public async Task<IHttpActionResult> Post(Guid OrganisationId, MapHiveUser user)
+        public async Task<IHttpActionResult> Post(Guid organisationId, MapHiveUser user)
         {
             //this is an org user, so needs to be flagged as such!
             user.IsOrgUser = true;
-            user.ParentOrganisationId = OrganisationId;
+            user.ParentOrganisationId = organisationId;
 
             try
             {
@@ -119,20 +120,83 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
-
         /// <summary>
         /// Links a user to an organisation
         /// </summary>
+        /// <param name="organisationId"></param>
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("link")]
         [ResponseType(typeof(MapHiveUser))]
-        public async Task<IHttpActionResult> Link(Guid OrganisationId, MapHiveUser user)
+        public async Task<IHttpActionResult> Link(Guid organisationId, MapHiveUser user)
         {
             try
             {
                 await this.OrganisationContext.AddOrganisationUser(_dbCtx, user, CustomUserAccountService.GetInstance("MapHiveMbr"));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Updates a user
+        /// </summary>
+        /// <param name="organisationId"></param>
+        /// <param name="user"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("{uuid}")]
+        [ResponseType(typeof(MapHiveUser))]
+        public async Task<IHttpActionResult> Put(Guid organisationId, MapHiveUser user, Guid uuid)
+        {
+            try
+            {
+                var entity = await user.UpdateAsync<MapHiveUser, CustomUserAccount>(_dbCtx, CustomUserAccountService.GetInstance("MapHiveMbr"), uuid);
+
+                if (entity != null)
+                {
+                    //once the user has been updated, need to update its role within an org too
+                    await this.OrganisationContext.ChangeOrganisationUserRole(_dbCtx, user, CustomUserAccountService.GetInstance("MapHiveMbr"));
+
+                    return Ok(entity);
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return this.HandleException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Links a user to an organisation
+        /// </summary>
+        /// <param name="organisationId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("link")]
+        [ResponseType(typeof(MapHiveUser))]
+        public async Task<IHttpActionResult> UnLink(Guid organisationId, Guid userId)
+        {
+            try
+            {
+                //get a user an make sure he is not an org user!
+                var user = await new MapHiveUser().ReadAsync(_dbCtx, userId);
+                if (user == null || user.IsOrgUser && user.ParentOrganisationId == organisationId)
+                    return BadRequest();
+
+
+                //not providing a user role will effectively wipe out user assignment
+                user.OrganisationRole = null;
+                await this.OrganisationContext.ChangeOrganisationUserRole(_dbCtx, user, CustomUserAccountService.GetInstance("MapHiveMbr"));
 
                 return Ok();
             }

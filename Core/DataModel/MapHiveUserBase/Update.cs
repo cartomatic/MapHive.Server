@@ -70,6 +70,10 @@ namespace MapHive.Server.Core.DataModel
         {
             T output;
 
+            //reassign guid - it usually comes through rest api, so not always present on the object itself
+            //this is usually done at the base lvl, but need proper id for the user validation!
+            Uuid = uuid;
+
             //need to validate the model first
             await ValidateAsync(dbCtx);
 
