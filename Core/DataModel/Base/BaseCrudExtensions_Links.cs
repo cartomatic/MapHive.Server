@@ -719,5 +719,49 @@ namespace MapHive.Server.Core.DataModel
                         l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid);
         }
 
+
+        /// <summary>
+        /// returns a child link by id
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <param name="childId"></param>
+        /// <returns></returns>
+        public static async Task<Link> GetChildLinkAsync<T>(this T obj, DbContext dbCtx, Guid childId)
+        where T : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return null;
+
+            return
+                await iLinksDb.Links.FirstOrDefaultAsync(
+                    l =>
+                        l.ParentTypeUuid == obj.TypeUuid && l.ParentUuid == obj.Uuid &&
+                        l.ChildUuid == childId);
+        }
+
+        /// <summary>
+        /// gets parent link by id
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="dbCtx"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public static async Task<Link> GetParentLinkAsync<T>(this T obj, DbContext dbCtx, Guid parentId)
+        where T : Base
+        {
+            var iLinksDb = Base.GetLinksDbContext(dbCtx);
+            if (iLinksDb == null) return null;
+
+            return
+                await iLinksDb.Links.FirstOrDefaultAsync(
+                    l =>
+                        l.ChildTypeUuid == obj.TypeUuid && l.ChildUuid == obj.Uuid &&
+                        l.ParentUuid == parentId);
+        }
+
     }
 }

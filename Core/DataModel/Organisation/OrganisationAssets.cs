@@ -94,5 +94,29 @@ namespace MapHive.Server.Core.DataModel
             var obj = (TChild)Activator.CreateInstance(typeof(TChild));
             return await obj.ReadAsync(dbCtx, uuid);
         }
+
+        /// <summary>
+        /// Checks whether or not an obj is an org asset - is linked to an org
+        /// </summary>
+        /// <typeparam name="TChild"></typeparam>
+        /// <param name="dbCtx"></param>
+        /// <param name="child"></param>
+        /// <returns></returns>
+        public async Task<bool> IsOrganisationAsset<TChild>(DbContext dbCtx, TChild child)
+            where TChild : Base
+        {
+            return (await this.GetChildLinkAsync(dbCtx, child)) != null;
+        }
+
+        /// <summary>
+        /// whether or not an org has a link of given uuid
+        /// </summary>
+        /// <param name="dbCtx"></param>
+        /// <param name="childId"></param>
+        /// <returns></returns>
+        public async Task<bool> IsOrganisationAsset(DbContext dbCtx, Guid childId)
+        {
+            return (await this.GetChildLinkAsync(dbCtx, childId)) != null;
+        }
     }
 }

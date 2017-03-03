@@ -124,6 +124,9 @@
     <Compile Include="API\BaseApiCrudController\HttpDelete.cs" />
     <Compile Include="API\BaseApiCrudController\IDtoUtils.cs" />
     <Compile Include="API\BaseApiCrudController\_Blank.cs" />
+    <Compile Include="API\BaseApiOrganisationCrudController\HttpPost.cs" />
+    <Compile Include="API\BaseApiOrganisationCrudController\HttpPut.cs" />
+    <Compile Include="API\BaseApiOrganisationCrudController\HttpDelete.cs" />
     <Compile Include="API\BaseApiOrganisationCrudController\Organisation.cs" />
     <Compile Include="API\BaseApiOrganisationCrudController\HttpGet.cs" />
     <Compile Include="API\BaseApiOrganisationCrudController\_Blank.cs" />
