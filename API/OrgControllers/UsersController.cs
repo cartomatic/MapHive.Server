@@ -17,16 +17,16 @@ using MapHive.Server.Core.DAL.DbContext;
 using MapHive.Server.Core.DAL.Interface;
 using MapHive.Server.Core.Email;
 
-namespace MapHive.Server.API.Controllers
+namespace MapHive.Server.API.OrgControllers
 {
     /// <summary>
     /// Organisation users controller - allows for reading users scoped within an organisation
     /// </summary>
     [RoutePrefix("organisations/{" + OrganisationContextAttribute.OrgIdPropertyName + "}/users")]
-    public class OrgUsersController : BaseApiOrganisatinCrudController<MapHiveUser, MapHiveDbContext>
+    public class UsersController : BaseApiOrganisatinCrudController<MapHiveUser, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
-        public OrgUsersController()
+        public UsersController()
             : base("MapHiveMeta")
         {
         }
@@ -80,7 +80,7 @@ namespace MapHive.Server.API.Controllers
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid organisationId, Guid uuid)
         {
-            return await GetOrganisationAsset<MapHiveUser>(uuid);
+            return await GetAsync(uuid);
         }
 
 

@@ -20,20 +20,18 @@ namespace MapHive.Server.Core.API
         /// <summary>
         /// Peforms an equivalent of a standard crud Read controller but for organisation objects. such objects must be explicitly linked to an organisation object in order to be retrievable
         /// </summary>
-        /// <typeparam name="TChild"></typeparam>
         /// <param name="sort"></param>
         /// <param name="filter"></param>
         /// <param name="start"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> GetOrganisationAssets<TChild>(string sort = null, string filter = null,
+        public async Task<IHttpActionResult> GetAsync(string sort = null, string filter = null,
             int start = 0,
             int limit = 25)
-            where TChild : Base
         {
             try
             {
-                var assets = await OrganisationContext.GetOrganisationAssets<TChild>(_dbCtx, sort, filter, start, limit);
+                var assets = await OrganisationContext.GetOrganisationAssets<T>(_dbCtx, sort, filter, start, limit);
                 
                 if (assets != null)
                 {
@@ -52,15 +50,13 @@ namespace MapHive.Server.Core.API
         /// <summary>
         /// Peforms an equivalent of a standard crud controller Read single but for organisation objects. such objects must be explicitly linked to an organisation object in order to be retrievable
         /// </summary>
-        /// <typeparam name="TChild"></typeparam>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public async Task<IHttpActionResult> GetOrganisationAsset<TChild>(Guid uuid)
-            where TChild : Base
+        public async Task<IHttpActionResult> GetAsync(Guid uuid)
         {
             try
             {
-                var asset = await OrganisationContext.GetOrganisationAsset<TChild>(_dbCtx, uuid);
+                var asset = await OrganisationContext.GetOrganisationAsset<T>(_dbCtx, uuid);
                 if (asset == null)
                     return NotFound();
 

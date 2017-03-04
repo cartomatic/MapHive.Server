@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.API
         where T : Base
         where TDbCtx : DbContext, new()
     {
-        public async Task<IHttpActionResult> Post(MapHiveUser obj)
+        public async Task<IHttpActionResult> PostAsync(T obj)
         {
             try
             {

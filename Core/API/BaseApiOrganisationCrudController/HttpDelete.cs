@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.API
         where T : Base
         where TDbCtx : DbContext, new()
     {
-        public async Task<IHttpActionResult> Delete(Guid uuid)
+        public async Task<IHttpActionResult> DeleteAsync(Guid uuid)
         {
             if (await OrganisationContext.IsOrganisationAsset(_dbCtx, uuid))
             {

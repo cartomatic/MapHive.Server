@@ -17,7 +17,7 @@ namespace MapHive.Server.Core.API
         where T : Base
         where TDbCtx : DbContext, new()
     {
-        public async Task<IHttpActionResult> Put(MapHiveUser obj, Guid uuid)
+        public async Task<IHttpActionResult> PutAsync(T obj, Guid uuid)
         {
             if (await OrganisationContext.IsOrganisationAsset(_dbCtx, obj))
             {

@@ -216,7 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\OrganisationsController.cs" />
-    <Compile Include="Controllers\OrgUsersController.cs" />
+    <Compile Include="OrgControllers\TeamsController.cs" />
+    <Compile Include="OrgControllers\UsersController.cs" />
     <Compile Include="SwaggerDocs\SwaggerConfig.cs" />
     <Compile Include="Controllers\AppLocalisationsController.cs" />
     <Compile Include="Controllers\ConfigurationController.cs" />
