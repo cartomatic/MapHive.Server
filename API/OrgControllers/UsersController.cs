@@ -70,7 +70,7 @@ namespace MapHive.Server.API.OrgControllers
         }
 
         /// <summary>
-        /// gets a user by id
+        /// gets an Organisation User by id
         /// </summary>
         /// <param name="organisationId"></param>
         /// <param name="uuid"></param>
@@ -176,7 +176,7 @@ namespace MapHive.Server.API.OrgControllers
         }
 
         /// <summary>
-        /// Links a user to an organisation
+        /// Removes and external user link from an Organisation
         /// </summary>
         /// <param name="organisationId"></param>
         /// <param name="uuid"></param>

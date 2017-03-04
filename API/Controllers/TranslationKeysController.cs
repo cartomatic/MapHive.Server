@@ -28,57 +28,74 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /translationkeys
+        /// <summary>
+        /// Gets a collection of translation keys
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<TranslationKey>))]
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.GetAsync(sort, filter, start, limit);
+            return await GetAsync(sort, filter, start, limit);
         }
 
-        // GET: /translationkeys/5
+        /// <summary>
+        /// Gets a translation key by id
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(TranslationKey))]
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.GetAsync(uuid);
+            return await GetAsync(uuid);
         }
 
-        // PUT: /translationkeys/5
+        /// <summary>
+        /// Updates a translation key
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(TranslationKey))]
         public async Task<IHttpActionResult> Put(TranslationKey obj, Guid uuid)
         {
-            return await base.PutAsync(obj, uuid);
+            return await PutAsync(obj, uuid);
         }
 
-        // POST: /translationkeys
+        /// <summary>
+        /// Creates a new translation key
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(TranslationKey))]
         public async Task<IHttpActionResult> Post(TranslationKey obj)
         {
-            return await base.PostAsync(obj);
+            return await PostAsync(obj);
         }
 
-        // DELETE: /translationkeys/5
+        /// <summary>
+        /// Deletes a translation key
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(TranslationKey))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            try
-            {
-                return await base.DeleteAsync(uuid);
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
+            return await DeleteAsync(uuid);
         }
 
     }

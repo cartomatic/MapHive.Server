@@ -21,6 +21,10 @@ namespace MapHive.Server.API.Controllers
     [RoutePrefix("configuration")]
     public class ConfigurationController : BaseApiController
     {
+        /// <summary>
+        /// Gets a base maphive configuration for an authenticated user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("user")]
         [ResponseType(typeof(IDictionary<string, object>))]
@@ -41,6 +45,10 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets a webclient configuration for maphive apps. returns stuff like url param name, cookie names, header param names and such
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("webclient")]
         [AllowAnonymous]

@@ -40,6 +40,9 @@ namespace MapHive.Server.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Bulk localisations save input
+        /// </summary>
         public class BulkSaveInput
         {
             public bool? Overwrite { get; set; }
@@ -47,6 +50,11 @@ namespace MapHive.Server.API.Controllers
             public LocalisationClass[] AppLocalisations { get; set; }
         }
 
+        /// <summary>
+        /// Saves app localisations in bulk
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("bulksave")]
         [UnmodifiedDictKeyCasingOutputMethod]

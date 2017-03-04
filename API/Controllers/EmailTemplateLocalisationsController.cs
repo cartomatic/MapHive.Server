@@ -22,50 +22,74 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /emailtemplatelocalisations
+        /// <summary>
+        /// Gets a collection of EmailTemplates
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<EmailTemplateLocalisation>))]
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.GetAsync(sort, filter, start, limit);
+            return await GetAsync(sort, filter, start, limit);
         }
 
-        // GET: /emailtemplatelocalisations/5
+        /// <summary>
+        /// Gets EmailTemplate by id
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(EmailTemplateLocalisation))]
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.GetAsync(uuid);
+            return await GetAsync(uuid);
         }
 
-        // PUT: /emailtemplatelocalisations/5
+        /// <summary>
+        /// Updates an EmailTemplate
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Put(EmailTemplateLocalisation obj, Guid uuid)
         {
-            return await base.PutAsync(obj, uuid);
+            return await PutAsync(obj, uuid);
         }
 
-        // POST: /emailtemplatelocalisations
+        /// <summary>
+        /// Creates a new EmailTemplate
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Post(EmailTemplateLocalisation obj)
         {
-            return await base.PostAsync(obj);
+            return await PostAsync(obj);
         }
 
-        // DELETE: /emailtemplatelocalisations/5
+        /// <summary>
+        /// Deletes an EmailTemplate
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(EmailTemplateLocalisation))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.DeleteAsync(uuid);
+            return await DeleteAsync(uuid);
         }
     }
 }

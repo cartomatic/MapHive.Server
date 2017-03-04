@@ -28,57 +28,74 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /localisationclasses
+        /// <summary>
+        /// Gets a collection of LocalisationClasses
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<LocalisationClass>))]
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.GetAsync(sort, filter, start, limit);
+            return await GetAsync(sort, filter, start, limit);
         }
 
-        // GET: /localisationclasses/5
+        /// <summary>
+        /// Gets a LocalisationClass by id
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(LocalisationClass))]
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.GetAsync(uuid);
+            return await GetAsync(uuid);
         }
 
-        // PUT: /localisationclasses/5
+        /// <summary>
+        /// Updates a LocalisationClass
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(LocalisationClass))]
         public async Task<IHttpActionResult> Put(LocalisationClass obj, Guid uuid)
         {
-            return await base.PutAsync(obj, uuid);
+            return await PutAsync(obj, uuid);
         }
 
-        // POST: /localisationclasses
+        /// <summary>
+        /// Creates a LocalisationClass
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(LocalisationClass))]
         public async Task<IHttpActionResult> Post(LocalisationClass obj)
         {
-            return await base.PostAsync(obj);
+            return await PostAsync(obj);
         }
 
-        // DELETE: /localisationclasses/5
+        /// <summary>
+        /// Delets a LocalisationClass
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(LocalisationClass))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            try
-            {
-                return await base.DeleteAsync(uuid);
-            }
-            catch (Exception ex)
-            {
-                return HandleException(ex);
-            }
+            return await DeleteAsync(uuid);
         }
 
     }

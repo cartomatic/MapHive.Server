@@ -22,50 +22,74 @@ namespace MapHive.Server.API.Controllers
         {
         }
 
-        // GET: /langs
+        /// <summary>
+        /// Gets a collection of Langs
+        /// </summary>
+        /// <param name="sort"></param>
+        /// <param name="filter"></param>
+        /// <param name="start"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         [ResponseType(typeof(IEnumerable<Lang>))]
         public async Task<IHttpActionResult> Get(string sort = null, string filter = null, int start = 0,
             int limit = 25)
         {
-            return await base.GetAsync(sort, filter, start, limit);
+            return await GetAsync(sort, filter, start, limit);
         }
 
-        // GET: /langs/5
+        /// <summary>
+        /// Gets Lang by id
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(Lang))]
         [Route("{uuid}")]
         public async Task<IHttpActionResult> Get(Guid uuid)
         {
-            return await base.GetAsync(uuid);
+            return await GetAsync(uuid);
         }
 
-        // PUT: /langs/5
+        /// <summary>
+        /// Updates Lang
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpPut]
         [Route("{uuid}")]
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Put(Lang obj, Guid uuid)
         {
-            return await base.PutAsync(obj, uuid);
+            return await PutAsync(obj, uuid);
         }
 
-        // POST: /langs
+        /// <summary>
+        /// Creates a new Lang
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Post(Lang obj)
         {
-            return await base.PostAsync(obj);
+            return await PostAsync(obj);
         }
 
-        // DELETE: /langs/5
+        /// <summary>
+        /// Deletes Lang
+        /// </summary>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{uuid}")]
         [ResponseType(typeof(Lang))]
         public async Task<IHttpActionResult> Delete(Guid uuid)
         {
-            return await base.DeleteAsync(uuid);
+            return await DeleteAsync(uuid);
         }
 
         /// <summary>
