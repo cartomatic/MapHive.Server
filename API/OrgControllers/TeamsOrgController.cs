@@ -96,5 +96,32 @@ namespace MapHive.Server.API.OrgControllers
         {
             return await DeleteAsync(uuid);
         }
+
+
+
+        [HttpGet]
+        [Route("{uuid}/users")]
+        [ResponseType(typeof(IEnumerable<MapHiveUser>))]
+        public async Task<IHttpActionResult> GetTeamUsers(Guid organisationId, Guid uuid)
+        {
+            try
+            {
+                //grab a team and its users
+                var team = await new Team().ReadAsync(_dbCtx, uuid);
+                if (team == null)
+                    return NotFound();
+
+                var users = await team.GetChildrenAsync<Team, MapHiveUser>(_dbCtx);
+                if (users.Any())
+                    return Ok(users);
+
+                return NotFound();
+
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
     }
 }
