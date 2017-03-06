@@ -23,10 +23,10 @@ namespace MapHive.Server.API.OrgControllers
     /// Organisation users controller - allows for reading users scoped within an organisation
     /// </summary>
     [RoutePrefix("organisations/{" + OrganisationContextAttribute.OrgIdPropertyName + "}/users")]
-    public class UsersController : BaseApiOrganisatinCrudController<MapHiveUser, MapHiveDbContext>
+    public class UsersOrgController : BaseApiOrganisatinCrudController<MapHiveUser, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
-        public UsersController()
+        public UsersOrgController()
             : base("MapHiveMeta")
         {
         }

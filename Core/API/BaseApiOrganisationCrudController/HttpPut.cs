@@ -19,9 +19,9 @@ namespace MapHive.Server.Core.API
     {
         public async Task<IHttpActionResult> PutAsync(T obj, Guid uuid)
         {
-            if (await OrganisationContext.IsOrganisationAsset(_dbCtx, obj))
+            if (await OrganisationContext.IsOrganisationAsset(_dbCtx, uuid))
             {
-                return await base.PostAsync(obj);
+                return await base.PutAsync(obj, uuid);
             }
             return BadRequest();
         }
