@@ -132,6 +132,10 @@ namespace MapHive.Server.Core.DataModel
 
             }
 
+            //if this is a default (dashboard) app a user should ALWAYS BE ABLE TO use it; the default (dashboard) app will take care of handling the context itself
+            if (app.IsDefault)
+                output.CanUseApp = true;
+
             return output;
         }
 

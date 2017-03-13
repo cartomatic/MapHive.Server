@@ -48,8 +48,9 @@ namespace MapHive.Server.Core.DataModel
         public bool IsCommon { get; set; }
 
         /// <summary>
-        /// Whether or not an app;
-        /// a default app is only meaningful in the context of an organisation. This means a default app should be an app that provides some dashboard like functionality
+        /// Whether or not an app is a default app;
+        /// a default app is only meaningful in the context of an organisation.
+        /// This means a default app should be an app that provides some dashboard like functionality
         /// for a user.
         /// Only one appliation can be flagged as Default
         /// </summary>
