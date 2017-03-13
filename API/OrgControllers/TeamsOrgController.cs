@@ -98,7 +98,12 @@ namespace MapHive.Server.API.OrgControllers
         }
 
 
-
+        /// <summary>
+        /// Gets users linked to a team
+        /// </summary>
+        /// <param name="organisationId"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{uuid}/users")]
         [ResponseType(typeof(IEnumerable<MapHiveUser>))]
@@ -114,6 +119,48 @@ namespace MapHive.Server.API.OrgControllers
                 var users = await team.GetChildrenAsync<Team, MapHiveUser>(_dbCtx);
                 if (users.Any())
                     return Ok(users);
+
+                return NotFound();
+
+            }
+            catch (Exception ex)
+            {
+                return HandleException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Gets applications linked to a team
+        /// </summary>
+        /// <param name="organisationId"></param>
+        /// <param name="uuid"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{uuid}/applications")]
+        [ResponseType(typeof(IEnumerable<Application>))]
+        public async Task<IHttpActionResult> GetTeamApplications(Guid organisationId, Guid uuid)
+        {
+            try
+            {
+                //grab a team and its apps
+                var team = await new Team().ReadAsync(_dbCtx, uuid);
+                if (team == null)
+                    return NotFound();
+
+                var apps = await team.GetChildrenAsync<Team, Application>(_dbCtx);
+                if (apps.Any())
+                {
+                    //re-read the links now to obtain the extra links info!
+                    var appLinks = await team.GetChildLinksAsync<Team, Application>(_dbCtx);
+
+                    foreach (var app in apps)
+                    {
+                        app.LinkData = appLinks.First(l => l.ChildUuid == app.Uuid).LinkData;
+                    }
+
+                    return Ok(apps);
+                }
+                    
 
                 return NotFound();
 
