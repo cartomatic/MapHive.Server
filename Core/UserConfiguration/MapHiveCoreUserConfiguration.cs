@@ -11,7 +11,7 @@ using MapHive.Server.Core.DAL.Interface;
 namespace MapHive.Server.Core.UserConfiguration
 {
     /// <summary>
-    /// reads a basic user configuration for a given appllication; returns info on a user and his orgs that have access to the app;
+    /// reads a basic user configuration for a given application; returns info on a user and his orgs that have access to the app;
     /// this basic cfg is then used to work out if an app can start for a user. org info is returned to allow for org-rescope if a current org does not have an access to an app but some other orgs do
     /// this is because after user authentiates he is scoped to a declared org (or if not declared, to his own org). When in standalone mode, it is required to let user use an app scoped to an org that can use it.
     /// further user & spp specific logic is executed by apps themselves
@@ -38,6 +38,12 @@ namespace MapHive.Server.Core.UserConfiguration
             var user = await dbCtx.Users.FirstOrDefaultAsync(u => u.Uuid == userUuid.Value);
             output.Add("user", user);
 
+#if DEBUG
+            output.Add(
+                "UserDescription",
+                "User property contains an authenticated user record; This is a DEBUG ONLY info"
+            );
+#endif
 
             //work out the app that requested the cfg
             //apps as such do not recognise the app url tokens, so need to use a url to match the app
@@ -48,9 +54,15 @@ namespace MapHive.Server.Core.UserConfiguration
                 return output;
             }
 
-            output.Add("app", app);
+            output.Add("App", app);
 
-            
+#if DEBUG
+            output.Add(
+                "AppDescription",
+                "App property contains a record of the application that is being launched; This is a DEBUG ONLY info"
+            );
+#endif
+
             //need to grab user orgs
             var orgs = await user.GetParentsAsync<MapHiveUser, Organisation>(dbCtx);
 
@@ -72,6 +84,13 @@ namespace MapHive.Server.Core.UserConfiguration
                 credentials.OrderByDescending(c => c.Organisation.Uuid == user.UserOrgId)
                     .ToDictionary(c => c.Organisation.Slug, c => new {c.CanUseApp, c.IsAppAdmin})
             );
+
+#if DEBUG
+            output.Add(
+                "AllowedOrgsDescription",
+                "AllowedOrgs property is a dictionary with keys representing slugs of the organisation a user has an access to (this means a user is linked to an org); each key contains 2 properties: canUseApp & isAppAdmin; The first one specifies whether a user can use an application and the second if a user is granted app admin access; This is a DEBUG ONLY info"
+            );
+#endif
 
             return output;
         }
