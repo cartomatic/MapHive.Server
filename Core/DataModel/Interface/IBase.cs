@@ -21,5 +21,7 @@ namespace MapHive.Server.Core.DataModel.Interface
         DateTime? EndDateUtc { get; set; }
 
         ILinksDiff Links { get; set; }
+
+        ILinkData LinkData { get; set; }
     }
 }

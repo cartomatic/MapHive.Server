@@ -33,6 +33,7 @@ namespace MapHive.Server.Core.DAL.TypeConfiguration
 
             entity.Ignore(p => p.TypeUuid);
             entity.Ignore(p => p.Links);
+            entity.Ignore(p => p.LinkData);
 
             entity.Property(en => en.CreateDateUtc)
                 .HasColumnAnnotation(

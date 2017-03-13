@@ -47,5 +47,11 @@ namespace MapHive.Server.Core.DataModel
         /// Object relations defined as set of links; this object is ignored when object is saved and is used only to provide a DIFF of links that should be applied to the db representation
         /// </summary>
         public ILinksDiff Links { get; set; } = new LinksDiff();
+
+
+        /// <summary>
+        /// When an object is used as a link, it may have some extra data; this property is not db mapped, but used for scenarios when such extra information is required
+        /// </summary>
+        public ILinkData LinkData { get; set; }
     }
 }

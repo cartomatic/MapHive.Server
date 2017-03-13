@@ -26,6 +26,8 @@ namespace MapHive.Server.Core.DataModel
         //hide links behind explicit implementation
         ILinksDiff IBase.Links { get; set; }
 
+        ILinkData IBase.LinkData { get; set; }
+
         /// <summary>
         /// Creates an instance of object from a DTO class
         /// </summary>
