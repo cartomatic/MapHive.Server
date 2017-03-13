@@ -17,13 +17,13 @@ namespace MapHive.Server.Core.DataModel
         /// <summary>
         /// Name of the object saved on an App -> Team link that stores team's app access credentials
         /// </summary>
-        public const string AppAccessCredentialsLinkDataObject = "AppAccessCredentials";
+        public const string AppAccessCredentialsLinkDataObject = "app_access_credentials";
 
         /// <summary>
         /// name of the amm admin access key
         /// </summary>
 
-        public const string AppAdminAccess = "AppAdminAccess";
+        public const string AppAdminAccess = "app_admin_access";
 
         /// <summary>
         /// Name of a team
