@@ -18,7 +18,7 @@ namespace MapHive.Server.API
         public void Configuration(IAppBuilder app)
         {
             app.ConfigureMapHiveApi(
-                "1.0", "MapHiveApi",
+                "v1", "MapHiveApi",
                 System.Web.Hosting.HostingEnvironment.MapPath("/bin/MapHive.Server.API.xml")
             );
         }

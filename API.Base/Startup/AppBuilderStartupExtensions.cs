@@ -55,8 +55,6 @@ namespace MapHive.Server.Core.API.Startup
             });
 
 
-            //TODO - ??? Maybe move the WebAPI cfg to an external class / method as it is done in the actual WebAPI templates ???
-
             var config = new HttpConfiguration();
             config.ConfigureSwagger(apiVersion, apiTitle, xmlCommentsPath);
 
