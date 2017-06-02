@@ -13,10 +13,10 @@ using MapHive.Server.Core.DAL.DbContext;
 namespace MapHive.Server.API.OrgControllers
 {
     [RoutePrefix("organisations/{" + OrganisationContextAttribute.OrgIdPropertyName + "}/teams")]
-    public class TeamsOrgController : BaseApiOrganisatinCrudController<Team, MapHiveDbContext>
+    public class OrganisationTeamsController : BaseApiOrganisatinCrudController<Team, MapHiveDbContext>
     {
         //this customises the connection string the db context gets instantiated with
-        public TeamsOrgController()
+        public OrganisationTeamsController()
             : base("MapHiveMeta")
         {
         }

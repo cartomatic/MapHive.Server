@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.UI;
 using Cartomatic.Utils.Web;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.Interface;

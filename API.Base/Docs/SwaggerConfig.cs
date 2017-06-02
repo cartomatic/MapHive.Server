@@ -9,11 +9,15 @@ using Swashbuckle.Application;
 
 namespace MapHive.Server.API
 {
-    public class SwaggerConfig
+    public static class SwaggerConfig
     {
-        public static void Register(HttpConfiguration cfg)
+        public static void ConfigureSwagger(
+            this HttpConfiguration cfg,
+            string apiVersion, string apiTitle,
+            string xmlCommentsPath
+        )
         {
-            var thisAssembly = typeof(SwaggerConfig).Assembly;
+            //var thisAssembly = typeof(SwaggerConfig).Assembly;
 
             // default url https://api.maphive.local/swagger/ui/index
 
@@ -46,7 +50,7 @@ namespace MapHive.Server.API
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "MapHive.Server.API");
+                        c.SingleApiVersion(apiVersion, apiTitle);
 
                         // If your API has multiple versions, use "MultipleApiVersions" instead of "SingleApiVersion".
                         // In this case, you must provide a lambda that tells Swashbuckle which actions should be
@@ -112,6 +116,7 @@ namespace MapHive.Server.API
                         // more Xml comment files.
                         //
                         //c.IncludeXmlComments(GetXmlCommentsPath());
+                        c.IncludeXmlComments(xmlCommentsPath);
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.

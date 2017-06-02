@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{B67B2EB7-A653-4489-902A-522E6DC72EB4}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmd.Core", "Cmd.Core\Cmd.Core.csproj", "{83CE35A5-2042-4E3E-9737-6986E2EE0557}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClientConfigurationHelper", "WebClientConfigurationHelper\WebClientConfigurationHelper.csproj", "{C7FA62AE-1911-41AD-9B1D-8AD9BBF976A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API.Base", "API.Base\API.Base.csproj", "{DD78CFD1-28AB-4EA4-96C1-91BEFB6F7E24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{C7FA62AE-1911-41AD-9B1D-8AD9BBF976A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7FA62AE-1911-41AD-9B1D-8AD9BBF976A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7FA62AE-1911-41AD-9B1D-8AD9BBF976A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD78CFD1-28AB-4EA4-96C1-91BEFB6F7E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD78CFD1-28AB-4EA4-96C1-91BEFB6F7E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD78CFD1-28AB-4EA4-96C1-91BEFB6F7E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD78CFD1-28AB-4EA4-96C1-91BEFB6F7E24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

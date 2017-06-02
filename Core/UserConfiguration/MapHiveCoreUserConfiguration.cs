@@ -92,6 +92,10 @@ namespace MapHive.Server.Core.UserConfiguration
             );
 #endif
 
+
+            //TODO - if there is a generic MapHive roles / privs model, can also inject it for all the apps automatically. need to work it out first though.
+
+
             return output;
         }
     }
