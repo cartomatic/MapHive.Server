@@ -43,7 +43,7 @@ namespace MapHive.Server.Cmd.Core
             });
 
             
-            //to standard users
+            //two standard users
             await Handle_AddUser(new Dictionary<string, string>()
             {
                 {"e", "test2@maphive.net"},

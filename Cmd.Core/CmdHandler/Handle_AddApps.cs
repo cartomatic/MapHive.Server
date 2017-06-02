@@ -119,7 +119,6 @@ namespace MapHive.Server.Cmd.Core
                     Name = "MapHive SiteAdmin",
                     ShortName = "masterofpuppets",
 
-                    //TODO - make this app only available to the queen organization! It should be linked to the org
                     IsCommon = false,
                     Description = "MapHive platform Admin app",
                     Urls = "https://masterofpuppets.maphive.local/|https://masterofpuppets.maphive.net/",

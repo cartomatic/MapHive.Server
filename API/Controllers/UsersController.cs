@@ -98,7 +98,7 @@ namespace MapHive.Server.API.Controllers
         }
 
         /// <summary>
-        /// Creates a maphive account
+        /// Creates a maphive user account
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
