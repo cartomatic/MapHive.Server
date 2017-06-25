@@ -31,7 +31,7 @@ namespace MapHive.Server.Core.DataModel
         protected Base()
         {
             if(TypeUuid == default (Guid))
-                throw new Exception("When deriving from MapHive.Server.Data.Base make sure to provide a unique type identifier!");
+                throw new Exception($"When deriving from MapHive.Server.Data.Base make sure to provide a unique type identifier! A model causing problems: {this.GetType()}");
         }
     }
 }

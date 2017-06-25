@@ -56,6 +56,13 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         public static Guid GetTypeIdentifier(Type t)
         {
+            //fix for the EF proxies...
+            //if an object is proxied, need get the underlying object!!!
+            if (t.FullName.IndexOf("System.Data.Entity.DynamicProxies") > -1)
+            {
+                t = t.BaseType;
+            }
+
             try
             {
                 return TypesToTypeIdentifiers[t];
