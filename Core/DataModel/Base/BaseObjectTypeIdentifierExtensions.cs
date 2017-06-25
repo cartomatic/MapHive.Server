@@ -80,6 +80,16 @@ namespace MapHive.Server.Core.DataModel
         }
 
         /// <summary>
+        /// Gets an identifier for a specified type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static Guid GetTypeIdentifier<T>()
+        {
+            return GetTypeIdentifier(typeof(T));
+        }
+
+        /// <summary>
         /// Gets type by its identifier 
         /// </summary>
         /// <param name="identifier"></param>
