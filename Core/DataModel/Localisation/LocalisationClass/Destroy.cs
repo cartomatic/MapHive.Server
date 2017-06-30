@@ -25,7 +25,7 @@ namespace MapHive.Server.Core.DataModel
         /// <returns></returns>
         protected internal override async Task<T> DestroyAsync<T>(DbContext dbCtx, Guid uuid)
         {
-            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, uuid));
+            InvalidateAppLocalisationsCache(await GetLocalisationClassAppNameAsync(dbCtx, uuid), await GetLocalisationClassClassNameAsync(dbCtx, uuid));
 
             //need to destroy all the translation keys too...
             var localisedDbCtx = (ILocalised) dbCtx;

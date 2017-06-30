@@ -27,7 +27,7 @@ namespace MapHive.Server.Core.DataModel
         {
             //need to read self first
             var translationKey = await (dbCtx as ILocalised).TranslationKeys.FirstOrDefaultAsync(tk => tk.Uuid == uuid);
-            InvalidateAppLocalisationsCache(await GetLocalisationClassNameAsync(dbCtx, translationKey.LocalisationClassUuid));
+            InvalidateAppLocalisationsCache(await GetLocalisationClassAppNameAsync(dbCtx, translationKey.LocalisationClassUuid), await GetLocalisationClassClassNameAsync(dbCtx, translationKey.LocalisationClassUuid));
             return await base.DestroyAsync<T>(dbCtx, uuid);    
         }
     }
