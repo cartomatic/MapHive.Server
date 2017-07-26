@@ -118,6 +118,8 @@ namespace MapHive.Server
                 lng = defaultLangCode;
             }
 
+            cfg["langCode"] = lng;
+
             //finally returning set the lang in cookie for further usage
             context.Response?.SetCookieValue(mapHiveCookieName, langParam, lng, true, cookieValidSeconds);
 
