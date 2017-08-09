@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Hosting;
 
 namespace MapHive.Server.Core.Email
 {
@@ -47,12 +51,38 @@ namespace MapHive.Server.Core.Email
                 try
                 {
                     smtp.Send(mail);
+                    Log($"Email sent to {recipient}");
                 }
                 catch (Exception ex)
                 {
-                    //ignore
+                    //debug
+                    Log(ex.Message);
                 }
             });
+        }
+
+        private static void Log(string msg)
+        {
+            var emailDebugDump = ConfigurationManager.AppSettings["EmailDebugDump"];
+            try
+            {
+                if (Directory.Exists(emailDebugDump))
+                {
+                    var fName = Path.Combine(emailDebugDump, $"{DateTime.Now:yyyy-MM-dd}.txt");
+
+                    File.AppendAllText(
+                        fName,
+                        msg +
+                        Environment.NewLine +
+                        string.Concat(Enumerable.Repeat("-", 30)) +
+                        Environment.NewLine
+                    );
+                }
+            }
+            catch
+            {
+                //ignore
+            }
         }
     }
 }
