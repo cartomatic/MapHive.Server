@@ -48,20 +48,43 @@ namespace MapHive.Server.Core.Email
                     EnableSsl = emailAccount.Ssl ?? false
                 };
 
+                var actionId = DateTime.Now.Ticks;
+
                 try
                 {
+
+                    Log($"{actionId} :: Attempting to send email to {recipient}; time start: {DateTime.Now.ToShortDateString()}-{DateTime.Now.ToShortTimeString()}");
                     smtp.Send(mail);
-                    Log($"Email sent to {recipient}");
+                    Log($"{actionId} :: Email sent to {recipient}", $"Time taken in seconds: {new TimeSpan(DateTime.Now.Ticks - actionId).TotalSeconds}");
                 }
                 catch (Exception ex)
                 {
+                    var msgs = new List<string>
+                    {
+                        $"{actionId} :: Failed to send emails to {recipient}", $"Time taken in seconds: {new TimeSpan(DateTime.Now.Ticks - actionId).TotalSeconds}",
+                        $"Sender details - host: {emailAccount.SmtpHost}, port: {emailAccount.SmtpPort}, sender: {emailAccount.Sender}, user: {emailAccount.User}, pass: {emailAccount.Pass}, ssl: {emailAccount.Ssl}",
+                    };
+
+                    var e = ex;
+                    var tab = string.Empty;
+
+                    while (e != null)
+                    {
+
+                        msgs.Add($"{tab}{e.Message}");
+                        e = ex.InnerException;
+                        tab += '\t';
+                    }
+
                     //debug
-                    Log(ex.Message);
+                    Log(
+                        msgs.ToArray()
+                    );
                 }
             });
         }
 
-        private static void Log(string msg)
+        private static void Log(params string[] msg)
         {
             var emailDebugDump = ConfigurationManager.AppSettings["EmailDebugDump"];
             try
@@ -69,13 +92,10 @@ namespace MapHive.Server.Core.Email
                 if (Directory.Exists(emailDebugDump))
                 {
                     var fName = Path.Combine(emailDebugDump, $"{DateTime.Now:yyyy-MM-dd}.txt");
-
-                    File.AppendAllText(
+                    File.AppendAllLines(fName, msg);
+                    File.AppendAllLines(
                         fName,
-                        msg +
-                        Environment.NewLine +
-                        string.Concat(Enumerable.Repeat("-", 30)) +
-                        Environment.NewLine
+                        new [] {string.Concat(Enumerable.Repeat("-", 100))}
                     );
                 }
             }
