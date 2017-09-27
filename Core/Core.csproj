@@ -34,6 +34,9 @@
     <Reference Include="BrockAllen.MembershipReboot, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BrockAllen.MembershipReboot.9.0.0\lib\net45\BrockAllen.MembershipReboot.dll</HintPath>
     </Reference>
+    <Reference Include="BrockAllen.MembershipReboot.Ef, Version=9.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BrockAllen.MembershipReboot.Ef.9.0.0\lib\net45\BrockAllen.MembershipReboot.Ef.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -281,6 +284,7 @@
     <Compile Include="DataModel\MapHiveUser\Create.cs" />
     <Compile Include="DataModel\MapHiveUser\Organisation.cs" />
     <Compile Include="DataModel\MapHiveUser\Slug.cs" />
+    <Compile Include="DataModel\MapHiveUser\ResendActivationLink.cs" />
     <Compile Include="DataModel\Organisation\Create.cs" />
     <Compile Include="DataModel\Organisation\Validation.cs" />
     <Compile Include="DataModel\Organisation\Roles.cs" />
@@ -345,6 +349,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\cartomatic\Utils\EF\EF.csproj">
+      <Project>{9e8e9125-acb3-47f6-9a83-c52b5cfc99e8}</Project>
+      <Name>EF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cartomatic.Utils\Crypto\Crypto.csproj">
       <Project>{57ec8856-7620-461a-863b-4eb3e478e295}</Project>
       <Name>Crypto</Name>
@@ -360,6 +368,10 @@
     <ProjectReference Include="..\..\Cartomatic.Utils\Web\Web.csproj">
       <Project>{45666acc-c047-4608-8213-f109504ee551}</Project>
       <Name>Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MapHive.Identity\MembershipReboot\MembershipReboot.csproj">
+      <Project>{6a019f7a-eb90-48e9-ba91-07da7d40bdd4}</Project>
+      <Name>MembershipReboot</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -382,7 +394,9 @@
       <DependentUpon>201703022250117_ExtendUserModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

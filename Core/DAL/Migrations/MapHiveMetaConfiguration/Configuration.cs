@@ -23,7 +23,7 @@ namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
 
         protected override void Seed(MapHiveDbContext context)
         {
-            Identity.ImpersonateGhostUser();
+            Utils.Identity.ImpersonateGhostUser();
 
             DAL.Seed.MapHiveMeta.Seed.SeedAll(context);
         }

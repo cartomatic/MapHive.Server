@@ -33,7 +33,7 @@ namespace MapHive.Server.Core
             var output = new ChangePassOutput {Success = true};
 
             //need to verify the user pass first and in order to do so, need to simulate user auth
-            var uuid = Identity.GetUserGuid();
+            var uuid = Utils.Identity.GetUserGuid();
             if (!uuid.HasValue)
                 //this shouldn't happen really as the service should only allow authenticated access, but...
             {
