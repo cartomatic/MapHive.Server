@@ -155,6 +155,7 @@
     <Compile Include="Auth\RequestPassReset.cs" />
     <Compile Include="Auth\ChangePasswordFromResetKey.cs" />
     <Compile Include="Auth\ChangePassword.cs" />
+    <Compile Include="Auth\ForceResetPassword.cs" />
     <Compile Include="Auth\_Blank.cs" />
     <Compile Include="DAL\DbContext\BaseDbContext.cs" />
     <Compile Include="DAL\DbContext\MapHiveDbContext.cs" />

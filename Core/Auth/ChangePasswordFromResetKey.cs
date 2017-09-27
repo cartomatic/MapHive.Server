@@ -28,8 +28,6 @@ namespace MapHive.Server.Core
             }
             catch (Exception ex)
             {
-                var stop = true;
-
                 if (ex.Message == "The new password must be different from the old password.")
                 {
                     output.FailureReason = "new_pass_same_as_old_pass";
