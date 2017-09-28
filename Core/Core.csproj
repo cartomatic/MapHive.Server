@@ -285,7 +285,7 @@
     <Compile Include="DataModel\MapHiveUser\Create.cs" />
     <Compile Include="DataModel\MapHiveUser\Organisation.cs" />
     <Compile Include="DataModel\MapHiveUser\Slug.cs" />
-    <Compile Include="DataModel\MapHiveUser\ResendActivationLink.cs" />
+    <Compile Include="Auth\ResendActivationLink.cs" />
     <Compile Include="DataModel\Organisation\Create.cs" />
     <Compile Include="DataModel\Organisation\Validation.cs" />
     <Compile Include="DataModel\Organisation\Roles.cs" />
