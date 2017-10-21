@@ -472,7 +472,15 @@ namespace MapHive.Server.Core.DataModel
                 .ToList();
 
             //at this stage got the ids of children, so can read them by uuid
-            return await child.ReadAsync<TChild>(db, links.Select(l => l.ChildUuid), detached: detached);
+            var children = await child.ReadAsync<TChild>(db, links.Select(l => l.ChildUuid), detached: detached);
+
+            //for each child glue in link data
+            foreach (var c in children)
+            {
+                c.LinkData = links.FirstOrDefault(l => l.ChildUuid == c.Uuid)?.LinkData;
+            }
+
+            return children;
         }
 
         /// <summary>
@@ -501,8 +509,12 @@ namespace MapHive.Server.Core.DataModel
                 .FirstOrDefault(x => x.ChildTypeUuid == child.TypeUuid && x.ParentUuid == obj.Uuid);
 
             //at this stage got the ids of parents, so can read them by uuid
-            if(link != null)
-                return await child.ReadAsync<TChild>(db, link.ChildUuid, detached: detached);
+            if (link != null)
+            {
+                child = await child.ReadAsync<TChild>(db, link.ChildUuid, detached: detached);
+                child.LinkData = link.LinkData;
+                return child;
+            }
             else
                 return null;
         }
@@ -608,7 +620,7 @@ namespace MapHive.Server.Core.DataModel
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <param name="db"></param>
-        /// <param name="parentId"></param>
+        /// <param name="childId"></param>
         /// <returns></returns>
         public static async Task<bool> HasChildLinkAsync<T>(this T obj, DbContext db, Guid childId)
             where T : Base
@@ -725,7 +737,6 @@ namespace MapHive.Server.Core.DataModel
         /// returns a child link by id
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TChild"></typeparam>
         /// <param name="obj"></param>
         /// <param name="dbCtx"></param>
         /// <param name="childId"></param>
