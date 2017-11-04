@@ -25,7 +25,7 @@ namespace MapHive.Server.Core.API
         /// <summary>
         /// Database context to be used
         /// </summary>
-        protected DbContext _dbCtx { get; private set; }
+        protected TDbCtx _dbCtx { get; private set; }
 
         public BaseApiCrudController()
             : this("MapHiveMeta")
