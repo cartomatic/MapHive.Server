@@ -141,6 +141,8 @@
     <Compile Include="BaseApiCrudController\IDtoUtils.cs" />
     <Compile Include="BaseApiCrudController\_Blank.cs" />
     <Compile Include="BaseApiCrudController\_Ctor.cs" />
+    <Compile Include="BaseApiDbCtxController\_Blank.cs" />
+    <Compile Include="BaseApiDbCtxController\_Ctor.cs" />
     <Compile Include="BaseApiOrganisationCrudController\HttpDelete.cs" />
     <Compile Include="BaseApiOrganisationCrudController\HttpGet.cs" />
     <Compile Include="BaseApiOrganisationCrudController\HttpPost.cs" />
