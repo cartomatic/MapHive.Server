@@ -158,6 +158,7 @@
     <Compile Include="Serialisation\CamelCasedOutputMethodAttribute.cs" />
     <Compile Include="Serialisation\UnmodifiedDictKeyCasingOutputMethodAttribute.cs" />
     <Compile Include="Startup\AppBuilderStartupExtensions.cs" />
+    <Compile Include="Utils\IHttpActionResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Cartomatic.Utils\Web\Web.csproj">

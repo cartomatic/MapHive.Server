@@ -201,7 +201,7 @@ namespace MapHive.Server.Core.API
                 await obj.MaterialiseLinksAsDetachedAsync(db, propertySpecifier);
 
                 //at this stage should have the links loaded, so can return the content of a property
-                var mi = Utils.Reflection.GetPropertyMemberInfoFromExpression(propertySpecifier);
+                var mi = Core.Utils.Reflection.GetPropertyMemberInfoFromExpression(propertySpecifier);
 
                 var property = obj.GetType().GetProperty(mi.Name);
 
