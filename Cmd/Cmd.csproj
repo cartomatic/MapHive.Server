@@ -147,7 +147,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Cartomatic.CmdPrompt\CmdPrompt.Core\CmdPrompt.Core.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\CmdPrompt\CmdPrompt.Core.Old\CmdPrompt.Core.csproj">
       <Project>{014923b2-0393-4e00-86e5-67f0aa222081}</Project>
       <Name>CmdPrompt.Core</Name>
     </ProjectReference>
