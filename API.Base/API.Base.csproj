@@ -168,6 +168,10 @@
     <Compile Include="Utils\IHttpActionResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Cartomatic\Utils\Path.Old\Path.csproj">
+      <Project>{9346897a-eb29-462d-b46c-70804e1b9dc8}</Project>
+      <Name>Path</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Cartomatic.Utils\Web\Web.csproj">
       <Project>{45666acc-c047-4608-8213-f109504ee551}</Project>
       <Name>Web</Name>

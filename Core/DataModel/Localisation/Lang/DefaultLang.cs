@@ -40,7 +40,7 @@ namespace MapHive.Server.Core.DataModel
         private static async Task<Lang> GetDefaultLangAsync(DbContext dbCtx)
         {
             var langDbCtx = dbCtx as ILocalised;
-            return DefaultLang ?? (DefaultLang = await langDbCtx?.Langs.FirstOrDefaultAsync(l => l.IsDefault)) ?? (DefaultLang = await langDbCtx?.Langs.FirstOrDefaultAsync(l => l.LangCode == DefaultLangCode));
+            return DefaultLang ?? (DefaultLang = await langDbCtx?.Langs.AsNoTracking().FirstOrDefaultAsync(l => l.IsDefault)) ?? (DefaultLang = await langDbCtx?.Langs.AsNoTracking().FirstOrDefaultAsync(l => l.LangCode == DefaultLangCode));
         }
 
         /// <summary>

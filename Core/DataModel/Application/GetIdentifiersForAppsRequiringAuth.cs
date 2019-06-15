@@ -18,7 +18,7 @@ namespace MapHive.Server.Core.DataModel
         {
             var output = new List<string>();
 
-            var apps = await dbCtx.Set<Application>().Where(a => a.RequiresAuth).ToListAsync();
+            var apps = await dbCtx.Set<Application>().AsNoTracking().Where(a => a.RequiresAuth).ToListAsync();
 
             //Note:
             //depending on scenario - host vs hosted the app is recognised a bit differently.

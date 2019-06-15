@@ -70,7 +70,7 @@ namespace MapHive.Server.Core.DataModel
                 {
                     //read all the Localisation classes for the given AppName
                     var localisationClasses = await
-                        dbCtx.LocalisationClasses.Where(lc => lc.ApplicationName == appName).ToListAsync();
+                        dbCtx.LocalisationClasses.AsNoTracking().Where(lc => lc.ApplicationName == appName).ToListAsync();
 
                     //now grab the identifiers - need them in order to request translation keys. when using IQueryable, the range MUST BE static, simple types
                     //so even though compiler will not complain if a range is passes as localisationClasses.Select(lc => lc.Uuid) it will fail in the runtime
