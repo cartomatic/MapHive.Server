@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
+using Cartomatic.Utils.Path;
 using MapHive.Server.Core.DataModel.Validation;
 
 namespace MapHive.Server.Core.API
@@ -67,6 +69,27 @@ namespace MapHive.Server.Core.API
                 //all the unfiltered end up as 500
                 (e) =>
                 {
+                    try
+                    {
+                        var dir = "_errorlog".SolvePath();
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+
+                        File.AppendAllLines(Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}.log"), new []
+                        {
+                            e.Message,
+                            e.StackTrace,
+                            new string('-',50), 
+                            Environment.NewLine
+                        });
+                    }
+                    catch
+                    {
+                        //ignore
+                    }
+
                     #if DEBUG
                     return new NegotiatedContentResult<object>(HttpStatusCode.InternalServerError, e.Message, this);
                     #endif
