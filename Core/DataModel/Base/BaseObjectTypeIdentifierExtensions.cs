@@ -30,23 +30,57 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         public static void RegisterTypeIdentifier(Type type, Guid uuid)
         {
-            try
+            if (TypesToTypeIdentifiers.ContainsKey(type) && TypesToTypeIdentifiers[type] != uuid)
             {
-                TypesToTypeIdentifiers.Add(type, uuid);
-            }
-            catch
-            {
-                throw new Exception($"Type being registered is not unique. It is not allowed to register a type more than once. Type: {type}, identifier: {uuid}");
+                //for the time being DO not throw...
+                //throw new Exception($"Type being registered is not unique. It is not allowed to register a type more than once. Type: {type}, identifier: {uuid}");
+                try
+                {
+                    var dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_errorlog");
+                    if (!System.IO.Directory.Exists(dir))
+                    {
+                        System.IO.Directory.CreateDirectory(dir);
+                    }
+
+                    System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
+                    {
+                            $"TypeToTypeIdentifier duplicate err",
+                            $"Type: {type?.FullName}; old uuid: {TypesToTypeIdentifiers[type]}; new uuid {uuid}",
+                            new string('-',50),
+                            Environment.NewLine
+                        });
+                }
+                catch { }
             }
 
-            try
+            TypesToTypeIdentifiers[type] = uuid;
+
+
+            if (TypeIdentifiersToTypes.ContainsKey(uuid) && TypeIdentifiersToTypes[uuid] != type)
             {
-                TypeIdentifiersToTypes.Add(uuid, type);
+                //for the time being DO not throw...
+                //throw new Exception($"Type identifier being registered is not unique. Please provide a unique identifier for a type. Identifier: {uuid}, type: {type}");
+
+                try
+                {
+                    var dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_errorlog");
+                    if (!System.IO.Directory.Exists(dir))
+                    {
+                        System.IO.Directory.CreateDirectory(dir);
+                    }
+
+                    System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
+                    {
+                            $"TypeIdentifiersToTypes duplicate err",
+                            $"Uuid: {uuid}; old type: {TypeIdentifiersToTypes[uuid].FullName}; new uuid {type?.FullName}",
+                            new string('-',50),
+                            Environment.NewLine
+                        });
+                }
+                catch { }
             }
-            catch
-            {
-                throw new Exception($"Type identifier being registered is not unique. Please provide a unique identifier for a type. Identifier: {uuid}, type: {type}");
-            }
+
+            TypeIdentifiersToTypes[uuid] = type;
         }
 
         /// <summary>
