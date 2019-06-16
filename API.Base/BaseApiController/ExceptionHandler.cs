@@ -77,13 +77,23 @@ namespace MapHive.Server.Core.API
                             Directory.CreateDirectory(dir);
                         }
 
-                        File.AppendAllLines(Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}.log"), new []
+                        var errs = new List<string>();
+
+                        while (e != null)
                         {
-                            e.Message,
-                            e.StackTrace,
-                            new string('-',50), 
-                            Environment.NewLine
-                        });
+                            errs.Add(e.Message);
+                            errs.Add(e.StackTrace);
+                            errs.Add(new string('-',50));
+                            errs.Add(Environment.NewLine);
+
+                            e = e.InnerException;
+                        }
+
+                        errs.Add(new string('=',150));
+                        errs.Add(Environment.NewLine);
+                        errs.Add(Environment.NewLine);
+
+                        File.AppendAllLines(Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}.log"), errs);
                     }
                     catch
                     {
