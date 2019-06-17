@@ -77,7 +77,9 @@ namespace MapHive.Server.Core.API
                             Directory.CreateDirectory(dir);
                         }
 
-                        var errs = new List<string>();
+                        var errs = new List<string>{
+                            DateTime.Now.ToLongTimeString()
+                        };
 
                         while (e != null)
                         {
