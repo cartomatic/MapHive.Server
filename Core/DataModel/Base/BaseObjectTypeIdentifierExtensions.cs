@@ -53,6 +53,10 @@ namespace MapHive.Server.Core.DataModel
                 catch { }
             }
 
+            if(TypesToTypeIdentifiers == null)
+            {
+                TypesToTypeIdentifiers = new Dictionary<Type, Guid>();
+            }
             TypesToTypeIdentifiers[type] = uuid;
 
 
@@ -80,6 +84,10 @@ namespace MapHive.Server.Core.DataModel
                 catch { }
             }
 
+            if(TypeIdentifiersToTypes == null)
+            {
+                TypeIdentifiersToTypes = new Dictionary<Guid, Type>();
+            } 
             TypeIdentifiersToTypes[uuid] = type;
         }
 
