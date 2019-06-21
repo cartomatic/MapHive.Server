@@ -45,7 +45,7 @@ namespace MapHive.Server.Core.DataModel
                     System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
                     {
                             $"TypeToTypeIdentifier duplicate err",
-                            $"Type: {type?.FullName}; old uuid: {TypesToTypeIdentifiers[type]}; new uuid {uuid}",
+                            $"Type: {type?.FullName}; old uuid: {TypesToTypeIdentifiers?[type]}; new uuid {uuid}",
                             new string('-',50),
                             Environment.NewLine
                         });
@@ -57,7 +57,28 @@ namespace MapHive.Server.Core.DataModel
             {
                 TypesToTypeIdentifiers = new Dictionary<Type, Guid>();
             }
-            TypesToTypeIdentifiers[type] = uuid;
+            try
+            {
+                TypesToTypeIdentifiers[type] = uuid;
+            }
+            catch(Exception ex)
+            {
+                var dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_errorlog");
+                if (!System.IO.Directory.Exists(dir))
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+                System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
+                {
+                    $"TypesToTypeIdentifiers null err",
+                    $"WTF, TypesToTypeIdentifiers is null ??? {TypesToTypeIdentifiers = null}",
+                    $"Type: {type?.FullName}; old uuid: {TypesToTypeIdentifiers?[type]}; new uuid {uuid}",
+                    ex.Message,
+                    new string('-',50),
+                    Environment.NewLine
+                });
+            }
+            
 
 
             if (TypeIdentifiersToTypes.ContainsKey(uuid) && TypeIdentifiersToTypes[uuid] != type)
@@ -76,7 +97,7 @@ namespace MapHive.Server.Core.DataModel
                     System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
                     {
                             $"TypeIdentifiersToTypes duplicate err",
-                            $"Uuid: {uuid}; old type: {TypeIdentifiersToTypes[uuid].FullName}; new uuid {type?.FullName}",
+                            $"Uuid: {uuid}; old type: {TypeIdentifiersToTypes?[uuid].FullName}; new type {type?.FullName}",
                             new string('-',50),
                             Environment.NewLine
                         });
@@ -88,7 +109,26 @@ namespace MapHive.Server.Core.DataModel
             {
                 TypeIdentifiersToTypes = new Dictionary<Guid, Type>();
             } 
-            TypeIdentifiersToTypes[uuid] = type;
+            try { 
+                TypeIdentifiersToTypes[uuid] = type;
+            }
+            catch (Exception ex)
+            {
+                var dir = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "_errorlog");
+                if (!System.IO.Directory.Exists(dir))
+                {
+                    System.IO.Directory.CreateDirectory(dir);
+                }
+                System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
+                {
+                    $"TypeIdentifiersToTypes null err",
+                    $"WTF, TypeIdentifiersToTypes is null ??? {TypeIdentifiersToTypes = null}",
+                    $"Uuid: {uuid}; old type: {TypeIdentifiersToTypes?[uuid].FullName}; new type {type?.FullName}",
+                    ex.Message,
+                    new string('-',50),
+                    Environment.NewLine
+                });
+        }
         }
 
         /// <summary>
