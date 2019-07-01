@@ -30,7 +30,7 @@ namespace MapHive.Server.Core.DataModel
         /// <param name="uuid"></param>
         public static void RegisterTypeIdentifier(Type type, Guid uuid)
         {
-            if (TypesToTypeIdentifiers.ContainsKey(type) && TypesToTypeIdentifiers[type] != uuid)
+            if (TypesToTypeIdentifiers?.ContainsKey(type) == true && TypesToTypeIdentifiers?[type] != uuid)
             {
                 //for the time being DO not throw...
                 //throw new Exception($"Type being registered is not unique. It is not allowed to register a type more than once. Type: {type}, identifier: {uuid}");
@@ -71,8 +71,8 @@ namespace MapHive.Server.Core.DataModel
                 System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
                 {
                     $"TypesToTypeIdentifiers null err",
-                    $"WTF, TypesToTypeIdentifiers is null ??? {TypesToTypeIdentifiers = null}",
-                    $"Type: {type?.FullName}; old uuid: {TypesToTypeIdentifiers?[type]}; new uuid {uuid}",
+                    $"WTF, TypesToTypeIdentifiers is null ??? {TypesToTypeIdentifiers == null}",
+                    $"Type: {type?.FullName}; old uuid: {(TypesToTypeIdentifiers?.ContainsKey(type) == true ? TypesToTypeIdentifiers?[type].ToString() : "")}; new uuid {uuid}",
                     ex.Message,
                     new string('-',50),
                     Environment.NewLine
@@ -81,7 +81,7 @@ namespace MapHive.Server.Core.DataModel
             
 
 
-            if (TypeIdentifiersToTypes.ContainsKey(uuid) && TypeIdentifiersToTypes[uuid] != type)
+            if (TypeIdentifiersToTypes?.ContainsKey(uuid) == true && TypeIdentifiersToTypes?[uuid] != type)
             {
                 //for the time being DO not throw...
                 //throw new Exception($"Type identifier being registered is not unique. Please provide a unique identifier for a type. Identifier: {uuid}, type: {type}");
@@ -122,8 +122,8 @@ namespace MapHive.Server.Core.DataModel
                 System.IO.File.AppendAllLines(System.IO.Path.Combine(dir, $"{DateTime.Now:yyyy-MM-dd}_type-registration.log"), new[]
                 {
                     $"TypeIdentifiersToTypes null err",
-                    $"WTF, TypeIdentifiersToTypes is null ??? {TypeIdentifiersToTypes = null}",
-                    $"Uuid: {uuid}; old type: {TypeIdentifiersToTypes?[uuid].FullName}; new type {type?.FullName}",
+                    $"WTF, TypeIdentifiersToTypes is null ??? {TypeIdentifiersToTypes == null}",
+                    $"Uuid: {uuid}; old type: {(TypeIdentifiersToTypes?.ContainsKey(uuid) == true ? TypeIdentifiersToTypes?[uuid].FullName : "")}; new type {type?.FullName}",
                     ex.Message,
                     new string('-',50),
                     Environment.NewLine
