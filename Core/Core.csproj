@@ -358,11 +358,11 @@
       <Project>{9e8e9125-acb3-47f6-9a83-c52b5cfc99e8}</Project>
       <Name>EF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Cartomatic.Utils\Crypto\Crypto.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\Utils\Crypto\Crypto.csproj">
       <Project>{57ec8856-7620-461a-863b-4eb3e478e295}</Project>
       <Name>Crypto</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Cartomatic.Utils\Data\Data.csproj">
+    <ProjectReference Include="..\..\..\cartomatic\Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>

@@ -152,7 +152,7 @@
       <Project>{014923b2-0393-4e00-86e5-67f0aa222081}</Project>
       <Name>CmdPrompt.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Cartomatic.Utils\Data\Data.csproj">
+    <ProjectReference Include="..\..\..\cartomatic\Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>

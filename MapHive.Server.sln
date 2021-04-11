@@ -7,15 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{1C72B362-267B-4527-9012-7A7431FBBA3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Number", "..\Cartomatic.Utils\Number\Number.csproj", "{398545D8-33CC-4B60-A7B5-91C77EAD25B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Number", "..\..\Cartomatic\Utils\Number\Number.csproj", "{398545D8-33CC-4B60-A7B5-91C77EAD25B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\Cartomatic.Utils\Data\Data.csproj", "{EAA4225A-2D5B-4AFB-B861-3FEC188E7CE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\..\Cartomatic\Utils\Data\Data.csproj", "{EAA4225A-2D5B-4AFB-B861-3FEC188E7CE7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{B244574F-7B35-4F29-AB65-85114D52E1BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto", "..\Cartomatic.Utils\Crypto\Crypto.csproj", "{57EC8856-7620-461A-863B-4EB3E478E295}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crypto", "..\..\Cartomatic\Utils\Crypto\Crypto.csproj", "{57EC8856-7620-461A-863B-4EB3E478E295}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\Cartomatic.Utils\Web\Web.csproj", "{45666ACC-C047-4608-8213-F109504EE551}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "..\..\Cartomatic\Utils\Web\Web.csproj", "{45666ACC-C047-4608-8213-F109504EE551}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cmd", "Cmd\Cmd.csproj", "{3CF0E045-5AB8-4ABF-B6BB-1FF07380C0D9}"
 EndProject
