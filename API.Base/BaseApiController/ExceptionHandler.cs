@@ -81,14 +81,16 @@ namespace MapHive.Server.Core.API
                             DateTime.Now.ToLongTimeString()
                         };
 
-                        while (e != null)
+                        var ex = e;
+
+                        while (ex != null)
                         {
-                            errs.Add(e.Message);
-                            errs.Add(e.StackTrace);
+                            errs.Add(ex.Message);
+                            errs.Add(ex.StackTrace);
                             errs.Add(new string('-',50));
                             errs.Add(Environment.NewLine);
 
-                            e = e.InnerException;
+                            ex = ex.InnerException;
                         }
 
                         errs.Add(new string('=',150));
