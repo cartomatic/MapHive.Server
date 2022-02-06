@@ -49,7 +49,7 @@
     <Reference Include="FluentValidation, Version=7.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidation.7.0.3\lib\net45\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="IdentityModel">
+    <Reference Include="IdentityModel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityModel.1.11.0\lib\net45\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -365,11 +365,11 @@
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Cartomatic.Utils\Number\Number.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\Utils\Number\Number.csproj">
       <Project>{398545d8-33cc-4b60-a7b5-91c77ead25b1}</Project>
       <Name>Number</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Cartomatic.Utils\Web\Web.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\Utils\Web\Web.csproj">
       <Project>{45666acc-c047-4608-8213-f109504ee551}</Project>
       <Name>Web</Name>
     </ProjectReference>
