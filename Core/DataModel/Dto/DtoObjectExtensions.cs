@@ -25,7 +25,7 @@ namespace MapHive.Server.Core.DataModel
             {
                 var dstFld = dstProps.FirstOrDefault(field => field.Name == srcFld.Name);
 
-                if (dstFld != null && srcFld.PropertyType == dstFld.PropertyType)
+                if (dstFld != null && srcFld.PropertyType == dstFld.PropertyType && dstFld.GetSetMethod() != null)
                 {
                     dstFld.SetValue(dest, srcFld.GetValue(src));
                 }
