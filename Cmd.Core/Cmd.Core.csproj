@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MapHive.Server.Cmd.Core</RootNamespace>
     <AssemblyName>MapHive.Server.Cmd.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -42,12 +42,6 @@
     </Reference>
     <Reference Include="EntityFramework6.Npgsql, Version=3.2.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework6.Npgsql.3.2.0\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
-    </Reference>
-    <Reference Include="MapHive.Identity.IdentityServer">
-      <HintPath>..\..\MapHive.Identity\IdentityServer\bin\MapHive.Identity.IdentityServer.dll</HintPath>
-    </Reference>
-    <Reference Include="MapHive.Identity.MembershipReboot">
-      <HintPath>..\..\MapHive.Identity\MembershipReboot\bin\Debug\MapHive.Identity.MembershipReboot.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.1.1\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
@@ -123,9 +117,6 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -148,13 +139,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Cartomatic\CmdPrompt\CmdPrompt.Core.Old\CmdPrompt.Core.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\Cartomatic.CmdPrompt\CmdPrompt.Core.Old\CmdPrompt.Core.csproj">
       <Project>{014923b2-0393-4e00-86e5-67f0aa222081}</Project>
       <Name>CmdPrompt.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\cartomatic\Utils\Data\Data.csproj">
+    <ProjectReference Include="..\..\..\Cartomatic\Cartomatic.Utils\Data\Data.csproj">
       <Project>{eaa4225a-2d5b-4afb-b861-3fec188e7ce7}</Project>
       <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MapHive.Identity\IdentityServer\IdentityServer.csproj">
+      <Project>{1e6af2ad-abd0-4185-baa1-52f312d8c69f}</Project>
+      <Name>IdentityServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MapHive.Identity\MembershipReboot\MembershipReboot.csproj">
+      <Project>{6a019f7a-eb90-48e9-ba91-07da7d40bdd4}</Project>
+      <Name>MembershipReboot</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{1c72b362-267b-4527-9012-7a7431fbba3b}</Project>
