@@ -2,6 +2,7 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -77,6 +78,15 @@ namespace MapHive.Server.Core.API
             {
                 if (contentType == "application/json")
                 {
+                    //since this is a pass through, transfer over all the headers
+                    foreach (var apiResponseHeader in apiResponse.Headers)
+                    {
+                        if (_headersToPassThrough.Contains(apiResponseHeader.Name))
+                            HttpContext.Current.Response.Headers.Add(apiResponseHeader.Name,
+                                apiResponseHeader.Value?.ToString());
+                    }
+
+
                     return new NegotiatedContentResult<object>(
                         apiResponse.StatusCode, //note: this cast should be ok, the enum uses proper values,
                         string.IsNullOrEmpty(content)
@@ -97,6 +107,12 @@ namespace MapHive.Server.Core.API
             );
 
         }
+
+        private static string[] _headersToPassThrough =
+        {
+            "Access-Control-Expose-Headers",
+            "MH-Total"
+        };
 
         /// <summary>
         /// Calls a rest API
