@@ -1,15 +1,11 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IdentityModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Cartomatic.Utils.Number;
 using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using IdentityServer3.AccessTokenValidation;
 using MapHive.Server.API;
-using Microsoft.IdentityModel.Protocols;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Owin;

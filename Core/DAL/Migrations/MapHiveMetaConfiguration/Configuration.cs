@@ -1,16 +1,8 @@
-﻿using System.CodeDom;
-using System.Collections.Generic;
-using MapHive.Server.Core.DataModel;
-using MapHive.Server.Core.DAL.DbContext;
-using MapHive.Server.Core.DAL.Interface;
-using MapHive.Server.Core.Utils;
+﻿using MapHive.Server.Core.DAL.DbContext;
 
 namespace MapHive.Server.Core.DAL.Migrations.MapHiveMetaConfiguration
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     public sealed class Configuration : DbMigrationsConfiguration<MapHiveDbContext>
     {

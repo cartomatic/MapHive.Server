@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using BrockAllen.MembershipReboot;
-using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Email;
 
 namespace MapHive.Server.Core.DataModel

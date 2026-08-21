@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using MapHive.Server.Core.DataModel.Interface;
 using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.DataModel

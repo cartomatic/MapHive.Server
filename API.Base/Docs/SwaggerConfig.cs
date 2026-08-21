@@ -1,6 +1,4 @@
 using System.Web.Http;
-using WebActivatorEx;
-using MapHive.Server.API;
 using Swashbuckle.Application;
 
 //Note: this is used when SwaggerDocs is plugged in via App_Start. 

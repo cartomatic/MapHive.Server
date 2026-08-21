@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Cartomatic.CmdPrompt.Core;
 using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.DataModel;
-using MapHive.Server.Core.Events;
 using MapHive.Server.Core.DAL.DbContext;
 
 namespace MapHive.Server.Cmd.Core

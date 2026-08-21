@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DAL.DbContext;
 

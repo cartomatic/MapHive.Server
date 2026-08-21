@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using BrockAllen.MembershipReboot;
-using BrockAllen.MembershipReboot.Relational;
-using MapHive.Server.Core.DataModel.Interface;
-using MapHive.Server.Core.DataModel.Validation;
-using MapHive.Server.Core.DAL.DbContext;
-using MapHive.Server.Core.DAL.Interface;
 
 namespace MapHive.Server.Core.DataModel
 {

@@ -5,9 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Hosting;
 
 namespace MapHive.Server.Core.Email
 {

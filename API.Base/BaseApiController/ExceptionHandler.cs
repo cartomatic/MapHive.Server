@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IdentityModel;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Results;
 using MapHive.Server.Core.DataModel.Validation;

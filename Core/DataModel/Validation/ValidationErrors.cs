@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation.Validators;
-using MapHive.Server.Core.DataModel.Interface;
+﻿using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DataModel.Validation
 {

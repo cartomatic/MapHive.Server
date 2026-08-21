@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BrockAllen.MembershipReboot;
-using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.Email;
 
 using MapHive.Identity.MembershipReboot;
-using MapHive.Server.Core.Utils;
-
 using Cartomatic.Utils.Ef;
 using MapHive.Server.Core.Events;
 

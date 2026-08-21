@@ -2,9 +2,6 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Formatting;

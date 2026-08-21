@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.ModelConfiguration;
 using MapHive.Server.Core.DataModel;
-using MapHive.Server.Core.DataModel.Interface;
 
 namespace MapHive.Server.Core.DAL.TypeConfiguration
 {

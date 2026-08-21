@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using MapHive.Server.Core.DataModel;
 using MapHive.Server.Core.DataModel.SerialisableDict;
 
 namespace MapHive.Server.Core.DataModel
