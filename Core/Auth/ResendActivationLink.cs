@@ -11,7 +11,7 @@ using MapHive.Server.Core.Email;
 using MapHive.Identity.MembershipReboot;
 using MapHive.Server.Core.Utils;
 
-using Cartomatic.Utils.EF;
+using Cartomatic.Utils.Ef;
 using MapHive.Server.Core.Events;
 
 namespace MapHive.Server.Core

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cartomatic.CmdPrompt.Core;
 
 namespace MapHive.Server.Cmd.Core
 {
@@ -12,7 +13,7 @@ namespace MapHive.Server.Cmd.Core
             : base (handlerInfo)
         {
             //register some xtra command aliases
-            SetUpCommandMap(new Dictionary<string, string>
+            SetUpCommandMap(new CommandMap
             {
                 {"s", "setup" },
                 { "conn", "dsc" },

@@ -73,7 +73,7 @@ namespace MapHive.Server.Cmd.Core
                         DbName = database,
                         UserName = user,
                         Pass = pass,
-                        DataSourceType = DataSourceType.PgSql
+                        DataSourceProvider = DataSourceProvider.Npgsql
                     };
                 }
                 else

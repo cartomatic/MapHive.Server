@@ -100,7 +100,7 @@ namespace MapHive.Server.Cmd.Core
                             ServerPort = Dsc.ServerPort,
                             UserName = Dsc.UserName,
                             Pass = Dsc.Pass,
-                            DataSourceType = DataSourceType.PgSql
+                            DataSourceProvider = DataSourceProvider.Npgsql
                         };
 
                         try
